@@ -23,5 +23,6 @@ if __name__ == "__main__":
     App = QtWidgets.QApplication(sys.argv)
     App.setStyleSheet(qdarktheme.load_stylesheet())
     window = MainWindow()
+    window.resize(700,500)
     window.show()
     sys.exit(App.exec())
