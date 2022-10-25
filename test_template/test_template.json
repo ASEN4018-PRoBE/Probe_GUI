@@ -1,0 +1,1286 @@
+{
+    "power_continuity": [
+        {
+            "Pin 1": "J01-1",
+            "Pin 2": "J01-11",
+            "Duration": "5",
+            "Pass Criteria": "[24.0 33.6] V"
+        }
+    ],
+    "positive_circuit_continuity": [
+        {
+            "Pin 1": "J01-1",
+            "Pin 2": "J01-2",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        },
+        {
+            "Pin 1": "J01-1",
+            "Pin 2": "J01-3",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        },
+        {
+            "Pin 1": "J01-1",
+            "Pin 2": "J01-4",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        },
+        {
+            "Pin 1": "J01-1",
+            "Pin 2": "J01-5",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        },
+        {
+            "Pin 1": "J01-1",
+            "Pin 2": "J01-6",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        },
+        {
+            "Pin 1": "J01-1",
+            "Pin 2": "J01-7",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        },
+        {
+            "Pin 1": "J01-1",
+            "Pin 2": "J01-8",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        },
+        {
+            "Pin 1": "J01-1",
+            "Pin 2": "J01-9",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        },
+        {
+            "Pin 1": "J01-1",
+            "Pin 2": "J01-20",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        },
+        {
+            "Pin 1": "J01-1",
+            "Pin 2": "J01-21",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        },
+        {
+            "Pin 1": "J01-1",
+            "Pin 2": "J01-22",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        },
+        {
+            "Pin 1": "J01-1",
+            "Pin 2": "J01-23",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        },
+        {
+            "Pin 1": "J01-1",
+            "Pin 2": "J01-24",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        },
+        {
+            "Pin 1": "J01-1",
+            "Pin 2": "J01-25",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        },
+        {
+            "Pin 1": "J01-1",
+            "Pin 2": "J01-26",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        },
+        {
+            "Pin 1": "J01-1",
+            "Pin 2": "J01-27",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        },
+        {
+            "Pin 1": "J01-1",
+            "Pin 2": "J01-28",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        }
+    ],
+    "negative_circuit_continuity": [
+        {
+            "Pin 1": "J01-11",
+            "Pin 2": "J01-12",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        },
+        {
+            "Pin 1": "J01-11",
+            "Pin 2": "J01-13",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        },
+        {
+            "Pin 1": "J01-11",
+            "Pin 2": "J01-14",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        },
+        {
+            "Pin 1": "J01-11",
+            "Pin 2": "J01-15",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        },
+        {
+            "Pin 1": "J01-11",
+            "Pin 2": "J01-16",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        },
+        {
+            "Pin 1": "J01-11",
+            "Pin 2": "J01-17",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        },
+        {
+            "Pin 1": "J01-11",
+            "Pin 2": "J01-18",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        },
+        {
+            "Pin 1": "J01-11",
+            "Pin 2": "J01-19",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        },
+        {
+            "Pin 1": "J01-11",
+            "Pin 2": "J01-29",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        },
+        {
+            "Pin 1": "J01-11",
+            "Pin 2": "J01-30",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        },
+        {
+            "Pin 1": "J01-11",
+            "Pin 2": "J01-31",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        },
+        {
+            "Pin 1": "J01-11",
+            "Pin 2": "J01-32",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        },
+        {
+            "Pin 1": "J01-11",
+            "Pin 2": "J01-33",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        },
+        {
+            "Pin 1": "J01-11",
+            "Pin 2": "J01-34",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        },
+        {
+            "Pin 1": "J01-11",
+            "Pin 2": "J01-35",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        },
+        {
+            "Pin 1": "J01-11",
+            "Pin 2": "J01-36",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        },
+        {
+            "Pin 1": "J01-11",
+            "Pin 2": "J01-37",
+            "Duration": "5",
+            "Pass Criteria": "[0 1] Ohm"
+        }
+    ],
+    "inline_resistor_verification": [
+        {
+            "Pin 1": "J01-1",
+            "Pin 2": "J02-2",
+            "Duration": "5",
+            "Pass Criteria": "[9990 10010] Ohm"
+        },
+        {
+            "Pin 1": "J01-1",
+            "Pin 2": "J02-14",
+            "Duration": "5",
+            "Pass Criteria": "[9990 10010] Ohm"
+        },
+        {
+            "Pin 1": "J01-11",
+            "Pin 2": "J02-12",
+            "Duration": "5",
+            "Pass Criteria": "[9990 10010] Ohm"
+        },
+        {
+            "Pin 1": "J01-11",
+            "Pin 2": "J02-25",
+            "Duration": "5",
+            "Pass Criteria": "[9990 10010] Ohm"
+        }
+    ],
+    "isolation_chasis": [
+        {
+            "Pin 1": "TP1",
+            "Pin 2": "J01-1",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "TP1",
+            "Pin 2": "J01-10",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "TP1",
+            "Pin 2": "J02-1",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "TP1",
+            "Pin 2": "J02-3",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "TP1",
+            "Pin 2": "J02-4",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "TP1",
+            "Pin 2": "J02-5",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "TP1",
+            "Pin 2": "J02-6",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "TP1",
+            "Pin 2": "J02-7",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "TP1",
+            "Pin 2": "J02-8",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "TP1",
+            "Pin 2": "J02-9",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "TP1",
+            "Pin 2": "J02-10",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "TP1",
+            "Pin 2": "J02-11",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "TP1",
+            "Pin 2": "J02-13",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "TP1",
+            "Pin 2": "J02-15",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "TP1",
+            "Pin 2": "J02-16",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "TP1",
+            "Pin 2": "J02-17",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "TP1",
+            "Pin 2": "J02-18",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "TP1",
+            "Pin 2": "J02-19",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "TP1",
+            "Pin 2": "J02-24",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        }
+    ],
+    "isolation": [
+        {
+            "Pin 1": "J01-1",
+            "Pin 2": "J01-10",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J01-1",
+            "Pin 2": "J02-7",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J01-1",
+            "Pin 2": "J02-8",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J01-1",
+            "Pin 2": "J02-9",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J01-1",
+            "Pin 2": "J02-10",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-1",
+            "Pin 2": "J02-2",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-1",
+            "Pin 2": "J02-3",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-1",
+            "Pin 2": "J02-4",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-1",
+            "Pin 2": "J02-5",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-1",
+            "Pin 2": "J02-6",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-1",
+            "Pin 2": "J02-7",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-1",
+            "Pin 2": "J02-8",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-1",
+            "Pin 2": "J02-9",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-1",
+            "Pin 2": "J02-10",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-1",
+            "Pin 2": "J02-11",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-1",
+            "Pin 2": "J02-13",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-1",
+            "Pin 2": "J02-15",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-1",
+            "Pin 2": "J02-16",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-1",
+            "Pin 2": "J02-17",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-1",
+            "Pin 2": "J02-18",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-1",
+            "Pin 2": "J02-19",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-1",
+            "Pin 2": "J02-24",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-3",
+            "Pin 2": "J02-2",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-3",
+            "Pin 2": "J02-4",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-3",
+            "Pin 2": "J02-5",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-3",
+            "Pin 2": "J02-6",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-3",
+            "Pin 2": "J02-7",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-3",
+            "Pin 2": "J02-8",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-3",
+            "Pin 2": "J02-9",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-3",
+            "Pin 2": "J02-10",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-3",
+            "Pin 2": "J02-11",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-3",
+            "Pin 2": "J02-13",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-3",
+            "Pin 2": "J02-15",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-3",
+            "Pin 2": "J02-16",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-3",
+            "Pin 2": "J02-17",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-3",
+            "Pin 2": "J02-18",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-3",
+            "Pin 2": "J02-19",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-3",
+            "Pin 2": "J02-24",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-4",
+            "Pin 2": "J02-2",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-4",
+            "Pin 2": "J02-5",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-4",
+            "Pin 2": "J02-6",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-4",
+            "Pin 2": "J02-7",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-4",
+            "Pin 2": "J02-8",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-4",
+            "Pin 2": "J02-9",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-4",
+            "Pin 2": "J02-10",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-4",
+            "Pin 2": "J02-11",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-4",
+            "Pin 2": "J02-13",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-4",
+            "Pin 2": "J02-15",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-4",
+            "Pin 2": "J02-16",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-4",
+            "Pin 2": "J02-17",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-4",
+            "Pin 2": "J02-18",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-4",
+            "Pin 2": "J02-19",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-4",
+            "Pin 2": "J02-24",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-5",
+            "Pin 2": "J02-2",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-5",
+            "Pin 2": "J02-6",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-5",
+            "Pin 2": "J02-7",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-5",
+            "Pin 2": "J02-8",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-5",
+            "Pin 2": "J02-9",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-5",
+            "Pin 2": "J02-10",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-5",
+            "Pin 2": "J02-11",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-5",
+            "Pin 2": "J02-13",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-5",
+            "Pin 2": "J02-15",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-5",
+            "Pin 2": "J02-16",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-5",
+            "Pin 2": "J02-17",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-5",
+            "Pin 2": "J02-18",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-5",
+            "Pin 2": "J02-19",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-5",
+            "Pin 2": "J02-24",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-6",
+            "Pin 2": "J02-2",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-6",
+            "Pin 2": "J02-7",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-6",
+            "Pin 2": "J02-8",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-6",
+            "Pin 2": "J02-9",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-6",
+            "Pin 2": "J02-10",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-6",
+            "Pin 2": "J02-11",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-6",
+            "Pin 2": "J02-13",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-6",
+            "Pin 2": "J02-15",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-6",
+            "Pin 2": "J02-16",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-6",
+            "Pin 2": "J02-17",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-6",
+            "Pin 2": "J02-18",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-6",
+            "Pin 2": "J02-19",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-6",
+            "Pin 2": "J02-24",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-7",
+            "Pin 2": "J02-8",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-7",
+            "Pin 2": "J02-9",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-7",
+            "Pin 2": "J02-10",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-8",
+            "Pin 2": "J02-9",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-8",
+            "Pin 2": "J02-10",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-9",
+            "Pin 2": "J02-10",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-11",
+            "Pin 2": "J02-2",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-11",
+            "Pin 2": "J02-7",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-11",
+            "Pin 2": "J02-8",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-11",
+            "Pin 2": "J02-9",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-11",
+            "Pin 2": "J02-10",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-11",
+            "Pin 2": "J02-13",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-11",
+            "Pin 2": "J02-15",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-11",
+            "Pin 2": "J02-16",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-11",
+            "Pin 2": "J02-17",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-11",
+            "Pin 2": "J02-18",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-11",
+            "Pin 2": "J02-19",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-11",
+            "Pin 2": "J02-24",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-13",
+            "Pin 2": "J02-2",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-13",
+            "Pin 2": "J02-7",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-13",
+            "Pin 2": "J02-8",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-13",
+            "Pin 2": "J02-9",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-13",
+            "Pin 2": "J02-10",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-13",
+            "Pin 2": "J02-15",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-13",
+            "Pin 2": "J02-16",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-13",
+            "Pin 2": "J02-17",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-13",
+            "Pin 2": "J02-18",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-13",
+            "Pin 2": "J02-19",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-13",
+            "Pin 2": "J02-24",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-15",
+            "Pin 2": "J02-2",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-15",
+            "Pin 2": "J02-7",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-15",
+            "Pin 2": "J02-8",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-15",
+            "Pin 2": "J02-9",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-15",
+            "Pin 2": "J02-10",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-15",
+            "Pin 2": "J02-16",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-15",
+            "Pin 2": "J02-17",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-15",
+            "Pin 2": "J02-18",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-15",
+            "Pin 2": "J02-19",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-15",
+            "Pin 2": "J02-24",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-16",
+            "Pin 2": "J02-2",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-16",
+            "Pin 2": "J02-7",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-16",
+            "Pin 2": "J02-8",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-16",
+            "Pin 2": "J02-9",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-16",
+            "Pin 2": "J02-10",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-16",
+            "Pin 2": "J02-17",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-16",
+            "Pin 2": "J02-18",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-16",
+            "Pin 2": "J02-19",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-16",
+            "Pin 2": "J02-24",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-17",
+            "Pin 2": "J02-2",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-17",
+            "Pin 2": "J02-7",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-17",
+            "Pin 2": "J02-8",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-17",
+            "Pin 2": "J02-9",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-17",
+            "Pin 2": "J02-10",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-17",
+            "Pin 2": "J02-18",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-17",
+            "Pin 2": "J02-19",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-17",
+            "Pin 2": "J02-24",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-18",
+            "Pin 2": "J02-2",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-18",
+            "Pin 2": "J02-7",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-18",
+            "Pin 2": "J02-8",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-18",
+            "Pin 2": "J02-9",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-18",
+            "Pin 2": "J02-10",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-18",
+            "Pin 2": "J02-19",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-18",
+            "Pin 2": "J02-24",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-19",
+            "Pin 2": "J02-2",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-19",
+            "Pin 2": "J02-7",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-19",
+            "Pin 2": "J02-8",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-19",
+            "Pin 2": "J02-9",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-19",
+            "Pin 2": "J02-10",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-19",
+            "Pin 2": "J02-24",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-24",
+            "Pin 2": "J02-2",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-24",
+            "Pin 2": "J02-7",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-24",
+            "Pin 2": "J02-8",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-24",
+            "Pin 2": "J02-9",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        },
+        {
+            "Pin 1": "J02-24",
+            "Pin 2": "J02-10",
+            "Duration": "5",
+            "Pass Criteria": "[10 inf] MOhm"
+        }
+    ]
+}
