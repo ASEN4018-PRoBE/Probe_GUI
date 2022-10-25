@@ -20,7 +20,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
 if __name__ == "__main__":
     App = QtWidgets.QApplication(sys.argv)
-    App.setStyleSheet(qdarktheme.load_stylesheet("light"))
+    App.setStyleSheet(qdarktheme.load_stylesheet("dark"))
     window = MainWindow()
     window.resize(780,500)
     window.show()
