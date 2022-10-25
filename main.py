@@ -3,7 +3,7 @@ import sys, json
 from PyQt5 import QtWidgets
 import qdarktheme
 
-from widgets.ConfigurationPage import ConfigurationElement
+from widgets.ConfigurationPage import ConfigurationPage
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -15,14 +15,13 @@ class MainWindow(QtWidgets.QMainWindow):
         vbox_main = QtWidgets.QVBoxLayout()
         central_widget.setLayout(vbox_main)
 
-        vbox_main.addWidget(ConfigurationElement("Power Continuity", self.test_template["power_continuity"]))
-        vbox_main.addWidget(ConfigurationElement("Positive Circuit Continuity", self.test_template["positive_circuit_continuity"]))
+        vbox_main.addWidget(ConfigurationPage(self.test_template))
         
 
 if __name__ == "__main__":
     App = QtWidgets.QApplication(sys.argv)
-    App.setStyleSheet(qdarktheme.load_stylesheet())
+    App.setStyleSheet(qdarktheme.load_stylesheet("light"))
     window = MainWindow()
-    window.resize(700,500)
+    window.resize(780,500)
     window.show()
     sys.exit(App.exec())

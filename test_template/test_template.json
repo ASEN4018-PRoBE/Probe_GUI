@@ -1,5 +1,6 @@
 {
-    "power_continuity": [
+    "Battery Name": "8s16p Battery",
+    "Power Continuity": [
         {
             "Pin 1": "J01-1",
             "Pin 2": "J01-11",
@@ -7,7 +8,7 @@
             "Pass Criteria": "[24.0 33.6] V"
         }
     ],
-    "positive_circuit_continuity": [
+    "Positive Circuit Continuity": [
         {
             "Pin 1": "J01-1",
             "Pin 2": "J01-2",
@@ -111,7 +112,7 @@
             "Pass Criteria": "[0 1] Ohm"
         }
     ],
-    "negative_circuit_continuity": [
+    "Negative Circuit Continuity": [
         {
             "Pin 1": "J01-11",
             "Pin 2": "J01-12",
@@ -215,7 +216,7 @@
             "Pass Criteria": "[0 1] Ohm"
         }
     ],
-    "inline_resistor_verification": [
+    "Inline-Resistor Verification": [
         {
             "Pin 1": "J01-1",
             "Pin 2": "J02-2",
@@ -241,7 +242,7 @@
             "Pass Criteria": "[9990 10010] Ohm"
         }
     ],
-    "isolation_chasis": [
+    "Isolation Chasis": [
         {
             "Pin 1": "TP1",
             "Pin 2": "J01-1",
@@ -357,7 +358,7 @@
             "Pass Criteria": "[10 inf] MOhm"
         }
     ],
-    "isolation": [
+    "Isolation": [
         {
             "Pin 1": "J01-1",
             "Pin 2": "J01-10",

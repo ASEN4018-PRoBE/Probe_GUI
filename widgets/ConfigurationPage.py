@@ -2,8 +2,26 @@ from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt
 
 class ConfigurationPage(QtWidgets.QWidget):
-    def __init__(self):
+    def __init__(self, test_template):
         super().__init__()
+        vbox_main = QtWidgets.QVBoxLayout()
+        self.setLayout(vbox_main)
+
+        vbox_main.addWidget(QtWidgets.QLabel(test_template["Battery Name"]))
+
+        scroll = QtWidgets.QScrollArea()
+        scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        scroll.setWidgetResizable(True)
+        widget_scroll = QtWidgets.QWidget()
+        scroll.setWidget(widget_scroll)
+        vbox_scroll = QtWidgets.QVBoxLayout()
+        widget_scroll.setLayout(vbox_scroll)
+        vbox_main.addWidget(scroll)
+
+        for key in test_template:
+            if key!="Battery Name":
+                vbox_scroll.addWidget(ConfigurationElement(key,test_template[key]))
 
 class ConfigurationElement(QtWidgets.QWidget):
     def __init__(self, title, test_list):
@@ -17,7 +35,7 @@ class ConfigurationElement(QtWidgets.QWidget):
         scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         scroll.setWidgetResizable(True)
-        scroll.setMaximumHeight(200)
+        scroll.setFixedHeight(min(100*len(test_list),200))
         widget_scroll = QtWidgets.QWidget()
         scroll.setWidget(widget_scroll)
         vbox_scroll = QtWidgets.QVBoxLayout()
@@ -45,11 +63,12 @@ class ConfigurationRow(QtWidgets.QWidget):
         label_duration = QtWidgets.QLabel("Duration:")
         self.textbox_duration = QtWidgets.QLineEdit(duration)
         self.textbox_duration.setAlignment(Qt.AlignCenter)
+        self.textbox_duration.setFixedWidth(50)
 
         label_pass_criteria = QtWidgets.QLabel("Pass Criteria:")
         self.textbox_pass_criteria = QtWidgets.QLineEdit(pass_criteria)
         self.textbox_pass_criteria.setAlignment(Qt.AlignCenter)
-        self.textbox_pass_criteria.setFixedWidth(100)
+        self.textbox_pass_criteria.setFixedWidth(150)
 
         hbox.addWidget(label_pin1)
         hbox.addWidget(self.textbox_pin1)

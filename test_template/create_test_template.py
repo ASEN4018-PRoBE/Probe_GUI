@@ -274,11 +274,12 @@ isolation["Pass Criteria"] = ["[10 inf] MOhm"]*len(isolation)
 
 # convert all dataframes into a single json file for saving/loading purposes
 df_dict = {
-    "power_continuity": power_continuity.to_dict("records"), 
-    "positive_circuit_continuity": positive_circuit_continuity.to_dict("records"), 
-    "negative_circuit_continuity": negative_circuit_continuity.to_dict("records"), 
-    "inline_resistor_verification": inline_resistor_verification.to_dict("records"), 
-    "isolation_chasis": isolation_chasis.to_dict("records"), 
-    "isolation": isolation.to_dict("records")}
+    "Battery Name": "8s16p Battery",
+    "Power Continuity": power_continuity.to_dict("records"), 
+    "Positive Circuit Continuity": positive_circuit_continuity.to_dict("records"), 
+    "Negative Circuit Continuity": negative_circuit_continuity.to_dict("records"), 
+    "Inline-Resistor Verification": inline_resistor_verification.to_dict("records"), 
+    "Isolation Chasis": isolation_chasis.to_dict("records"), 
+    "Isolation": isolation.to_dict("records")}
 with open("test_template.json", 'w') as outfile:
     outfile.write(json.dumps(df_dict,indent=4))
