@@ -3,11 +3,11 @@ import pandas as pd
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt
 
-class ConfigurePage(QtWidgets.QWidget):
+class ConfigurationPage(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
 
-class ConfigureElement(QtWidgets.QWidget):
+class ConfigurationElement(QtWidgets.QWidget):
     def __init__(self, title, template_file):
         super().__init__()
         vbox_main = QtWidgets.QVBoxLayout()
@@ -28,9 +28,9 @@ class ConfigureElement(QtWidgets.QWidget):
 
         df = pd.read_csv(template_file)
         for i in range(len(df)):
-            vbox_scroll.addWidget(ConfigureRow(df.loc[i][0],df.loc[i][1],str(i*4+3),str(i*4+4)))
+            vbox_scroll.addWidget(ConfigurationRow(df.loc[i][0],df.loc[i][1],str(i*4+3),str(i*4+4)))
 
-class ConfigureRow(QtWidgets.QWidget):
+class ConfigurationRow(QtWidgets.QWidget):
     def __init__(self, pin1=None, pin2=None, duration=None, pass_criteria=None):
         super().__init__()
         hbox = QtWidgets.QHBoxLayout()
