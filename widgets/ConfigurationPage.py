@@ -57,7 +57,7 @@ class ConfigurationElement(QtWidgets.QWidget):
         scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         scroll.setWidgetResizable(True)
-        scroll.setFixedHeight(min(100*len(test_list),200))
+        scroll.setFixedHeight(min(80*len(test_list),200))
         widget_scroll = QtWidgets.QWidget()
         scroll.setWidget(widget_scroll)
         vbox_scroll = QtWidgets.QVBoxLayout()

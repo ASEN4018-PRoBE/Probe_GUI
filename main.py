@@ -21,17 +21,22 @@ class MainWindow(QtWidgets.QMainWindow):
         vbox_main.addWidget(self.configuration_page)
     
     def load_config(self): # TODO
-        print("loading config")
+        path = "test_template/"
+        config_file = QtWidgets.QFileDialog.getOpenFileName(self,"Open Configuration File",path,"JSON Files (*.json)")[0]
+        if config_file:
+            pass
 
     def save_config(self): # TODO
-        print("saving config")
-
+        path = "test_template/"
+        save_filename = QtWidgets.QFileDialog.getSaveFileName(self,"Save Configuration File",path+"/test_template.json","JSON Files (*.json)")[0]
+        if save_filename:
+            pass
 
 
 if __name__ == "__main__":
     App = QtWidgets.QApplication(sys.argv)
-    App.setStyleSheet(qdarktheme.load_stylesheet("dark"))
+    App.setStyleSheet(qdarktheme.load_stylesheet("light"))
     window = MainWindow()
-    window.resize(780,500)
+    window.resize(780,600)
     window.show()
     sys.exit(App.exec())
