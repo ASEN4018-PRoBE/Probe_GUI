@@ -1,9 +1,8 @@
 import json
 import pandas as pd
 
-power_continuity_columns = ["Pin 1", "Pin 2", "Duration", "Pass Criteria"]
-power_continuity_data = [
-    ["J01-1", "J01-11", "5", "[24.0 33.6] V"]]
+power_continuity_columns = ["Pin 1", "Pin 2"]
+power_continuity_data = [["J01-1", "J01-11"]]
 power_continuity = pd.DataFrame(power_continuity_data, columns=power_continuity_columns)
 
 
@@ -28,8 +27,6 @@ positive_circuit_continuity_data = [
     ["J01-1", "J01-28"],
 ]
 positive_circuit_continuity = pd.DataFrame(positive_circuit_continuity_data, columns=positive_circuit_continuity_columns)
-positive_circuit_continuity["Duration"] = ["5"]*len(positive_circuit_continuity)
-positive_circuit_continuity["Pass Criteria"] = ["[0 1] Ohm"]*len(positive_circuit_continuity)
 
 
 negative_circuit_continuity_columns = ["Pin 1", "Pin 2"]
@@ -53,8 +50,6 @@ negative_circuit_continuity_data = [
     ["J01-11", "J01-37"],
 ]
 negative_circuit_continuity = pd.DataFrame(negative_circuit_continuity_data, columns=negative_circuit_continuity_columns)
-negative_circuit_continuity["Duration"] = ["5"]*len(negative_circuit_continuity)
-negative_circuit_continuity["Pass Criteria"] = ["[0 1] Ohm"]*len(negative_circuit_continuity)
 
 
 inline_resistor_verification_columns = ["Pin 1", "Pin 2"]
@@ -65,8 +60,6 @@ inline_resistor_verification_data = [
     ["J01-11", "J02-25"],
 ]
 inline_resistor_verification = pd.DataFrame(inline_resistor_verification_data, columns=inline_resistor_verification_columns)
-inline_resistor_verification["Duration"] = ["5"]*len(inline_resistor_verification)
-inline_resistor_verification["Pass Criteria"] = ["[9990 10010] Ohm"]*len(inline_resistor_verification)
 
 
 isolation_chasis_columns = ["Pin 1", "Pin 2"]
@@ -92,8 +85,6 @@ isolation_chasis_data = [
     ["TP1", "J02-24"],
 ]
 isolation_chasis = pd.DataFrame(isolation_chasis_data, columns=isolation_chasis_columns)
-isolation_chasis["Duration"] = ["5"]*len(isolation_chasis)
-isolation_chasis["Pass Criteria"] = ["[10 inf] MOhm"]*len(isolation_chasis)
 
 
 isolation_columns = ["Pin 1", "Pin 2"]
@@ -269,17 +260,39 @@ isolation_data = [
     ["J02-24", "J02-10"],
 ]
 isolation = pd.DataFrame(isolation_data, columns=isolation_columns)
-isolation["Duration"] = ["5"]*len(isolation)
-isolation["Pass Criteria"] = ["[10 inf] MOhm"]*len(isolation)
 
 # convert all dataframes into a single json file for saving/loading purposes
 df_dict = {
     "Battery Name": "8s16p Battery",
-    "Power Continuity": power_continuity.to_dict("records"), 
-    "Positive Circuit Continuity": positive_circuit_continuity.to_dict("records"), 
-    "Negative Circuit Continuity": negative_circuit_continuity.to_dict("records"), 
-    "Inline-Resistor Verification": inline_resistor_verification.to_dict("records"), 
-    "Isolation Chasis": isolation_chasis.to_dict("records"), 
-    "Isolation": isolation.to_dict("records")}
+    "Power Continuity": {
+        "Duration": "5",
+        "Pass Criteria": "[24.0 33.6] V",
+        "Pins": power_continuity.to_dict("records"),
+    }, 
+    "Positive Circuit Continuity": {
+        "Duration": "5",
+        "Pass Criteria": "[0 1] Ohm",
+        "Pins": positive_circuit_continuity.to_dict("records"),
+    }, 
+    "Negative Circuit Continuity": {
+        "Duration": "5",
+        "Pass Criteria": "[0 1] Ohm",
+        "Pins": negative_circuit_continuity.to_dict("records"),
+    }, 
+    "Inline-Resistor Verification": {
+        "Duration": "5",
+        "Pass Criteria": "[9990 10010] Ohm",
+        "Pins": inline_resistor_verification.to_dict("records"),
+    }, 
+    "Isolation Chasis": {
+        "Duration": "5",
+        "Pass Criteria": "[10 inf] MOhm",
+        "Pins": isolation_chasis.to_dict("records"),
+    }, 
+    "Isolation": {
+        "Duration": "5",
+        "Pass Criteria": "[10 inf] MOhm",
+        "Pins": isolation.to_dict("records"),
+    }}
 with open("test_template.json", 'w') as outfile:
     outfile.write(json.dumps(df_dict,indent=4))

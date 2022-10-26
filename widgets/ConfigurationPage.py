@@ -25,12 +25,9 @@ class ConfigurationPage(QtWidgets.QWidget):
         widget_scroll.setLayout(vbox_scroll)
         vbox_main.addWidget(scroll)
 
-        self.rows = []
-
         for key in test_template:
             if key!="Battery Name":
-                self.rows.append(ConfigurationElement(key,test_template[key]))
-                vbox_scroll.addWidget(self.rows[-1])
+                vbox_scroll.addWidget(ConfigurationElement(key,test_template[key]["Duration"],test_template[key]["Pass Criteria"],test_template[key]["Pins"]))
 
         hbox_btn = QtWidgets.QHBoxLayout()
         vbox_main.addLayout(hbox_btn)
@@ -42,66 +39,81 @@ class ConfigurationPage(QtWidgets.QWidget):
 
 # A block of rows make up Configuration Element for a specific test
 # title: the test function name, i.e.: "Continuity", "Isolation"...
-# test_list: a list of dictonaries containing pins, duration and pass criteria
+# pins_list: a list of dictonaries containing pins, duration and pass criteria
+# duration: duration as string indicating how long to hold on pins in seconds
+# pass_criteria: "[low, upper] units" as string for pass/fail determination
 class ConfigurationElement(QtWidgets.QWidget):
-    def __init__(self, title, test_list):
+    def __init__(self, title, duration, pass_criteria, pins_list):
         super().__init__()
         vbox_main = QtWidgets.QVBoxLayout()
         self.setLayout(vbox_main)
 
+        hbox_title = QtWidgets.QHBoxLayout()
         title = QtWidgets.QLabel(title)
         title.setFont(font_subtitle)
-        vbox_main.addWidget(title)
+        label_duration = QtWidgets.QLabel("Hold Duration:")
+        self.textbox_duration = QtWidgets.QLineEdit(duration)
+        self.textbox_duration.setAlignment(Qt.AlignCenter)
+        self.textbox_duration.setFixedWidth(50)
+        label_pass_criteria = QtWidgets.QLabel("Pass Criteria:")
+        self.textbox_pass_criteria = QtWidgets.QLineEdit(pass_criteria)
+        self.textbox_pass_criteria.setAlignment(Qt.AlignCenter)
+        self.textbox_pass_criteria.setFixedWidth(150)
+
+        hbox_title.addWidget(title)
+        hbox_title.addWidget(label_duration)
+        hbox_title.addWidget(self.textbox_duration)
+        hbox_title.addWidget(label_pass_criteria)
+        hbox_title.addWidget(self.textbox_pass_criteria)
+        hbox_title.addStretch(6)
+        vbox_main.addLayout(hbox_title)
         
         scroll = QtWidgets.QScrollArea()
         scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         scroll.setWidgetResizable(True)
-        scroll.setFixedHeight(min(80*len(test_list),200))
+        scroll.setFixedHeight(min(80*len(pins_list),200))
         widget_scroll = QtWidgets.QWidget()
         scroll.setWidget(widget_scroll)
         vbox_scroll = QtWidgets.QVBoxLayout()
         widget_scroll.setLayout(vbox_scroll)
         vbox_main.addWidget(scroll)
 
-        for d in test_list:
-            vbox_scroll.addWidget(ConfigurationRow(d["Pin 1"],d["Pin 2"],d["Duration"],d["Pass Criteria"]))
+        self.configuration_rows = []
+
+        for i in range(0,len(pins_list),2):
+            hbox_row = QtWidgets.QHBoxLayout() # one row contains two pin combinations
+            self.configuration_rows.append(ConfigurationRow(pins_list[i]["Pin 1"],pins_list[i]["Pin 2"]))
+            hbox_row.addWidget(self.configuration_rows[-1],5)
+            if i+1!=len(pins_list):
+                vertical_line = QtWidgets.QFrame()
+                vertical_line.setFrameShape(QtWidgets.QFrame.Shape.VLine)
+                vertical_line.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
+                hbox_row.addWidget(vertical_line,1)
+                self.configuration_rows.append(ConfigurationRow(pins_list[i+1]["Pin 1"],pins_list[i+1]["Pin 2"]))
+                hbox_row.addWidget(self.configuration_rows[-1],5)
+            else:
+                hbox_row.addStretch(5)
+            
+            vbox_scroll.addLayout(hbox_row)
 
 # A basic row in Configuration Page
 # pin1: pin1 as string in test sequence
 # pin2: pin2 as string in test sequence
-# duration: duration as string indicating how long to hold on pins in seconds
-# pass_criteria: "[low, upper] units" as string for pass/fail determination
 class ConfigurationRow(QtWidgets.QWidget):
-    def __init__(self, pin1=None, pin2=None, duration=None, pass_criteria=None):
+    def __init__(self, pin1=None, pin2=None):
         super().__init__()
         hbox = QtWidgets.QHBoxLayout()
         self.setLayout(hbox)
         label_pin1 = QtWidgets.QLabel("Pin 1:")
         self.textbox_pin1 = QtWidgets.QLineEdit(pin1)
         self.textbox_pin1.setAlignment(Qt.AlignCenter)
-        self.textbox_pin1.setFixedWidth(60)
 
         label_pin2 = QtWidgets.QLabel("Pin 2:")
         self.textbox_pin2 = QtWidgets.QLineEdit(pin2)
         self.textbox_pin2.setAlignment(Qt.AlignCenter)
-        self.textbox_pin2.setFixedWidth(60)
-
-        label_duration = QtWidgets.QLabel("Duration:")
-        self.textbox_duration = QtWidgets.QLineEdit(duration)
-        self.textbox_duration.setAlignment(Qt.AlignCenter)
-        self.textbox_duration.setFixedWidth(50)
-
-        label_pass_criteria = QtWidgets.QLabel("Pass Criteria:")
-        self.textbox_pass_criteria = QtWidgets.QLineEdit(pass_criteria)
-        self.textbox_pass_criteria.setAlignment(Qt.AlignCenter)
-        self.textbox_pass_criteria.setFixedWidth(150)
 
         hbox.addWidget(label_pin1)
         hbox.addWidget(self.textbox_pin1)
         hbox.addWidget(label_pin2)
         hbox.addWidget(self.textbox_pin2)
-        hbox.addWidget(label_duration)
-        hbox.addWidget(self.textbox_duration)
-        hbox.addWidget(label_pass_criteria)
-        hbox.addWidget(self.textbox_pass_criteria)
