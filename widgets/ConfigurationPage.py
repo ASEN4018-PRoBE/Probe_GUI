@@ -3,6 +3,8 @@ from PyQt5.QtCore import Qt
 
 from .Fonts import font_title, font_subtitle
 
+# Configuration Page for display in MainWindow
+# test_template: dictionary for test setup info, see test_template/test_template.json
 class ConfigurationPage(QtWidgets.QWidget):
     def __init__(self, test_template):
         super().__init__()
@@ -38,6 +40,9 @@ class ConfigurationPage(QtWidgets.QWidget):
         self.btn_save = QtWidgets.QPushButton("Save")
         hbox_btn.addWidget(self.btn_save,1)
 
+# A block of rows make up Configuration Element for a specific test
+# title: the test function name, i.e.: "Continuity", "Isolation"...
+# test_list: a list of dictonaries containing pins, duration and pass criteria
 class ConfigurationElement(QtWidgets.QWidget):
     def __init__(self, title, test_list):
         super().__init__()
@@ -62,6 +67,11 @@ class ConfigurationElement(QtWidgets.QWidget):
         for d in test_list:
             vbox_scroll.addWidget(ConfigurationRow(d["Pin 1"],d["Pin 2"],d["Duration"],d["Pass Criteria"]))
 
+# A basic row in Configuration Page
+# pin1: pin1 as string in test sequence
+# pin2: pin2 as string in test sequence
+# duration: duration as string indicating how long to hold on pins in seconds
+# pass_criteria: "[low, upper] units" as string for pass/fail determination
 class ConfigurationRow(QtWidgets.QWidget):
     def __init__(self, pin1=None, pin2=None, duration=None, pass_criteria=None):
         super().__init__()
