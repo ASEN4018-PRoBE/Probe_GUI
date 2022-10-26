@@ -89,6 +89,7 @@ class ConfigurationElement(QtWidgets.QWidget):
                 vertical_line = QtWidgets.QFrame()
                 vertical_line.setFrameShape(QtWidgets.QFrame.Shape.VLine)
                 vertical_line.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
+                vertical_line.setFixedHeight(30)
                 hbox_row.addWidget(vertical_line,1)
                 self.configuration_rows.append(ConfigurationRow(pins_list[i+1]["Pin 1"],pins_list[i+1]["Pin 2"]))
                 hbox_row.addWidget(self.configuration_rows[-1],5)
