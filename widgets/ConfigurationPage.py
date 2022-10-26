@@ -1,13 +1,17 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt
 
+from .Fonts import font_title, font_subtitle
+
 class ConfigurationPage(QtWidgets.QWidget):
     def __init__(self, test_template):
         super().__init__()
         vbox_main = QtWidgets.QVBoxLayout()
         self.setLayout(vbox_main)
 
-        vbox_main.addWidget(QtWidgets.QLabel(test_template["Battery Name"]))
+        title = QtWidgets.QLabel(test_template["Battery Name"])
+        title.setFont(font_title)
+        vbox_main.addWidget(title)
 
         scroll = QtWidgets.QScrollArea()
         scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
@@ -19,9 +23,20 @@ class ConfigurationPage(QtWidgets.QWidget):
         widget_scroll.setLayout(vbox_scroll)
         vbox_main.addWidget(scroll)
 
+        self.rows = []
+
         for key in test_template:
             if key!="Battery Name":
-                vbox_scroll.addWidget(ConfigurationElement(key,test_template[key]))
+                self.rows.append(ConfigurationElement(key,test_template[key]))
+                vbox_scroll.addWidget(self.rows[-1])
+
+        hbox_btn = QtWidgets.QHBoxLayout()
+        vbox_main.addLayout(hbox_btn)
+        hbox_btn.addStretch(8)
+        self.btn_load = QtWidgets.QPushButton("Load")
+        hbox_btn.addWidget(self.btn_load,1)
+        self.btn_save = QtWidgets.QPushButton("Save")
+        hbox_btn.addWidget(self.btn_save,1)
 
 class ConfigurationElement(QtWidgets.QWidget):
     def __init__(self, title, test_list):
@@ -29,7 +44,9 @@ class ConfigurationElement(QtWidgets.QWidget):
         vbox_main = QtWidgets.QVBoxLayout()
         self.setLayout(vbox_main)
 
-        vbox_main.addWidget(QtWidgets.QLabel(title))
+        title = QtWidgets.QLabel(title)
+        title.setFont(font_subtitle)
+        vbox_main.addWidget(title)
         
         scroll = QtWidgets.QScrollArea()
         scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
