@@ -38,10 +38,10 @@ class ConfigurationPage(QtWidgets.QWidget):
         hbox_btn.addWidget(self.btn_save,1)
 
 # A block of rows make up Configuration Element for a specific test
-# title: the test function name, i.e.: "Continuity", "Isolation"...
+# title: the test function name, i.e.: "Continuity", "Isolation" ...
 # pins_list: a list of dictonaries containing pins, duration and pass criteria
 # duration: duration as string indicating how long to hold on pins in seconds
-# pass_criteria: "[low, upper] units" as string for pass/fail determination
+# pass_criteria: "[lower, upper] units" as string for pass/fail determination
 class ConfigurationElement(QtWidgets.QWidget):
     def __init__(self, title, duration, pass_criteria, pins_list):
         super().__init__()
@@ -51,7 +51,7 @@ class ConfigurationElement(QtWidgets.QWidget):
         hbox_title = QtWidgets.QHBoxLayout()
         title = QtWidgets.QLabel(title)
         title.setFont(font_subtitle)
-        label_duration = QtWidgets.QLabel("Hold Duration:")
+        label_duration = QtWidgets.QLabel("Pin Hold Duration:")
         self.textbox_duration = QtWidgets.QLineEdit(duration)
         self.textbox_duration.setAlignment(Qt.AlignCenter)
         self.textbox_duration.setFixedWidth(50)
@@ -102,7 +102,7 @@ class ConfigurationElement(QtWidgets.QWidget):
 # pin1: pin1 as string in test sequence
 # pin2: pin2 as string in test sequence
 class ConfigurationRow(QtWidgets.QWidget):
-    def __init__(self, pin1=None, pin2=None):
+    def __init__(self, pin1, pin2):
         super().__init__()
         hbox = QtWidgets.QHBoxLayout()
         self.setLayout(hbox)

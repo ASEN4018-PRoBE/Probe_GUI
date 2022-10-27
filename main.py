@@ -4,6 +4,7 @@ from PyQt5 import QtWidgets
 import qdarktheme
 
 from widgets.ConfigurationPage import ConfigurationPage
+from widgets.TestReultPage import TestResultPage
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -18,7 +19,15 @@ class MainWindow(QtWidgets.QMainWindow):
         self.configuration_page = ConfigurationPage(self.test_template)
         self.configuration_page.btn_load.clicked.connect(self.load_config)
         self.configuration_page.btn_save.clicked.connect(self.save_config)
-        vbox_main.addWidget(self.configuration_page)
+        #vbox_main.addWidget(self.configuration_page)
+
+        self.test_result_page = TestResultPage(self.test_template)
+        self.test_result_page.element_dict["Power Continuity"].append_test_result("Pin1","Pin2","10 V",False)
+        self.test_result_page.element_dict["Positive Circuit Continuity"].append_test_result("Pin1","Pin2","0.5 Ohm",True)
+        self.test_result_page.element_dict["Positive Circuit Continuity"].append_test_result("Pin1","Pin2","0.6 Ohm",True)
+        self.test_result_page.element_dict["Positive Circuit Continuity"].append_test_result("Pin1","Pin2","1.1 Ohm",False)
+        self.test_result_page.element_dict["Positive Circuit Continuity"].append_test_result("Pin1","Pin2","0.5 Ohm",True)
+        vbox_main.addWidget(self.test_result_page)
     
     def load_config(self): # TODO
         path = "test_template/"
