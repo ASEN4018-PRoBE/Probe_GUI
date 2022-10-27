@@ -31,9 +31,11 @@ class ConfigurationPage(QtWidgets.QWidget):
 
         hbox_btn = QtWidgets.QHBoxLayout()
         vbox_main.addLayout(hbox_btn)
-        hbox_btn.addStretch(8)
+        hbox_btn.addStretch(7)
         self.btn_load = QtWidgets.QPushButton("Load")
         hbox_btn.addWidget(self.btn_load,1)
+        self.btn_save_as = QtWidgets.QPushButton("Save As...")
+        hbox_btn.addWidget(self.btn_save_as,1)
         self.btn_save = QtWidgets.QPushButton("Save")
         hbox_btn.addWidget(self.btn_save,1)
 

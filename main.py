@@ -22,6 +22,7 @@ class MainWindow(QtWidgets.QMainWindow):
         
         self.configuration_page = ConfigurationPage(self.test_template)
         self.configuration_page.btn_load.clicked.connect(self.load_config)
+        self.configuration_page.btn_save_as.clicked.connect(self.save_as_config)
         self.configuration_page.btn_save.clicked.connect(self.save_config)
         self.stacked_layout.addWidget(self.configuration_page)
 
@@ -41,12 +42,15 @@ class MainWindow(QtWidgets.QMainWindow):
         if config_file:
             pass
 
-    def save_config(self): # TODO
+    def save_as_config(self): # TODO
         path = "test_template/"
         save_filename = QtWidgets.QFileDialog.getSaveFileName(self,"Save Configuration File",path+"/test_template.json","JSON Files (*.json)")[0]
         if save_filename:
             pass
 
+    def save_config(self): # TODO
+        pass
+    
     def keyPressEvent(self, event):
         if event.key() == QtCore.Qt.Key.Key_Space:
             page_index = self.stacked_layout.currentIndex()
