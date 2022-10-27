@@ -74,10 +74,14 @@ class TestResultRow(QtWidgets.QWidget):
         self.setLayout(hbox)
 
         label_pin1 = QtWidgets.QLabel("Pin 1: "+pin1)
+        label_pin1.setAlignment(Qt.AlignCenter)
         label_pin2 = QtWidgets.QLabel("Pin 2: "+pin2)
+        label_pin2.setAlignment(Qt.AlignCenter)
         label_measurement = QtWidgets.QLabel("Measurement: "+measurement)
+        label_measurement.setAlignment(Qt.AlignCenter)
         sign_pass_fail = "✅" if pass_fail else "❌"
         label_pass_fail = QtWidgets.QLabel("Pass: "+sign_pass_fail)
+        label_pass_fail.setAlignment(Qt.AlignCenter)
 
         hbox.addWidget(label_pin1,2)
         hbox.addWidget(label_pin2,2)
