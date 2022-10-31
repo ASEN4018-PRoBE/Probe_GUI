@@ -52,14 +52,14 @@ negative_circuit_continuity_data = [
 negative_circuit_continuity = pd.DataFrame(negative_circuit_continuity_data, columns=negative_circuit_continuity_columns)
 
 
-inline_resistor_verification_columns = ["Pin 1", "Pin 2"]
-inline_resistor_verification_data = [
+inline_resistor_columns = ["Pin 1", "Pin 2"]
+inline_resistor_data = [
     ["J01-1", "J02-2"],
     ["J01-1", "J02-14"],
     ["J01-11", "J02-12"],
     ["J01-11", "J02-25"],
 ]
-inline_resistor_verification = pd.DataFrame(inline_resistor_verification_data, columns=inline_resistor_verification_columns)
+inline_resistor = pd.DataFrame(inline_resistor_data, columns=inline_resistor_columns)
 
 
 isolation_chasis_columns = ["Pin 1", "Pin 2"]
@@ -279,10 +279,10 @@ df_dict = {
         "Pass Criteria": "[0 1] Ohm",
         "Pins": negative_circuit_continuity.to_dict("records"),
     }, 
-    "Inline-Resistor Verification": {
+    "Inline-Resistor": {
         "Duration": "5",
         "Pass Criteria": "[9990 10010] Ohm",
-        "Pins": inline_resistor_verification.to_dict("records"),
+        "Pins": inline_resistor.to_dict("records"),
     }, 
     "Isolation Chasis": {
         "Duration": "5",

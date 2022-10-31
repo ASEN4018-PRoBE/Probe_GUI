@@ -158,7 +158,7 @@
             }
         ]
     },
-    "Inline-Resistor Verification": {
+    "Inline-Resistor": {
         "Duration": "5",
         "Pass Criteria": "[9990 10010] Ohm",
         "Pins": [
