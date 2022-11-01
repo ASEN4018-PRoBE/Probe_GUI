@@ -1,7 +1,7 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt
 
-from .Fonts import font_title, font_subtitle
+from .Fonts import font_title, font_subtitle, font_regular
 
 class TestResultsPage(QtWidgets.QWidget):
     def __init__(self, test_template):
@@ -9,7 +9,7 @@ class TestResultsPage(QtWidgets.QWidget):
         vbox_main = QtWidgets.QVBoxLayout()
         self.setLayout(vbox_main)
 
-        title = QtWidgets.QLabel(test_template["Battery Name"])
+        title = QtWidgets.QLabel("Test Results "+test_template["Battery Name"])
         title.setFont(font_title)
         vbox_main.addWidget(title)
 
@@ -31,6 +31,7 @@ class TestResultsPage(QtWidgets.QWidget):
 
         hbox_btn = QtWidgets.QHBoxLayout()
         self.btn_export = QtWidgets.QPushButton("Export")
+        self.btn_export.setFont(font_regular)
         hbox_btn.addStretch(9)
         hbox_btn.addWidget(self.btn_export)
         vbox_main.addLayout(hbox_btn)
@@ -81,13 +82,17 @@ class TestResultsRow(QtWidgets.QWidget):
 
         label_pin1 = QtWidgets.QLabel("Pin 1: "+pin1)
         label_pin1.setAlignment(Qt.AlignCenter)
+        label_pin1.setFont(font_regular)
         label_pin2 = QtWidgets.QLabel("Pin 2: "+pin2)
         label_pin2.setAlignment(Qt.AlignCenter)
+        label_pin2.setFont(font_regular)
         label_measurement = QtWidgets.QLabel("Measurement: "+measurement)
         label_measurement.setAlignment(Qt.AlignCenter)
+        label_measurement.setFont(font_regular)
         sign_pass_fail = "✅" if pass_fail else "❌"
         label_pass_fail = QtWidgets.QLabel("Pass: "+sign_pass_fail)
         label_pass_fail.setAlignment(Qt.AlignCenter)
+        label_pass_fail.setFont(font_regular)
 
         hbox.addWidget(label_pin1,2)
         hbox.addWidget(label_pin2,2)

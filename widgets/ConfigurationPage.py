@@ -3,7 +3,7 @@ from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt, QRegExp
 from PyQt5.QtGui import QRegExpValidator
 
-from .Fonts import font_title, font_subtitle
+from .Fonts import font_title, font_subtitle, font_regular
 
 # Configuration Page for display in MainWindow
 # test_template: dictionary for test setup info, see test_template/test_template.json
@@ -13,7 +13,7 @@ class ConfigurationPage(QtWidgets.QWidget):
         vbox_main = QtWidgets.QVBoxLayout()
         self.setLayout(vbox_main)
 
-        title = QtWidgets.QLabel(test_template["Battery Name"])
+        title = QtWidgets.QLabel("Configuration "+test_template["Battery Name"])
         title.setFont(font_title)
         vbox_main.addWidget(title)
 
@@ -35,10 +35,13 @@ class ConfigurationPage(QtWidgets.QWidget):
         vbox_main.addLayout(hbox_btn)
         hbox_btn.addStretch(7)
         self.btn_load = QtWidgets.QPushButton("Load")
+        self.btn_load.setFont(font_regular)
         hbox_btn.addWidget(self.btn_load,1)
         self.btn_save_as = QtWidgets.QPushButton("Save As...")
+        self.btn_save_as.setFont(font_regular)
         hbox_btn.addWidget(self.btn_save_as,1)
         self.btn_save = QtWidgets.QPushButton("Save")
+        self.btn_save.setFont(font_regular)
         hbox_btn.addWidget(self.btn_save,1)
 
 # A block of rows make up Configuration Element for a specific test
@@ -57,17 +60,21 @@ class ConfigurationElement(QtWidgets.QWidget):
         label_title = QtWidgets.QLabel(title)
         label_title.setFont(font_subtitle)
         label_duration = QtWidgets.QLabel("Pin Hold Duration [s]:")
+        label_duration.setFont(font_regular)
         textbox_duration = QtWidgets.QLineEdit(self.function_dict["Duration"])
         textbox_duration.setAlignment(Qt.AlignCenter)
         textbox_duration.setFixedWidth(50)
         textbox_duration.setValidator(QRegExpValidator(QRegExp("^[1-9]\d{1,2}$")))
         textbox_duration.textChanged.connect(lambda: self.function_dict.update({"Duration":textbox_duration.text()}))
+        textbox_duration.setFont(font_regular)
         label_pass_criteria = QtWidgets.QLabel("Pass Criteria:")
+        label_pass_criteria.setFont(font_regular)
         textbox_pass_criteria = QtWidgets.QLineEdit(self.function_dict["Pass Criteria"])
         textbox_pass_criteria.setAlignment(Qt.AlignCenter)
         textbox_pass_criteria.setFixedWidth(150)
         textbox_pass_criteria.textChanged.connect(lambda: self.function_dict.update({"Pass Criteria":textbox_pass_criteria.text()}))
         textbox_pass_criteria.setValidator(QRegExpValidator(QRegExp("^\[\d+.\d+ \d+.\d+\] [A-Za-z]+$")))
+        textbox_pass_criteria.setFont(font_regular)
 
         hbox_title.addWidget(label_title)
         hbox_title.addWidget(label_duration)
@@ -114,14 +121,18 @@ class ConfigurationRow(QtWidgets.QWidget):
         hbox = QtWidgets.QHBoxLayout()
         self.setLayout(hbox)
         label_pin1 = QtWidgets.QLabel("Pin 1:")
+        label_pin1.setFont(font_regular)
         textbox_pin1 = QtWidgets.QLineEdit(pins["Pin 1"])
         textbox_pin1.setAlignment(Qt.AlignCenter)
         textbox_pin1.textChanged.connect(lambda: pins.update({"Pin 1":textbox_pin1.text()}))
+        textbox_pin1.setFont(font_regular)
 
         label_pin2 = QtWidgets.QLabel("Pin 2:")
+        label_pin2.setFont(font_regular)
         textbox_pin2 = QtWidgets.QLineEdit(pins["Pin 2"])
         textbox_pin2.setAlignment(Qt.AlignCenter)
         textbox_pin2.textChanged.connect(lambda: pins.update({"Pin 2":textbox_pin2.text()}))
+        textbox_pin2.setFont(font_regular)
 
         hbox.addWidget(label_pin1)
         hbox.addWidget(textbox_pin1)

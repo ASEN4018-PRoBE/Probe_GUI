@@ -1,11 +1,13 @@
 import sys, json
 
 from PyQt5 import QtWidgets
+from PyQt5.QtCore import Qt
 import qdarktheme
 
 from widgets.NavigationPane import NavigationPane
 from widgets.ConfigurationPage import ConfigurationPage
 from widgets.TestReultsPage import TestResultsPage
+from widgets.Fonts import font_regular
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -28,7 +30,6 @@ class MainWindow(QtWidgets.QMainWindow):
         vertical_line = QtWidgets.QFrame()
         vertical_line.setFrameShape(QtWidgets.QFrame.Shape.VLine)
         vertical_line.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
-        vertical_line.setFixedHeight(700)
         hbox_main.addWidget(vertical_line)
         
         self.configuration_page = ConfigurationPage(self.test_template)
@@ -46,6 +47,17 @@ class MainWindow(QtWidgets.QMainWindow):
         self.stacked_layout.addWidget(self.test_results_page)
 
         hbox_main.addLayout(self.stacked_layout)
+
+        self.status_bar = QtWidgets.QStatusBar()
+        self.status = QtWidgets.QLabel("  Welcome to ProBE")
+        self.status.setFont(font_regular)
+        self.status.setFixedHeight(30)
+        self.progress_bar = QtWidgets.QProgressBar()
+        self.progress_bar.setFixedSize(200,20)
+        self.progress_bar.setValue(0)
+        self.status_bar.addWidget(self.status)
+        self.status_bar.addPermanentWidget(self.progress_bar)
+        self.setStatusBar(self.status_bar)
     
     def btn_configuration_clicked(self, event):
         self.stacked_layout.setCurrentIndex(0)
@@ -73,6 +85,6 @@ if __name__ == "__main__":
     App = QtWidgets.QApplication(sys.argv)
     App.setStyleSheet(qdarktheme.load_stylesheet("dark"))
     window = MainWindow()
-    window.resize(1000,700)
+    window.resize(1000,650)
     window.show()
     sys.exit(App.exec())
