@@ -3,7 +3,7 @@ from PyQt5.QtCore import Qt
 
 from .Fonts import font_title, font_subtitle
 
-class TestResultPage(QtWidgets.QWidget):
+class TestResultsPage(QtWidgets.QWidget):
     def __init__(self, test_template):
         super().__init__()
         vbox_main = QtWidgets.QVBoxLayout()
@@ -26,10 +26,10 @@ class TestResultPage(QtWidgets.QWidget):
         self.element_dict = dict()
         for key in test_template:
             if key!="Battery Name":
-                self.element_dict[key] = TestResultElement(key, test_template[key]["Pass Criteria"])
+                self.element_dict[key] = TestResultsElement(key, test_template[key]["Pass Criteria"])
                 vbox_scroll.addWidget(self.element_dict[key])
 
-class TestResultElement(QtWidgets.QWidget):
+class TestResultsElement(QtWidgets.QWidget):
     def __init__(self, title, pass_criteria):
         super().__init__()
         vbox_main = QtWidgets.QVBoxLayout()
@@ -57,7 +57,7 @@ class TestResultElement(QtWidgets.QWidget):
         self.test_result_rows = []
     
     def append_test_result(self, pin1, pin2, measurement, pass_fail):
-        row = TestResultRow(pin1, pin2, measurement, pass_fail)
+        row = TestResultsRow(pin1, pin2, measurement, pass_fail)
         self.test_result_rows.append(row)
         self.scroll_area.setFixedHeight(min(80*len(self.test_result_rows),200))
         self.vbox_scroll.addWidget(row)
@@ -67,7 +67,7 @@ class TestResultElement(QtWidgets.QWidget):
 # pin2: pin2 as string in test sequence
 # measurement: measurement result as string from DMM
 # pass_fail: pass or fail as bool
-class TestResultRow(QtWidgets.QWidget):
+class TestResultsRow(QtWidgets.QWidget):
     def __init__(self, pin1, pin2, measurement, pass_fail):
         super().__init__()
         hbox = QtWidgets.QHBoxLayout()

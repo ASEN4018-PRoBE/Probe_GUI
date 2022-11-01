@@ -1,22 +1,11 @@
 import sys, json
 
 from PyQt5 import QtWidgets
-from PyQt5 import QtCore
 import qdarktheme
 
-from PyQt5.QtWidgets import (
-    QApplication,
-    QHBoxLayout,
-    QPushButton,
-    QWidget,
-)
-
 from widgets.NavigationPane import NavigationPane
-
 from widgets.ConfigurationPage import ConfigurationPage
-from widgets.TestReultPage import TestResultPage
- 
-
+from widgets.TestReultsPage import TestResultsPage
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -33,6 +22,14 @@ class MainWindow(QtWidgets.QMainWindow):
         
         self.navigation_pane = NavigationPane()
         hbox_main.addWidget(self.navigation_pane)
+        self.navigation_pane.btn_configuration.mousePressEvent = self.btn_configuration_clicked
+        self.navigation_pane.btn_test_results.mousePressEvent = self.btn_test_results_clicked
+
+        vertical_line = QtWidgets.QFrame()
+        vertical_line.setFrameShape(QtWidgets.QFrame.Shape.VLine)
+        vertical_line.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
+        vertical_line.setFixedHeight(700)
+        hbox_main.addWidget(vertical_line)
         
         self.configuration_page = ConfigurationPage(self.test_template)
         self.configuration_page.btn_load.clicked.connect(self.load_config)
@@ -40,18 +37,21 @@ class MainWindow(QtWidgets.QMainWindow):
         self.configuration_page.btn_save.clicked.connect(self.save_config)
         self.stacked_layout.addWidget(self.configuration_page)
 
-        self.test_result_page = TestResultPage(self.test_template)
-        self.test_result_page.element_dict["Power Continuity"].append_test_result("Pin1","Pin2","10 V",False)
-        self.test_result_page.element_dict["Positive Circuit Continuity"].append_test_result("Pin1","Pin2","0.5 Ohm",True)
-        self.test_result_page.element_dict["Positive Circuit Continuity"].append_test_result("Pin1","Pin2","0.6 Ohm",True)
-        self.test_result_page.element_dict["Positive Circuit Continuity"].append_test_result("Pin1","Pin2","1.1 Ohm",False)
-        self.test_result_page.element_dict["Positive Circuit Continuity"].append_test_result("Pin1","Pin2","0.5 Ohm",True)
-        self.stacked_layout.addWidget(self.test_result_page)
-
-        self.navigation_pane.btn_configuration.clicked.connect(lambda: self.stacked_layout.setCurrentIndex(0))
-        self.navigation_pane.btn_test_results.clicked.connect(lambda: self.stacked_layout.setCurrentIndex(1))
+        self.test_results_page = TestResultsPage(self.test_template)
+        self.test_results_page.element_dict["Power Continuity"].append_test_result("Pin1","Pin2","10 V",False)
+        self.test_results_page.element_dict["Positive Circuit Continuity"].append_test_result("Pin1","Pin2","0.5 Ohm",True)
+        self.test_results_page.element_dict["Positive Circuit Continuity"].append_test_result("Pin1","Pin2","0.6 Ohm",True)
+        self.test_results_page.element_dict["Positive Circuit Continuity"].append_test_result("Pin1","Pin2","1.1 Ohm",False)
+        self.test_results_page.element_dict["Positive Circuit Continuity"].append_test_result("Pin1","Pin2","0.5 Ohm",True)
+        self.stacked_layout.addWidget(self.test_results_page)
 
         hbox_main.addLayout(self.stacked_layout)
+    
+    def btn_configuration_clicked(self, event):
+        self.stacked_layout.setCurrentIndex(0)
+    
+    def btn_test_results_clicked(self, event):
+        self.stacked_layout.setCurrentIndex(1)
     
     def load_config(self): # TODO
         path = "test_template/"
@@ -71,8 +71,8 @@ class MainWindow(QtWidgets.QMainWindow):
 
 if __name__ == "__main__":
     App = QtWidgets.QApplication(sys.argv)
-    App.setStyleSheet(qdarktheme.load_stylesheet("light"))
+    App.setStyleSheet(qdarktheme.load_stylesheet("dark"))
     window = MainWindow()
-    window.resize(1000,700)
+    window.resize(1000,600)
     window.show()
     sys.exit(App.exec())
