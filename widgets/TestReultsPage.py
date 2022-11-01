@@ -29,6 +29,12 @@ class TestResultsPage(QtWidgets.QWidget):
                 self.element_dict[key] = TestResultsElement(key, test_template[key]["Pass Criteria"])
                 vbox_scroll.addWidget(self.element_dict[key])
 
+        hbox_btn = QtWidgets.QHBoxLayout()
+        self.btn_export = QtWidgets.QPushButton("Export")
+        hbox_btn.addStretch(9)
+        hbox_btn.addWidget(self.btn_export)
+        vbox_main.addLayout(hbox_btn)
+
 class TestResultsElement(QtWidgets.QWidget):
     def __init__(self, title, pass_criteria):
         super().__init__()

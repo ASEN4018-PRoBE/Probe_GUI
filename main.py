@@ -73,6 +73,6 @@ if __name__ == "__main__":
     App = QtWidgets.QApplication(sys.argv)
     App.setStyleSheet(qdarktheme.load_stylesheet("dark"))
     window = MainWindow()
-    window.resize(1000,600)
+    window.resize(1000,700)
     window.show()
     sys.exit(App.exec())

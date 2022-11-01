@@ -27,7 +27,7 @@ class NavigationPane(QtWidgets.QWidget):
         vbox_main.addWidget(self.btn_configuration)
         vbox_main.addWidget(self.btn_test_results)
         vbox_main.addWidget(self.btn_detailed_plots)
-        vbox_main.addStretch(4)
+        vbox_main.addStretch(3)
         vbox_main.addWidget(self.btn_start)
         vbox_main.addWidget(self.btn_pause_resume)
         vbox_main.addWidget(self.btn_stop)
