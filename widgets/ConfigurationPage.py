@@ -1,4 +1,3 @@
-from xml.sax.handler import feature_external_ges
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt, QRegExp
 from PyQt5.QtGui import QRegExpValidator

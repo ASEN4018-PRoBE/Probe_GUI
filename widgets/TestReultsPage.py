@@ -9,7 +9,7 @@ class TestResultsPage(QtWidgets.QWidget):
         vbox_main = QtWidgets.QVBoxLayout()
         self.setLayout(vbox_main)
 
-        title = QtWidgets.QLabel("Test Results "+test_template["Battery Name"])
+        title = QtWidgets.QLabel("Test Results")
         title.setFont(font_title)
         vbox_main.addWidget(title)
 

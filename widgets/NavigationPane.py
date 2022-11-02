@@ -23,22 +23,31 @@ class NavigationPane(QtWidgets.QWidget):
         self.btn_detailed_plots = QtWidgets.QLabel("Detailed Plots")
         self.btn_detailed_plots.setFixedHeight(80)
         self.btn_detailed_plots.setFont(font_regular)
-        self.btn_start = QtWidgets.QPushButton("Start")
-        self.btn_start.setFont(font_regular)
-        self.btn_pause_resume = QtWidgets.QPushButton("Pause")
-        self.btn_pause_resume.setFont(font_regular)
-        self.btn_stop = QtWidgets.QPushButton("Stop")
-        self.btn_stop.setFont(font_regular)
         
         vbox_main.addWidget(self.btn_configuration)
         vbox_main.addWidget(self.btn_test_results)
         vbox_main.addWidget(self.btn_detailed_plots)
         vbox_main.addStretch(1)
-        vbox_main.addWidget(self.btn_start)
-        vbox_main.addWidget(self.btn_pause_resume)
-        vbox_main.addWidget(self.btn_stop)
+
+        hbox_btn = QtWidgets.QHBoxLayout()
+        self.btn_start = QtWidgets.QPushButton("▶️")
+        self.btn_pause_resume = QtWidgets.QPushButton("⏯")
+        self.btn_pause_resume.setFont(font_regular)
+        self.btn_stop = QtWidgets.QPushButton("⏹")
+        self.btn_stop.setFont(font_regular)
+        hbox_btn.addWidget(self.btn_start)
+        hbox_btn.addWidget(self.btn_pause_resume)
+        hbox_btn.addWidget(self.btn_stop)
+        vbox_main.addLayout(hbox_btn)
+        self.btn_start.setFixedHeight(50)
+        self.btn_pause_resume.setFixedHeight(50)
+        self.btn_stop.setFixedHeight(50)
 
         self.setStyleSheet('''
+            QPushButton{
+                font-size: 20px;
+                border: 1px solid gray;
+            }
             QLabel{
                 font-size: 20px;
                 font-weight: 400;

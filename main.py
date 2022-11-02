@@ -7,7 +7,8 @@ import qdarktheme
 from widgets.NavigationPane import NavigationPane
 from widgets.ConfigurationPage import ConfigurationPage
 from widgets.TestReultsPage import TestResultsPage
-from widgets.Fonts import font_regular
+from widgets.DetailedPlotsPage import DetailedPlotsPage
+from widgets.StatusBar import StatusBar
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -19,13 +20,14 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setCentralWidget(central_widget)
         hbox_main = QtWidgets.QHBoxLayout()
         central_widget.setLayout(hbox_main)
-        
+
         self.stacked_layout = QtWidgets.QStackedLayout()
         
         self.navigation_pane = NavigationPane()
         hbox_main.addWidget(self.navigation_pane)
         self.navigation_pane.btn_configuration.mousePressEvent = self.btn_configuration_clicked
         self.navigation_pane.btn_test_results.mousePressEvent = self.btn_test_results_clicked
+        self.navigation_pane.btn_detailed_plots.mousePressEvent = self.btn_detailed_plots_clicked
 
         vertical_line = QtWidgets.QFrame()
         vertical_line.setFrameShape(QtWidgets.QFrame.Shape.VLine)
@@ -40,23 +42,15 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.test_results_page = TestResultsPage(self.test_template)
         self.test_results_page.element_dict["Power Continuity"].append_test_result("Pin1","Pin2","10 V",False)
-        self.test_results_page.element_dict["Positive Circuit Continuity"].append_test_result("Pin1","Pin2","0.5 Ohm",True)
-        self.test_results_page.element_dict["Positive Circuit Continuity"].append_test_result("Pin1","Pin2","0.6 Ohm",True)
-        self.test_results_page.element_dict["Positive Circuit Continuity"].append_test_result("Pin1","Pin2","1.1 Ohm",False)
-        self.test_results_page.element_dict["Positive Circuit Continuity"].append_test_result("Pin1","Pin2","0.5 Ohm",True)
+        self.test_results_page.element_dict["Power Continuity"].append_test_result("Pin1","Pin2","28 V",True)
         self.stacked_layout.addWidget(self.test_results_page)
+
+        self.detailed_plots_page = DetailedPlotsPage(self.test_template)
+        self.stacked_layout.addWidget(self.detailed_plots_page)
 
         hbox_main.addLayout(self.stacked_layout)
 
-        self.status_bar = QtWidgets.QStatusBar()
-        self.status = QtWidgets.QLabel("  Welcome to ProBE")
-        self.status.setFont(font_regular)
-        self.status.setFixedHeight(30)
-        self.progress_bar = QtWidgets.QProgressBar()
-        self.progress_bar.setFixedSize(200,20)
-        self.progress_bar.setValue(0)
-        self.status_bar.addWidget(self.status)
-        self.status_bar.addPermanentWidget(self.progress_bar)
+        self.status_bar = StatusBar()
         self.setStatusBar(self.status_bar)
     
     def btn_configuration_clicked(self, event):
@@ -64,6 +58,9 @@ class MainWindow(QtWidgets.QMainWindow):
     
     def btn_test_results_clicked(self, event):
         self.stacked_layout.setCurrentIndex(1)
+
+    def btn_detailed_plots_clicked(self, event):
+        self.stacked_layout.setCurrentIndex(2)
     
     def load_config(self): # TODO
         path = "test_template/"
@@ -85,6 +82,6 @@ if __name__ == "__main__":
     App = QtWidgets.QApplication(sys.argv)
     App.setStyleSheet(qdarktheme.load_stylesheet("dark"))
     window = MainWindow()
-    window.resize(1000,650)
+    window.resize(1000,700)
     window.show()
     sys.exit(App.exec())
