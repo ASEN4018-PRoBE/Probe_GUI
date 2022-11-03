@@ -13,7 +13,12 @@ from widgets.StatusBar import StatusBar
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
+        
         self.setWindowTitle("ProBE")
+        self.theme = "dark"
+        self.setStyleSheet(qdarktheme.load_stylesheet(self.theme))
+        self.color_base = qdarktheme.load_palette(self.theme).base().color()
+        self.color_light = qdarktheme.load_palette(self.theme).light().color()
         with open("test_template/test_template.json","r") as f: self.test_template = json.loads(f.read())
 
         central_widget = QtWidgets.QWidget()
@@ -23,7 +28,8 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.stacked_layout = QtWidgets.QStackedLayout()
         
-        self.navigation_pane = NavigationPane()
+        self.navigation_pane = NavigationPane(self.color_light)
+        self.navigation_pane.recolor(0,self.color_base,self.color_light)
         hbox_main.addWidget(self.navigation_pane)
         self.navigation_pane.btn_configuration.mousePressEvent = self.btn_configuration_clicked
         self.navigation_pane.btn_test_results.mousePressEvent = self.btn_test_results_clicked
@@ -55,22 +61,25 @@ class MainWindow(QtWidgets.QMainWindow):
     
     def btn_configuration_clicked(self, event):
         self.stacked_layout.setCurrentIndex(0)
+        self.navigation_pane.recolor(0, self.color_base, self.color_light)
     
     def btn_test_results_clicked(self, event):
         self.stacked_layout.setCurrentIndex(1)
+        self.navigation_pane.recolor(1, self.color_base, self.color_light)
 
     def btn_detailed_plots_clicked(self, event):
         self.stacked_layout.setCurrentIndex(2)
+        self.navigation_pane.recolor(2, self.color_base, self.color_light)
     
     def load_config(self): # TODO
         path = "test_template/"
-        config_file = QtWidgets.QFileDialog.getOpenFileName(self,"Open Configuration File",path,"JSON Files (*.json)")[0]
+        config_file = QtWidgets.QFileDialog.getOpenFileName(self, "Open Configuration File", path, "JSON Files (*.json)")[0]
         if config_file:
             pass
 
     def save_as_config(self): # TODO
         path = "test_template/"
-        save_filename = QtWidgets.QFileDialog.getSaveFileName(self,"Save Configuration File",path+"/test_template.json","JSON Files (*.json)")[0]
+        save_filename = QtWidgets.QFileDialog.getSaveFileName(self, "Save Configuration File", path+"/test_template.json", "JSON Files (*.json)")[0]
         if save_filename:
             pass
 
@@ -80,7 +89,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
 if __name__ == "__main__":
     App = QtWidgets.QApplication(sys.argv)
-    App.setStyleSheet(qdarktheme.load_stylesheet("dark"))
     window = MainWindow()
     window.resize(1000,700)
     window.show()
