@@ -1,4 +1,4 @@
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtCore import Qt
 
 from .Fonts import font_subtitle
@@ -30,17 +30,20 @@ class NavigationPane(QtWidgets.QWidget):
         vbox_main.addStretch(1)
 
         hbox_btn = QtWidgets.QHBoxLayout()
-        self.btn_start = QtWidgets.QPushButton("▶")
-        self.btn_pause_resume = QtWidgets.QPushButton("⏯")
-        self.btn_stop = QtWidgets.QPushButton("⏹")
+        self.btn_start = QtWidgets.QPushButton()
+        self.btn_start.setIcon(QtGui.QIcon("images/play.svg"))
+        self.btn_pause_resume = QtWidgets.QPushButton()
+        self.btn_pause_resume.setIcon(QtGui.QIcon("images/pause_resume.svg"))
+        self.btn_stop = QtWidgets.QPushButton()
+        self.btn_stop.setIcon(QtGui.QIcon("images/stop.svg"))
         self.btn_stop.setFont(font_subtitle)
         hbox_btn.addWidget(self.btn_start)
         hbox_btn.addWidget(self.btn_pause_resume)
         hbox_btn.addWidget(self.btn_stop)
         vbox_main.addLayout(hbox_btn)
-        self.btn_start.setFixedHeight(50)
-        self.btn_pause_resume.setFixedHeight(50)
-        self.btn_stop.setFixedHeight(50)
+        self.btn_start.setFixedHeight(55)
+        self.btn_pause_resume.setFixedHeight(55)
+        self.btn_stop.setFixedHeight(55)
 
         self.setStyleSheet('''
             QPushButton{{
@@ -48,7 +51,6 @@ class NavigationPane(QtWidgets.QWidget):
                 border: 1px solid gray;
             }}
             QLabel{{
-                font-weight: 400;
                 text-align: center;
             }}
             QLabel::hover{{

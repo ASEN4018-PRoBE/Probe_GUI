@@ -46,6 +46,7 @@ class TestResultsElement(QtWidgets.QWidget):
         title = QtWidgets.QLabel(title)
         title.setFont(font_subtitle)
         label_pass_criteria = QtWidgets.QLabel("Pass Criteria: "+pass_criteria)
+        label_pass_criteria.setFont(font_regular)
         hbox_title.addWidget(title)
         hbox_title.addWidget(label_pass_criteria)
         hbox_title.addStretch(6)
