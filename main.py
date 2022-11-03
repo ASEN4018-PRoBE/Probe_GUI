@@ -15,7 +15,7 @@ class MainWindow(QtWidgets.QMainWindow):
         super().__init__()
         
         self.setWindowTitle("ProBE")
-        self.theme = "dark"
+        self.theme = "light"
         self.setStyleSheet(qdarktheme.load_stylesheet(self.theme))
         self.color_base = qdarktheme.load_palette(self.theme).base().color()
         self.color_light = qdarktheme.load_palette(self.theme).light().color()
@@ -90,6 +90,6 @@ class MainWindow(QtWidgets.QMainWindow):
 if __name__ == "__main__":
     App = QtWidgets.QApplication(sys.argv)
     window = MainWindow()
-    window.resize(1000,700)
+    window.resize(1200,800)
     window.show()
     sys.exit(App.exec())

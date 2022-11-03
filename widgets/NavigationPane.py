@@ -1,7 +1,7 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt
 
-from .Fonts import font_regular
+from .Fonts import font_subtitle
 
 class NavigationPane(QtWidgets.QWidget):
     def __init__(self, light):
@@ -14,15 +14,15 @@ class NavigationPane(QtWidgets.QWidget):
         self.btn_configuration = QtWidgets.QLabel("Configuration")
         self.btn_configuration.setFixedHeight(80)
         self.btn_configuration.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignVCenter)
-        self.btn_configuration.setFont(font_regular)
+        self.btn_configuration.setFont(font_subtitle)
         self.btn_test_results = QtWidgets.QLabel("Test Results")
         self.btn_test_results.setFixedHeight(80)
         self.btn_test_results.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignVCenter)
-        self.btn_test_results.setFont(font_regular)
+        self.btn_test_results.setFont(font_subtitle)
         self.btn_detailed_plots = QtWidgets.QLabel("Detailed Plots")
         self.btn_detailed_plots.setFixedHeight(80)
         self.btn_detailed_plots.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignVCenter)
-        self.btn_detailed_plots.setFont(font_regular)
+        self.btn_detailed_plots.setFont(font_subtitle)
         
         vbox_main.addWidget(self.btn_configuration)
         vbox_main.addWidget(self.btn_test_results)
@@ -30,10 +30,10 @@ class NavigationPane(QtWidgets.QWidget):
         vbox_main.addStretch(1)
 
         hbox_btn = QtWidgets.QHBoxLayout()
-        self.btn_start = QtWidgets.QPushButton("▶️")
+        self.btn_start = QtWidgets.QPushButton("▶")
         self.btn_pause_resume = QtWidgets.QPushButton("⏯")
         self.btn_stop = QtWidgets.QPushButton("⏹")
-        self.btn_stop.setFont(font_regular)
+        self.btn_stop.setFont(font_subtitle)
         hbox_btn.addWidget(self.btn_start)
         hbox_btn.addWidget(self.btn_pause_resume)
         hbox_btn.addWidget(self.btn_stop)
@@ -48,7 +48,6 @@ class NavigationPane(QtWidgets.QWidget):
                 border: 1px solid gray;
             }}
             QLabel{{
-                font-size: 20px;
                 font-weight: 400;
                 text-align: center;
             }}
