@@ -9,7 +9,7 @@ class NavigationPane(QtWidgets.QWidget):
         vbox_main = QtWidgets.QVBoxLayout()
         self.setLayout(vbox_main)
         vbox_main.setObjectName("vbox_main")
-        self.setFixedWidth(200)
+        self.setFixedWidth(230)
 
         self.btn_configuration = QtWidgets.QLabel("Configuration")
         self.btn_configuration.setFixedHeight(80)

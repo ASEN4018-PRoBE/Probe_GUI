@@ -1,7 +1,13 @@
+import matplotlib
+matplotlib.use('Qt5Agg')
+
 from PyQt5 import QtWidgets
 from PyQt5 import QtGui
 from PyQt5.QtCore import Qt
 from .Fonts import font_regular, font_subtitle, font_title
+
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationToolbar2QT as NavigationToolbar
+from matplotlib.figure import Figure
 
 class DetailedPlotsPage(QtWidgets.QWidget):
     def __init__(self, test_template):
@@ -50,10 +56,21 @@ class DetailedPlotsPage(QtWidgets.QWidget):
         hbox_combo.addWidget(self.label_pin2,1)
         hbox_combo.addWidget(self.combo_pin2,2)
 
-        label_plot = QtWidgets.QLabel()
-        label_plot.setPixmap(QtGui.QPixmap("./plot.png"))
-        label_plot.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.canvas = Canvas()
 
         vbox_main.addLayout(hbox_combo)
-        vbox_main.addWidget(label_plot)
+        vbox_main.addWidget(self.canvas)
         vbox_main.addStretch(1)
+
+    def plot(self, x, y):
+        self.canvas.axes.cla()
+        self.canvas.axes.grid()
+        self.canvas.axes.plot(x,y)
+        self.canvas.draw()
+
+class Canvas(FigureCanvasQTAgg):
+    def __init__(self, width=5, height=5, dpi=100):
+        fig = Figure(figsize=(width, height), dpi=dpi, tight_layout=True)
+        self.axes = fig.add_subplot(111)
+        self.axes.grid()
+        super(Canvas, self).__init__(fig)

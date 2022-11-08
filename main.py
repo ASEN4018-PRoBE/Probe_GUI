@@ -1,4 +1,5 @@
 import sys, json
+import numpy as np
 
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt
@@ -52,6 +53,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.stacked_layout.addWidget(self.test_results_page)
 
         self.detailed_plots_page = DetailedPlotsPage(self.test_template)
+        self.detailed_plots_page.plot(np.linspace(0,10),np.sin(np.linspace(0,10)))
         self.stacked_layout.addWidget(self.detailed_plots_page)
 
         hbox_main.addLayout(self.stacked_layout)

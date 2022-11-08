@@ -12,7 +12,7 @@ class ConfigurationPage(QtWidgets.QWidget):
         vbox_main = QtWidgets.QVBoxLayout()
         self.setLayout(vbox_main)
 
-        title = QtWidgets.QLabel("Configuration "+test_template["Battery Name"])
+        title = QtWidgets.QLabel(test_template["Battery Name"]+" Configuration")
         title.setFont(font_title)
         vbox_main.addWidget(title)
 
