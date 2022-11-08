@@ -2,7 +2,7 @@ from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt, QRegExp
 from PyQt5.QtGui import QRegExpValidator
 
-from .Fonts import font_title, font_subtitle, font_regular
+from .Fonts import font_title, font_subtitle, font_regular, font_regular_bold
 
 # Configuration Page for display in MainWindow
 # test_template: dictionary for test setup info, see test_template/test_template.json
@@ -98,7 +98,7 @@ class ConfigurationElement(QtWidgets.QWidget):
         self.configuration_rows = []
 
         for i in range(0,len(pins_list),2):
-            self.configuration_rows.append(ConfigurationRow(pins_list[i]))
+            self.configuration_rows.append(ConfigurationRow(i+1,pins_list[i]))
             grid_scroll.addWidget(self.configuration_rows[-1],i//2,0,1,5)
             vertical_line = QtWidgets.QFrame()
             vertical_line.setFrameShape(QtWidgets.QFrame.Shape.VLine)
@@ -106,7 +106,7 @@ class ConfigurationElement(QtWidgets.QWidget):
             vertical_line.setFixedHeight(30)
             grid_scroll.addWidget(vertical_line,i//2,5,1,1)
             if i+1!=len(pins_list):
-                self.configuration_rows.append(ConfigurationRow(pins_list[i+1]))
+                self.configuration_rows.append(ConfigurationRow(i+2,pins_list[i+1]))
                 grid_scroll.addWidget(self.configuration_rows[-1],i//2,6,1,5)
             else:
                 grid_scroll.addWidget(QtWidgets.QWidget(),i//2,6,1,5)
@@ -115,10 +115,13 @@ class ConfigurationElement(QtWidgets.QWidget):
 # A basic row in Configuration Page
 # pins: dictionary of pin combination in test_template
 class ConfigurationRow(QtWidgets.QWidget):
-    def __init__(self, pins):
+    def __init__(self, index, pins):
         super().__init__()
         hbox = QtWidgets.QHBoxLayout()
         self.setLayout(hbox)
+        label_index = QtWidgets.QLabel(str(index)+".")
+        #label_index.setFixedWidth(25)
+        label_index.setFont(font_regular_bold)
         label_pin1 = QtWidgets.QLabel("Pin 1:")
         label_pin1.setFont(font_regular)
         textbox_pin1 = QtWidgets.QLineEdit(pins["Pin 1"])
@@ -133,6 +136,7 @@ class ConfigurationRow(QtWidgets.QWidget):
         textbox_pin2.textChanged.connect(lambda: pins.update({"Pin 2":textbox_pin2.text()}))
         textbox_pin2.setFont(font_regular)
 
+        hbox.addWidget(label_index)
         hbox.addWidget(label_pin1)
         hbox.addWidget(textbox_pin1)
         hbox.addWidget(label_pin2)
