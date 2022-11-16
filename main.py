@@ -48,8 +48,13 @@ class MainWindow(QtWidgets.QMainWindow):
         self.stacked_layout.addWidget(self.configuration_page)
 
         self.test_results_page = TestResultsPage(self.test_template)
-        self.test_results_page.element_dict["Power Continuity"].append_test_result("Pin1","Pin2","10 V",False)
-        self.test_results_page.element_dict["Power Continuity"].append_test_result("Pin1","Pin2","28 V",True)
+        self.test_results_page.element_dict["Power Continuity"].append_test_result("J01-1","J01-11","28 V",True)
+        self.test_results_page.element_dict["Positive Circuit Continuity"].append_test_result("J01-1","J01-2","0.444",True)
+        self.test_results_page.element_dict["Positive Circuit Continuity"].append_test_result("J01-1","J01-2","0.441",True)
+        self.test_results_page.element_dict["Positive Circuit Continuity"].append_test_result("J01-1","J01-2","0.530",True)
+        self.test_results_page.element_dict["Negative Circuit Continuity"].append_test_result("J01-1","J01-2","0.439",True)
+        self.test_results_page.element_dict["Negative Circuit Continuity"].append_test_result("J01-1","J01-2","0.378",True)
+        self.test_results_page.element_dict["Negative Circuit Continuity"].append_test_result("J01-1","J01-2","0.385",True)
         self.stacked_layout.addWidget(self.test_results_page)
 
         self.detailed_plots_page = DetailedPlotsPage(self.test_template)
