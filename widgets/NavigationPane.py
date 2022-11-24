@@ -1,7 +1,7 @@
 from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtCore import Qt
 
-from .Fonts import font_subtitle
+from .Fonts import font_title, font_subtitle
 
 class NavigationPane(QtWidgets.QWidget):
     def __init__(self, light):
@@ -14,15 +14,15 @@ class NavigationPane(QtWidgets.QWidget):
         self.btn_configuration = QtWidgets.QLabel("Configuration")
         self.btn_configuration.setFixedHeight(80)
         self.btn_configuration.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignVCenter)
-        self.btn_configuration.setFont(font_subtitle)
+        self.btn_configuration.setFont(font_title)
         self.btn_test_results = QtWidgets.QLabel("Test Results")
         self.btn_test_results.setFixedHeight(80)
         self.btn_test_results.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignVCenter)
-        self.btn_test_results.setFont(font_subtitle)
+        self.btn_test_results.setFont(font_title)
         self.btn_detailed_plots = QtWidgets.QLabel("Detailed Plots")
         self.btn_detailed_plots.setFixedHeight(80)
         self.btn_detailed_plots.setAlignment(Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignVCenter)
-        self.btn_detailed_plots.setFont(font_subtitle)
+        self.btn_detailed_plots.setFont(font_title)
         
         vbox_main.addWidget(self.btn_configuration)
         vbox_main.addWidget(self.btn_test_results)

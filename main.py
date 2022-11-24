@@ -1,8 +1,6 @@
 import sys, json
-import numpy as np
 
 from PyQt5 import QtWidgets
-from PyQt5.QtCore import Qt
 import qdarktheme
 
 from widgets.NavigationPane import NavigationPane
@@ -10,6 +8,7 @@ from widgets.ConfigurationPage import ConfigurationPage
 from widgets.TestReultsPage import TestResultsPage
 from widgets.DetailedPlotsPage import DetailedPlotsPage
 from widgets.StatusBar import StatusBar
+from widgets.setup_gui import setup_gui
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -17,66 +16,17 @@ class MainWindow(QtWidgets.QMainWindow):
         
         self.setWindowTitle("ProBE")
         self.theme = "light"
-        self.setStyleSheet(qdarktheme.load_stylesheet(self.theme))
         self.color_base = qdarktheme.load_palette(self.theme).base().color()
         self.color_light = qdarktheme.load_palette(self.theme).light().color()
+
         with open("test_template/test_template.json","r") as f: self.test_template = json.loads(f.read())
-
-        central_widget = QtWidgets.QWidget()
-        self.setCentralWidget(central_widget)
-        hbox_main = QtWidgets.QHBoxLayout()
-        central_widget.setLayout(hbox_main)
-
-        self.stacked_layout = QtWidgets.QStackedLayout()
         
         self.navigation_pane = NavigationPane(self.color_light)
-        self.navigation_pane.recolor(0,self.color_base,self.color_light)
-        hbox_main.addWidget(self.navigation_pane)
-        self.navigation_pane.btn_configuration.mousePressEvent = self.btn_configuration_clicked
-        self.navigation_pane.btn_test_results.mousePressEvent = self.btn_test_results_clicked
-        self.navigation_pane.btn_detailed_plots.mousePressEvent = self.btn_detailed_plots_clicked
-
-        vertical_line = QtWidgets.QFrame()
-        vertical_line.setFrameShape(QtWidgets.QFrame.Shape.VLine)
-        vertical_line.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
-        hbox_main.addWidget(vertical_line)
-        
         self.configuration_page = ConfigurationPage(self.test_template)
-        self.configuration_page.btn_load.clicked.connect(self.load_config)
-        self.configuration_page.btn_save_as.clicked.connect(self.save_as_config)
-        self.configuration_page.btn_save.clicked.connect(self.save_config)
-        self.stacked_layout.addWidget(self.configuration_page)
-
         self.test_results_page = TestResultsPage(self.test_template)
-        self.test_results_page.element_dict["Power Continuity"].append_test_result("J01-1","J01-11","28 V",True)
-        self.test_results_page.element_dict["Positive Circuit Continuity"].append_test_result("J01-1","J01-2","0.444",True)
-        self.test_results_page.element_dict["Positive Circuit Continuity"].append_test_result("J01-1","J01-2","0.441",True)
-        self.test_results_page.element_dict["Positive Circuit Continuity"].append_test_result("J01-1","J01-2","0.530",True)
-        self.test_results_page.element_dict["Negative Circuit Continuity"].append_test_result("J01-1","J01-2","0.439",True)
-        self.test_results_page.element_dict["Negative Circuit Continuity"].append_test_result("J01-1","J01-2","0.378",True)
-        self.test_results_page.element_dict["Negative Circuit Continuity"].append_test_result("J01-1","J01-2","0.385",True)
-        self.stacked_layout.addWidget(self.test_results_page)
-
         self.detailed_plots_page = DetailedPlotsPage(self.test_template)
-        self.detailed_plots_page.plot(np.linspace(0,10),np.sin(np.linspace(0,10)))
-        self.stacked_layout.addWidget(self.detailed_plots_page)
-
-        hbox_main.addLayout(self.stacked_layout)
-
         self.status_bar = StatusBar()
-        self.setStatusBar(self.status_bar)
-    
-    def btn_configuration_clicked(self, event):
-        self.stacked_layout.setCurrentIndex(0)
-        self.navigation_pane.recolor(0, self.color_base, self.color_light)
-    
-    def btn_test_results_clicked(self, event):
-        self.stacked_layout.setCurrentIndex(1)
-        self.navigation_pane.recolor(1, self.color_base, self.color_light)
-
-    def btn_detailed_plots_clicked(self, event):
-        self.stacked_layout.setCurrentIndex(2)
-        self.navigation_pane.recolor(2, self.color_base, self.color_light)
+        setup_gui(self)
     
     def load_config(self): # TODO
         path = "test_template/"
