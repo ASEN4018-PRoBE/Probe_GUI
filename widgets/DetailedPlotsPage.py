@@ -1,9 +1,9 @@
 import matplotlib
 matplotlib.use('Qt5Agg')
 
-from PyQt5 import QtWidgets
-from PyQt5 import QtGui
-from PyQt5.QtCore import Qt
+from PyQt6 import QtWidgets
+from PyQt6 import QtGui
+from PyQt6.QtCore import Qt
 from .Fonts import font_regular, font_subtitle, font_title
 
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationToolbar2QT as NavigationToolbar

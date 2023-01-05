@@ -1,13 +1,11 @@
-import qdarktheme
-
-from PyQt5 import QtWidgets
+from PyQt6 import QtWidgets
 
 def setup_gui(self):
-    self.setStyleSheet(qdarktheme.load_stylesheet(self.theme))
-    central_widget = QtWidgets.QWidget()
-    self.setCentralWidget(central_widget)
+    if self.central_widget.layout():
+        # reparent the current layout of central_widget's layout
+        QtWidgets.QWidget().setLayout(self.central_widget.layout())
     hbox_main = QtWidgets.QHBoxLayout()
-    central_widget.setLayout(hbox_main)
+    self.central_widget.setLayout(hbox_main)
 
     self.stacked_layout = QtWidgets.QStackedLayout()
     

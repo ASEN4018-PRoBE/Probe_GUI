@@ -1,6 +1,6 @@
 import sys, json
 
-from PyQt5 import QtWidgets
+from PyQt6 import QtWidgets
 import qdarktheme
 
 from widgets.NavigationPane import NavigationPane
@@ -18,9 +18,16 @@ class MainWindow(QtWidgets.QMainWindow):
         self.theme = "light"
         self.color_base = qdarktheme.load_palette(self.theme).base().color()
         self.color_light = qdarktheme.load_palette(self.theme).light().color()
+        self.setStyleSheet(qdarktheme.load_stylesheet(self.theme))
+        self.central_widget = QtWidgets.QWidget()
+        self.setCentralWidget(self.central_widget)
 
-        with open("test_template/test_template.json","r") as f: self.test_template = json.loads(f.read())
-        
+        self.config_filename = "test_template/test_template.json"
+        self.setup_config(self.config_filename)
+
+    def setup_config(self, config_filename):
+        with open(config_filename,"r") as f:
+            self.test_template = json.loads(f.read())
         self.navigation_pane = NavigationPane(self.color_light)
         self.configuration_page = ConfigurationPage(self.test_template)
         self.test_results_page = TestResultsPage(self.test_template)
@@ -28,20 +35,24 @@ class MainWindow(QtWidgets.QMainWindow):
         self.status_bar = StatusBar()
         setup_gui(self)
     
-    def load_config(self): # TODO
+    def load_config(self):
         path = "test_template/"
-        config_file = QtWidgets.QFileDialog.getOpenFileName(self, "Open Configuration File", path, "JSON Files (*.json)")[0]
-        if config_file:
-            pass
+        config_filename = QtWidgets.QFileDialog.getOpenFileName(self, "Open Configuration File", path, "JSON Files (*.json)")[0]
+        if config_filename:
+            self.config_filename = config_filename
+            self.setup_config(self.config_filename)
 
-    def save_as_config(self): # TODO
+    def save_as_config(self):
         path = "test_template/"
         save_filename = QtWidgets.QFileDialog.getSaveFileName(self, "Save Configuration File", path+"/test_template.json", "JSON Files (*.json)")[0]
         if save_filename:
-            pass
+            with open(save_filename,"w") as f:
+                f.write(json.dumps(self.test_template,indent=4))
 
-    def save_config(self): # TODO
-        pass
+    def save_config(self):
+        save_filename = "test_template/test_template.json"
+        with open(save_filename,"w") as f:
+            f.write(json.dumps(self.test_template,indent=4))
 
 
 if __name__ == "__main__":

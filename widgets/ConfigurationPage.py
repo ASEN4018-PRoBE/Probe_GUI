@@ -1,6 +1,6 @@
-from PyQt5 import QtWidgets
-from PyQt5.QtCore import Qt, QRegExp
-from PyQt5.QtGui import QRegExpValidator
+from PyQt6 import QtWidgets
+from PyQt6.QtCore import Qt, QRegularExpression
+from PyQt6.QtGui import QRegularExpressionValidator
 
 from .Fonts import font_title, font_subtitle, font_regular, font_regular_bold
 
@@ -17,8 +17,8 @@ class ConfigurationPage(QtWidgets.QWidget):
         vbox_main.addWidget(title)
 
         scroll = QtWidgets.QScrollArea()
-        scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-        scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        scroll.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
+        scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         scroll.setWidgetResizable(True)
         widget_scroll = QtWidgets.QWidget()
         scroll.setWidget(widget_scroll)
@@ -61,18 +61,18 @@ class ConfigurationElement(QtWidgets.QWidget):
         label_duration = QtWidgets.QLabel("Pin Hold Duration [s]:")
         label_duration.setFont(font_regular)
         textbox_duration = QtWidgets.QLineEdit(self.function_dict["Duration"])
-        textbox_duration.setAlignment(Qt.AlignCenter)
+        textbox_duration.setAlignment(Qt.AlignmentFlag.AlignCenter)
         textbox_duration.setFixedWidth(50)
-        textbox_duration.setValidator(QRegExpValidator(QRegExp("^[1-9]\d{1,2}$")))
+        textbox_duration.setValidator(QRegularExpressionValidator(QRegularExpression("^[1-9]\d{1,2}$")))
         textbox_duration.textChanged.connect(lambda: self.function_dict.update({"Duration":textbox_duration.text()}))
         textbox_duration.setFont(font_regular)
         label_pass_criteria = QtWidgets.QLabel("Pass Criteria:")
         label_pass_criteria.setFont(font_regular)
         textbox_pass_criteria = QtWidgets.QLineEdit(self.function_dict["Pass Criteria"])
-        textbox_pass_criteria.setAlignment(Qt.AlignCenter)
+        textbox_pass_criteria.setAlignment(Qt.AlignmentFlag.AlignCenter)
         textbox_pass_criteria.setFixedWidth(150)
         textbox_pass_criteria.textChanged.connect(lambda: self.function_dict.update({"Pass Criteria":textbox_pass_criteria.text()}))
-        textbox_pass_criteria.setValidator(QRegExpValidator(QRegExp("^\[\d+.\d+ \d+.\d+\] [A-Za-z]+$")))
+        textbox_pass_criteria.setValidator(QRegularExpressionValidator(QRegularExpression("^\[\d+.\d+ \d+.\d+\] [A-Za-z]+$")))
         textbox_pass_criteria.setFont(font_regular)
 
         hbox_title.addWidget(label_title)
@@ -83,16 +83,23 @@ class ConfigurationElement(QtWidgets.QWidget):
         hbox_title.addStretch(6)
         vbox_main.addLayout(hbox_title)
         
-        scroll = QtWidgets.QScrollArea()
-        scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-        scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        scroll.setWidgetResizable(True)
-        scroll.setFixedHeight(min(80*len(pins_list),200))
-        widget_scroll = QtWidgets.QWidget()
-        scroll.setWidget(widget_scroll)
+        # scroll = QtWidgets.QScrollArea()
+        # scroll.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
+        # scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        # scroll.setWidgetResizable(True)
+        # scroll.setFixedHeight(min(80*len(pins_list),200))
+        # widget_scroll = QtWidgets.QWidget()
+        # scroll.setWidget(widget_scroll)
+        # grid_scroll = QtWidgets.QGridLayout()
+        # widget_scroll.setLayout(grid_scroll)
+        # vbox_main.addWidget(scroll)
+
         grid_scroll = QtWidgets.QGridLayout()
-        widget_scroll.setLayout(grid_scroll)
-        vbox_main.addWidget(scroll)
+        frame_grid = QtWidgets.QFrame()
+        frame_grid.setLayout(grid_scroll)
+        frame_grid.setFrameStyle(QtWidgets.QFrame.Shape.StyledPanel|QtWidgets.QFrame.Shadow.Plain)
+        vbox_main.addWidget(frame_grid)
+
         for i in range(11): grid_scroll.setColumnStretch(i,1)
 
         self.configuration_rows = []
@@ -120,19 +127,18 @@ class ConfigurationRow(QtWidgets.QWidget):
         hbox = QtWidgets.QHBoxLayout()
         self.setLayout(hbox)
         label_index = QtWidgets.QLabel(str(index)+".")
-        #label_index.setFixedWidth(25)
         label_index.setFont(font_regular_bold)
         label_pin1 = QtWidgets.QLabel("Pin 1:")
         label_pin1.setFont(font_regular)
         textbox_pin1 = QtWidgets.QLineEdit(pins["Pin 1"])
-        textbox_pin1.setAlignment(Qt.AlignCenter)
+        textbox_pin1.setAlignment(Qt.AlignmentFlag.AlignCenter)
         textbox_pin1.textChanged.connect(lambda: pins.update({"Pin 1":textbox_pin1.text()}))
         textbox_pin1.setFont(font_regular)
 
         label_pin2 = QtWidgets.QLabel("Pin 2:")
         label_pin2.setFont(font_regular)
         textbox_pin2 = QtWidgets.QLineEdit(pins["Pin 2"])
-        textbox_pin2.setAlignment(Qt.AlignCenter)
+        textbox_pin2.setAlignment(Qt.AlignmentFlag.AlignCenter)
         textbox_pin2.textChanged.connect(lambda: pins.update({"Pin 2":textbox_pin2.text()}))
         textbox_pin2.setFont(font_regular)
 

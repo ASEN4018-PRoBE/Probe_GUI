@@ -10,7 +10,7 @@ git clone --recurse-submodules https://github.com/ASEN4018-PRoBE/Probe_GUI.git
 
 - Matplotlib
 - Pandas
-- PyQt5
+- PyQt6
 - PyQtDarkTheme
 - PySerial
 - PyVisa

@@ -1,5 +1,5 @@
-from PyQt5 import QtWidgets
-from PyQt5.QtCore import Qt
+from PyQt6 import QtWidgets
+from PyQt6.QtCore import Qt
 
 from .Fonts import font_title, font_subtitle, font_regular
 
@@ -14,8 +14,8 @@ class TestResultsPage(QtWidgets.QWidget):
         vbox_main.addWidget(title)
 
         scroll = QtWidgets.QScrollArea()
-        scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-        scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        scroll.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
+        scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         scroll.setWidgetResizable(True)
         widget_scroll = QtWidgets.QWidget()
         scroll.setWidget(widget_scroll)
@@ -28,6 +28,10 @@ class TestResultsPage(QtWidgets.QWidget):
             if key!="Battery Name":
                 self.element_dict[key] = TestResultsElement(key, test_template[key]["Pass Criteria"])
                 vbox_scroll.addWidget(self.element_dict[key])
+                for _ in range(10):
+                    import random
+                    r = str(random.randint(10000,99999))
+                    self.element_dict[key].append_test_result(r,r,r,r)
 
         hbox_btn = QtWidgets.QHBoxLayout()
         self.btn_export = QtWidgets.QPushButton("Export")
@@ -52,22 +56,28 @@ class TestResultsElement(QtWidgets.QWidget):
         hbox_title.addStretch(6)
         vbox_main.addLayout(hbox_title)
         
-        self.scroll_area = QtWidgets.QScrollArea()
-        self.scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-        self.scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.scroll_area.setWidgetResizable(True)
-        widget_scroll = QtWidgets.QWidget()
-        self.scroll_area.setWidget(widget_scroll)
+        # self.scroll_area = QtWidgets.QScrollArea()
+        # self.scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
+        # self.scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        # self.scroll_area.setWidgetResizable(True)
+        # widget_scroll = QtWidgets.QWidget()
+        # self.scroll_area.setWidget(widget_scroll)
+        # self.vbox_scroll = QtWidgets.QVBoxLayout()
+        # widget_scroll.setLayout(self.vbox_scroll)
+        # vbox_main.addWidget(self.scroll_area)
+
         self.vbox_scroll = QtWidgets.QVBoxLayout()
-        widget_scroll.setLayout(self.vbox_scroll)
-        vbox_main.addWidget(self.scroll_area)
+        frame = QtWidgets.QFrame()
+        frame.setLayout(self.vbox_scroll)
+        frame.setFrameStyle(QtWidgets.QFrame.Shape.StyledPanel|QtWidgets.QFrame.Shadow.Plain)
+        vbox_main.addWidget(frame)
 
         self.test_result_rows = []
     
     def append_test_result(self, pin1, pin2, measurement, pass_fail):
         row = TestResultsRow(pin1, pin2, measurement, pass_fail)
         self.test_result_rows.append(row)
-        self.scroll_area.setFixedHeight(min(80*len(self.test_result_rows),200))
+        # self.scroll_area.setFixedHeight(min(80*len(self.test_result_rows),200))
         self.vbox_scroll.addWidget(row)
 
 
@@ -82,20 +92,20 @@ class TestResultsRow(QtWidgets.QWidget):
         self.setLayout(hbox)
 
         label_pin1 = QtWidgets.QLabel("Pin 1: "+pin1)
-        label_pin1.setAlignment(Qt.AlignCenter)
+        label_pin1.setAlignment(Qt.AlignmentFlag.AlignCenter)
         label_pin1.setFont(font_regular)
         label_pin2 = QtWidgets.QLabel("Pin 2: "+pin2)
-        label_pin2.setAlignment(Qt.AlignCenter)
+        label_pin2.setAlignment(Qt.AlignmentFlag.AlignCenter)
         label_pin2.setFont(font_regular)
         label_measurement = QtWidgets.QLabel("Measurement: "+measurement)
-        label_measurement.setAlignment(Qt.AlignCenter)
+        label_measurement.setAlignment(Qt.AlignmentFlag.AlignCenter)
         label_measurement.setFont(font_regular)
         sign_pass_fail = "✅" if pass_fail else "❌"
         label_pass_fail = QtWidgets.QLabel("Pass: "+sign_pass_fail)
-        label_pass_fail.setAlignment(Qt.AlignCenter)
+        label_pass_fail.setAlignment(Qt.AlignmentFlag.AlignCenter)
         label_pass_fail.setFont(font_regular)
 
         hbox.addWidget(label_pin1,2)
         hbox.addWidget(label_pin2,2)
-        hbox.addWidget(label_measurement,3)
+        hbox.addWidget(label_measurement,2)
         hbox.addWidget(label_pass_fail,2)

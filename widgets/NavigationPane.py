@@ -1,5 +1,5 @@
-from PyQt5 import QtWidgets, QtGui
-from PyQt5.QtCore import Qt
+from PyQt6 import QtWidgets, QtGui
+from PyQt6.QtCore import Qt
 
 from .Fonts import font_title, font_subtitle
 

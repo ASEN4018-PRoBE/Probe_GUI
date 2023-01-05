@@ -1,4 +1,4 @@
-from PyQt5 import QtWidgets
+from PyQt6 import QtWidgets
 import qdarktheme
 
 from .Fonts import font_regular, font_subtitle, font_title
@@ -19,6 +19,10 @@ class StatusBar(QtWidgets.QStatusBar):
         self.progress_bar.setFixedSize(200,20)
         self.progress_bar.setValue(0)
         self.addPermanentWidget(self.progress_bar)
+
+        space2 = QtWidgets.QWidget()
+        space2.setFixedWidth(15)
+        self.addPermanentWidget(space2)
 
         self.theme_light = False
         self.btn_theme = QtWidgets.QPushButton("🔆")
