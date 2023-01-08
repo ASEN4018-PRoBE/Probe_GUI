@@ -5,14 +5,14 @@ from PyQt6.QtGui import QRegularExpressionValidator
 from .Fonts import font_title, font_subtitle, font_regular, font_regular_bold
 
 # Configuration Page for display in MainWindow
-# test_template: dictionary for test setup info, see test_template/test_template.json
+# test_config: dictionary for test setup info, see test_template/test_template.json
 class ConfigurationPage(QtWidgets.QWidget):
-    def __init__(self, test_template):
+    def __init__(self, test_config):
         super().__init__()
         vbox_main = QtWidgets.QVBoxLayout()
         self.setLayout(vbox_main)
 
-        title = QtWidgets.QLabel(test_template["Battery Name"]+" Configuration")
+        title = QtWidgets.QLabel(test_config["Battery Name"]+" Configuration")
         title.setFont(font_title)
         vbox_main.addWidget(title)
 
@@ -26,9 +26,9 @@ class ConfigurationPage(QtWidgets.QWidget):
         widget_scroll.setLayout(vbox_scroll)
         vbox_main.addWidget(scroll)
 
-        for key in test_template:
+        for key in test_config:
             if key!="Battery Name":
-                vbox_scroll.addWidget(ConfigurationElement(key,test_template[key]))
+                vbox_scroll.addWidget(ConfigurationElement(key,test_config[key]))
 
         hbox_btn = QtWidgets.QHBoxLayout()
         vbox_main.addLayout(hbox_btn)
@@ -72,7 +72,7 @@ class ConfigurationElement(QtWidgets.QWidget):
         textbox_pass_criteria.setAlignment(Qt.AlignmentFlag.AlignCenter)
         textbox_pass_criteria.setFixedWidth(150)
         textbox_pass_criteria.textChanged.connect(lambda: self.function_dict.update({"Pass Criteria":textbox_pass_criteria.text()}))
-        textbox_pass_criteria.setValidator(QRegularExpressionValidator(QRegularExpression("^\[\d+.\d+ \d+.\d+\] [A-Za-z]+$")))
+        # textbox_pass_criteria.setValidator(QRegularExpressionValidator(QRegularExpression("^\[\d+\.?\d* \d+\.?\d*\] [A-Za-z]+$")))
         textbox_pass_criteria.setFont(font_regular)
 
         hbox_title.addWidget(label_title)

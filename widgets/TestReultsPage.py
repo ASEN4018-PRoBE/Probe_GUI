@@ -4,7 +4,7 @@ from PyQt6.QtCore import Qt
 from .Fonts import font_title, font_subtitle, font_regular
 
 class TestResultsPage(QtWidgets.QWidget):
-    def __init__(self, test_template):
+    def __init__(self, test_config):
         super().__init__()
         vbox_main = QtWidgets.QVBoxLayout()
         self.setLayout(vbox_main)
@@ -24,9 +24,9 @@ class TestResultsPage(QtWidgets.QWidget):
         vbox_main.addWidget(scroll)
 
         self.element_dict = dict()
-        for key in test_template:
+        for key in test_config:
             if key!="Battery Name":
-                self.element_dict[key] = TestResultsElement(key, test_template[key]["Pass Criteria"])
+                self.element_dict[key] = TestResultsElement(key, test_config[key]["Pass Criteria"])
                 vbox_scroll.addWidget(self.element_dict[key])
                 for _ in range(10):
                     import random

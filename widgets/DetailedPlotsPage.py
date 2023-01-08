@@ -10,7 +10,7 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationTool
 from matplotlib.figure import Figure
 
 class DetailedPlotsPage(QtWidgets.QWidget):
-    def __init__(self, test_template):
+    def __init__(self, test_config):
         super().__init__()
         vbox_main = QtWidgets.QVBoxLayout()
         self.setLayout(vbox_main)
@@ -40,10 +40,10 @@ class DetailedPlotsPage(QtWidgets.QWidget):
 
         set_pin1 = set()
         set_pin2 = set()
-        for key in test_template:
+        for key in test_config:
             if key!="Battery Name":
                 self.combo_func.addItem(key)
-                for d in test_template[key]["Pins"]:
+                for d in test_config[key]["Pins"]:
                     set_pin1.add(d["Pin 1"])
                     set_pin2.add(d["Pin 2"])
         self.combo_pin1.addItems(sorted(list(set_pin1)))
