@@ -9,7 +9,7 @@ git clone --recurse-submodules https://github.com/ASEN4018-PRoBE/Probe_GUI.git
 ## Required Packages
 
 - Matplotlib
-- Pandas
+- Numpy
 - PyQt6
 - PyQtDarkTheme
 - PySerial

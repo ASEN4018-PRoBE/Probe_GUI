@@ -1,5 +1,5 @@
 import numpy
-import global_var
+import global_vars
 
 class PinReading:
     def __init__(self, pin1:str, pin2:str, units:str, start_timestamp:float):
@@ -9,15 +9,8 @@ class PinReading:
         self.start_timestamp = start_timestamp
         self.time = numpy.array([])
         self.reading = numpy.array([])
-
-    def get_pass_fail(self, pass_criteria:str):
-        if len(self.time)==0: raise IndexError("empty pin reading array")
-        low,high,units = pass_criteria.replace("[","").replace("]","").split(" ")
-        if units==self.units:
-            low,high = float(low),float(high)
-            return low<=self.reading[-1] and self.reading[-1]<=high
-        else:
-            raise NotImplementedError("unit conversion not implemented")
+        self.pass_fail = None
+        self.isolation_pass_fail = None
 
 class FunctionStorage:
     def __init__(self, function_name:str, duration:float, pass_criteria:str, pin_readings:list[PinReading]=[]):
@@ -35,7 +28,7 @@ class FunctionStorage:
 class Storage:
     def __init__(self, test_config):
         self.storage = dict()
-        for test_function in global_var.test_functions:
+        for test_function in global_vars.test_functions:
             duration = float(test_config[test_function]["Duration"])
             pass_criteria = test_config[test_function]["Pass Criteria"]
             self.storage[test_function] = FunctionStorage(test_function,duration,pass_criteria)

@@ -1,4 +1,6 @@
-from PyQt6 import QtWidgets
+import random
+
+from PyQt6 import QtWidgets, QtSvgWidgets
 from PyQt6.QtCore import Qt
 
 from .Fonts import font_title, font_subtitle, font_regular
@@ -28,10 +30,10 @@ class TestResultsPage(QtWidgets.QWidget):
             if key!="Battery Name":
                 self.element_dict[key] = TestResultsElement(key, test_config[key]["Pass Criteria"])
                 vbox_scroll.addWidget(self.element_dict[key])
-                for _ in range(10):
-                    import random
+                for _ in range(random.randint(2,10)):
                     r = str(random.randint(10000,99999))
-                    self.element_dict[key].append_test_result(r,r,r,r)
+                    pf = random.randint(0,1)
+                    self.element_dict[key].append_test_result(r,r,r,pf)
 
         hbox_btn = QtWidgets.QHBoxLayout()
         self.btn_export = QtWidgets.QPushButton("Export")
@@ -55,38 +57,38 @@ class TestResultsElement(QtWidgets.QWidget):
         hbox_title.addWidget(label_pass_criteria)
         hbox_title.addStretch(6)
         vbox_main.addLayout(hbox_title)
-        
-        # self.scroll_area = QtWidgets.QScrollArea()
-        # self.scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
-        # self.scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
-        # self.scroll_area.setWidgetResizable(True)
-        # widget_scroll = QtWidgets.QWidget()
-        # self.scroll_area.setWidget(widget_scroll)
-        # self.vbox_scroll = QtWidgets.QVBoxLayout()
-        # widget_scroll.setLayout(self.vbox_scroll)
-        # vbox_main.addWidget(self.scroll_area)
 
-        self.vbox_scroll = QtWidgets.QVBoxLayout()
-        frame = QtWidgets.QFrame()
-        frame.setLayout(self.vbox_scroll)
-        frame.setFrameStyle(QtWidgets.QFrame.Shape.StyledPanel|QtWidgets.QFrame.Shadow.Plain)
-        vbox_main.addWidget(frame)
+        self.grid = QtWidgets.QGridLayout()
+        frame_grid = QtWidgets.QFrame()
+        frame_grid.setLayout(self.grid)
+        frame_grid.setFrameStyle(QtWidgets.QFrame.Shape.StyledPanel|QtWidgets.QFrame.Shadow.Plain)
+        vbox_main.addWidget(frame_grid)
+
+        for i in range(11): self.grid.setColumnStretch(i,1)
 
         self.test_result_rows = []
     
     def append_test_result(self, pin1, pin2, measurement, pass_fail):
         row = TestResultsRow(pin1, pin2, measurement, pass_fail)
+        l = len(self.test_result_rows)
         self.test_result_rows.append(row)
-        # self.scroll_area.setFixedHeight(min(80*len(self.test_result_rows),200))
-        self.vbox_scroll.addWidget(row)
-
+        if l%2==0:
+            self.grid.addWidget(row,l//2,0,1,5)
+            self.grid.addWidget(QtWidgets.QWidget(),l//2,6,1,5)
+        else:
+            vertical_line = QtWidgets.QFrame()
+            vertical_line.setFrameShape(QtWidgets.QFrame.Shape.VLine)
+            vertical_line.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
+            vertical_line.setFixedHeight(30)
+            self.grid.addWidget(vertical_line,l//2,5,1,1)
+            self.grid.addWidget(row,l//2,6,1,5)
 
 # pin1: pin1 as string in test sequence
 # pin2: pin2 as string in test sequence
 # measurement: measurement result as string from DMM
 # pass_fail: pass or fail as bool
 class TestResultsRow(QtWidgets.QWidget):
-    def __init__(self, pin1, pin2, measurement, pass_fail):
+    def __init__(self, pin1, pin2, measurement, pass_fail:bool):
         super().__init__()
         hbox = QtWidgets.QHBoxLayout()
         self.setLayout(hbox)
@@ -97,15 +99,20 @@ class TestResultsRow(QtWidgets.QWidget):
         label_pin2 = QtWidgets.QLabel("Pin 2: "+pin2)
         label_pin2.setAlignment(Qt.AlignmentFlag.AlignCenter)
         label_pin2.setFont(font_regular)
-        label_measurement = QtWidgets.QLabel("Measurement: "+measurement)
+        label_measurement = QtWidgets.QLabel("Reading: "+measurement)
         label_measurement.setAlignment(Qt.AlignmentFlag.AlignCenter)
         label_measurement.setFont(font_regular)
-        sign_pass_fail = "✅" if pass_fail else "❌"
-        label_pass_fail = QtWidgets.QLabel("Pass: "+sign_pass_fail)
-        label_pass_fail.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        label_pass_fail.setFont(font_regular)
-
+        if pass_fail:
+            label_pass_fail_svg = QtSvgWidgets.QSvgWidget("images/checkmark.square.fill.svg")
+        else:
+            label_pass_fail_svg = QtSvgWidgets.QSvgWidget("images/xmark.square.fill.svg")
+        label_pass_fail_svg.setFixedSize(15,15)
+        hbox.addStretch(1)
         hbox.addWidget(label_pin1,2)
+        hbox.addStretch(1)
         hbox.addWidget(label_pin2,2)
+        hbox.addStretch(1)
         hbox.addWidget(label_measurement,2)
-        hbox.addWidget(label_pass_fail,2)
+        hbox.addStretch(1)
+        hbox.addWidget(label_pass_fail_svg,2)
+        hbox.addStretch(1)

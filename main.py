@@ -1,7 +1,7 @@
 import sys, json
 
 from PyQt6 import QtWidgets
-import qdarktheme
+import qdarktheme, global_vars
 
 from widgets.NavigationPane import NavigationPane
 from widgets.ConfigurationPage import ConfigurationPage
@@ -15,7 +15,7 @@ class MainWindow(QtWidgets.QMainWindow):
         super().__init__()
         
         self.setWindowTitle("ProBE")
-        self.theme = "light"
+        self.theme = global_vars.theme
         self.color_base = qdarktheme.load_palette(self.theme).base().color()
         self.color_light = qdarktheme.load_palette(self.theme).light().color()
         self.setStyleSheet(qdarktheme.load_stylesheet(self.theme))

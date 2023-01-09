@@ -63,7 +63,7 @@ class ConfigurationElement(QtWidgets.QWidget):
         textbox_duration = QtWidgets.QLineEdit(self.function_dict["Duration"])
         textbox_duration.setAlignment(Qt.AlignmentFlag.AlignCenter)
         textbox_duration.setFixedWidth(50)
-        textbox_duration.setValidator(QRegularExpressionValidator(QRegularExpression("^[1-9]\d{1,2}$")))
+        textbox_duration.setValidator(QRegularExpressionValidator(QRegularExpression("^\d+\.?\d*$")))
         textbox_duration.textChanged.connect(lambda: self.function_dict.update({"Duration":textbox_duration.text()}))
         textbox_duration.setFont(font_regular)
         label_pass_criteria = QtWidgets.QLabel("Pass Criteria:")
@@ -82,41 +82,30 @@ class ConfigurationElement(QtWidgets.QWidget):
         hbox_title.addWidget(textbox_pass_criteria)
         hbox_title.addStretch(6)
         vbox_main.addLayout(hbox_title)
-        
-        # scroll = QtWidgets.QScrollArea()
-        # scroll.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
-        # scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
-        # scroll.setWidgetResizable(True)
-        # scroll.setFixedHeight(min(80*len(pins_list),200))
-        # widget_scroll = QtWidgets.QWidget()
-        # scroll.setWidget(widget_scroll)
-        # grid_scroll = QtWidgets.QGridLayout()
-        # widget_scroll.setLayout(grid_scroll)
-        # vbox_main.addWidget(scroll)
 
-        grid_scroll = QtWidgets.QGridLayout()
+        grid = QtWidgets.QGridLayout()
         frame_grid = QtWidgets.QFrame()
-        frame_grid.setLayout(grid_scroll)
+        frame_grid.setLayout(grid)
         frame_grid.setFrameStyle(QtWidgets.QFrame.Shape.StyledPanel|QtWidgets.QFrame.Shadow.Plain)
         vbox_main.addWidget(frame_grid)
 
-        for i in range(11): grid_scroll.setColumnStretch(i,1)
+        for i in range(11): grid.setColumnStretch(i,1)
 
         self.configuration_rows = []
 
         for i in range(0,len(pins_list),2):
             self.configuration_rows.append(ConfigurationRow(i+1,pins_list[i]))
-            grid_scroll.addWidget(self.configuration_rows[-1],i//2,0,1,5)
+            grid.addWidget(self.configuration_rows[-1],i//2,0,1,5)
             vertical_line = QtWidgets.QFrame()
             vertical_line.setFrameShape(QtWidgets.QFrame.Shape.VLine)
             vertical_line.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
             vertical_line.setFixedHeight(30)
-            grid_scroll.addWidget(vertical_line,i//2,5,1,1)
+            grid.addWidget(vertical_line,i//2,5,1,1)
             if i+1!=len(pins_list):
                 self.configuration_rows.append(ConfigurationRow(i+2,pins_list[i+1]))
-                grid_scroll.addWidget(self.configuration_rows[-1],i//2,6,1,5)
+                grid.addWidget(self.configuration_rows[-1],i//2,6,1,5)
             else:
-                grid_scroll.addWidget(QtWidgets.QWidget(),i//2,6,1,5)
+                grid.addWidget(QtWidgets.QWidget(),i//2,6,1,5)
 
 
 # A basic row in Configuration Page
