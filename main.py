@@ -25,7 +25,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.config_filename = "test_template/test_template.json"
         self.setup_config(self.config_filename)
 
-        # self.tester = Tester(self.test_config)
+        # self.tester = Tester(self.test_config,self)
 
     def keyPressEvent(self, event) -> None:
         if event.key()==QtCore.Qt.Key.Key_Escape:
