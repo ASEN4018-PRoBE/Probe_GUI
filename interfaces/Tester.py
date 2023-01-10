@@ -22,7 +22,6 @@ class TestRunnerThread(QThread):
             test_function = global_vars.test_functions[index_test_function]
             pass_criteria = self.test_config[test_function]["Pass Criteria"]
             duration = float(self.test_config[test_function]["Duration"])
-
             pins = self.test_config[test_function]["Pins"][index_pins]
             pin1 = pins["Pin 1"]
             pin2 = pins["Pin 2"]
