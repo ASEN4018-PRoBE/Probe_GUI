@@ -60,7 +60,13 @@ class DetailedPlotsPage(QtWidgets.QWidget):
 
         vbox_main.addLayout(hbox_combo)
         vbox_main.addWidget(self.canvas)
-        vbox_main.addStretch(1)
+
+        hbox_btn = QtWidgets.QHBoxLayout()
+        self.btn_export = QtWidgets.QPushButton("Export")
+        self.btn_export.setFont(font_regular)
+        hbox_btn.addStretch(9)
+        hbox_btn.addWidget(self.btn_export)
+        vbox_main.addLayout(hbox_btn)
 
     def plot(self, x, y):
         self.canvas.axes.cla()

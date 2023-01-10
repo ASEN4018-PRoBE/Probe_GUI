@@ -9,7 +9,7 @@ class NavigationPane(QtWidgets.QWidget):
         vbox_main = QtWidgets.QVBoxLayout()
         self.setLayout(vbox_main)
         vbox_main.setObjectName("vbox_main")
-        self.setFixedWidth(230)
+        self.setFixedWidth(190)
 
         self.btn_configuration = QtWidgets.QLabel("Configuration")
         self.btn_configuration.setFixedHeight(80)
@@ -37,8 +37,8 @@ class NavigationPane(QtWidgets.QWidget):
         hbox_btn.addWidget(self.btn_start)
         hbox_btn.addWidget(self.btn_stop)
         vbox_main.addLayout(hbox_btn)
-        self.btn_start.setFixedHeight(55)
-        self.btn_stop.setFixedHeight(55)
+        self.btn_start.setFixedHeight(40)
+        self.btn_stop.setFixedHeight(40)
 
         self.setStyleSheet(f'''
             QPushButton{{

@@ -83,15 +83,14 @@ class ConfigurationElement(QtWidgets.QWidget):
         hbox_title.addStretch(6)
         vbox_main.addLayout(hbox_title)
 
+        self.configuration_rows = []
+
         grid = QtWidgets.QGridLayout()
         frame_grid = QtWidgets.QFrame()
         frame_grid.setLayout(grid)
         frame_grid.setFrameStyle(QtWidgets.QFrame.Shape.StyledPanel|QtWidgets.QFrame.Shadow.Plain)
         vbox_main.addWidget(frame_grid)
-
         for i in range(11): grid.setColumnStretch(i,1)
-
-        self.configuration_rows = []
 
         for i in range(0,len(pins_list),2):
             self.configuration_rows.append(ConfigurationRow(i+1,pins_list[i]))

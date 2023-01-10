@@ -1,14 +1,14 @@
-import sys, json
+import sys, json, qdarktheme
+from PyQt6 import QtWidgets, QtCore
 
-from PyQt6 import QtWidgets
-import qdarktheme, global_vars
-
+import global_vars
 from widgets.NavigationPane import NavigationPane
 from widgets.ConfigurationPage import ConfigurationPage
-from widgets.TestReultsPage import TestResultsPage
+from widgets.TestResultsPage import TestResultsPage
 from widgets.DetailedPlotsPage import DetailedPlotsPage
 from widgets.StatusBar import StatusBar
 from widgets.setup_gui import setup_gui
+from interfaces.Tester import Tester
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -24,6 +24,12 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.config_filename = "test_template/test_template.json"
         self.setup_config(self.config_filename)
+
+        # self.tester = Tester(self.test_config)
+
+    def keyPressEvent(self, event) -> None:
+        if event.key()==QtCore.Qt.Key.Key_Escape:
+            quit()
 
     def setup_config(self, config_filename):
         with open(config_filename,"r") as f:
@@ -58,6 +64,6 @@ class MainWindow(QtWidgets.QMainWindow):
 if __name__ == "__main__":
     App = QtWidgets.QApplication(sys.argv)
     window = MainWindow()
-    window.resize(1200,800)
+    window.resize(1000,700)
     window.show()
     sys.exit(App.exec())
