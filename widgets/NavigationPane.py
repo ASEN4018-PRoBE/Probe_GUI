@@ -37,13 +37,13 @@ class NavigationPane(QtWidgets.QWidget):
         hbox_btn.addWidget(self.btn_start)
         hbox_btn.addWidget(self.btn_stop)
         vbox_main.addLayout(hbox_btn)
-        self.btn_start.setFixedHeight(40)
-        self.btn_stop.setFixedHeight(40)
+        self.btn_start.setFixedHeight(45)
+        self.btn_stop.setFixedHeight(45)
 
         self.setStyleSheet(f'''
             QPushButton{{
-                font-size: 25px;
-                border: 1px solid gray;
+                border-width: 1px;
+                border-color: rgb(180,180,180);
             }}
             QLabel{{
                 text-align: center;

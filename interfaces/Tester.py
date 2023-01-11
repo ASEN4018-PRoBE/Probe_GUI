@@ -8,13 +8,14 @@ index_test_function = 0
 index_pins = 0
 
 class TestRunnerThread(QThread):
+    result = pyqtSignal(dict)
+
     def __init__(self, test_config):
         super(QThread, self).__init__()
         self.test_config = test_config
         self.mcu = MCUInterface.MCUInterface(global_vars.arduino_vid, global_vars.arduino_pid)
         self.dmm = DMMInterface.DMMInterface(global_vars.dmm_name)
         self.iso = ISOInterface.ISOInterface(global_vars.iso_name)
-        self.result = pyqtSignal(dict)
 
     def run(self):
         global index_test_function, index_pins
@@ -56,9 +57,9 @@ class TestRunnerThread(QThread):
                     return # complete and stop
 
 class Tester:
-    def __init__(self, test_config, main_window):
+    def __init__(self, test_config, test_results_page):
         self.test_config = test_config
-        self.main_window = main_window
+        self.test_results_page = test_results_page
         self.test_storage = Storage(test_config) # to be populated
         self.test_runner = TestRunnerThread(test_config)
         self.test_runner.result.connect(self.proceess_test_runner_result)
@@ -89,7 +90,7 @@ class Tester:
         pin_reading.reading = reading
         pin_reading.pass_fail = self.get_pass_fail(reading,units,pass_criteria)
         self.test_storage.storage[test_function].pin_readings.append()
-        self.main_window.test_results_page.element_dict[test_function].append_test_result(pin1,pin2,reading[-1],pin_reading.pass_fail)
+        self.test_results_page.element_dict[test_function].append_test_result(pin1,pin2,reading[-1],pin_reading.pass_fail)
 
     def get_pass_fail(self, reading, reading_units, pass_criteria:str) -> bool:
         low,high,units = pass_criteria.replace("[","").replace("]","").split(" ")
