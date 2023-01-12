@@ -24,22 +24,15 @@ class StatusBar(QtWidgets.QStatusBar):
         space2.setFixedWidth(15)
         self.addPermanentWidget(space2)
 
-        self.theme_light = False
-        self.btn_theme = QtWidgets.QPushButton("🔆")
-        self.btn_theme.setFixedHeight(26)
-        self.btn_theme.clicked.connect(self.btn_theme_clicked)
-        #self.addPermanentWidget(self.btn_theme)
-
         self.setStyleSheet('''
             QProgressBar{
                 border: 1px solid gray;
             }
         ''')
-    
-    def btn_theme_clicked(self):
-        if not self.theme_light:
-            QtWidgets.QApplication.instance().setStyleSheet(qdarktheme.load_stylesheet("light"))
-            self.theme_light = True
-        else:
-            QtWidgets.QApplication.instance().setStyleSheet(qdarktheme.load_stylesheet("dark"))
-            self.theme_light = False
+
+    def set_message(self, started:bool, test_function, pin1, pin2, time_remain):
+        b = " "*15
+        text_started = "Test Not Started"
+        if started: text_started = "Test Running"
+        text = f"{text_started}{b}Function: {test_function}{b}Pins: {pin1} & {pin2}{b}Time Remaining: {time_remain}"
+        self.label_msg.setText(text)

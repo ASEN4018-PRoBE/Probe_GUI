@@ -1,3 +1,4 @@
+import numpy as np
 from PyQt6 import QtWidgets
 
 def setup_gui(self):
@@ -22,9 +23,14 @@ def setup_gui(self):
     def btn_detailed_plots_clicked(event):
         self.stacked_layout.setCurrentIndex(2)
         self.navigation_pane.recolor(2, self.color_base, self.color_light)
+
+    def btn_help_about_clicked(event):
+        self.stacked_layout.setCurrentIndex(3)
+        self.navigation_pane.recolor(3, self.color_base, self.color_light)
     self.navigation_pane.btn_configuration.mousePressEvent = btn_configuration_clicked
     self.navigation_pane.btn_test_results.mousePressEvent = btn_test_results_clicked
     self.navigation_pane.btn_detailed_plots.mousePressEvent = btn_detailed_plots_clicked
+    self.navigation_pane.btn_help_about.mousePressEvent = btn_help_about_clicked
 
     vertical_line = QtWidgets.QFrame()
     vertical_line.setFrameShape(QtWidgets.QFrame.Shape.VLine)
@@ -34,14 +40,19 @@ def setup_gui(self):
     self.configuration_page.btn_load.clicked.connect(self.load_config)
     self.configuration_page.btn_save_as.clicked.connect(self.save_as_config)
     self.configuration_page.btn_save.clicked.connect(self.save_config)
+
     self.stacked_layout.addWidget(self.configuration_page)
-
     self.stacked_layout.addWidget(self.test_results_page)
-
     self.stacked_layout.addWidget(self.detailed_plots_page)
+    self.stacked_layout.addWidget(self.help_about_page)
 
     hbox_main.addLayout(self.stacked_layout)
 
     self.setStatusBar(self.status_bar)
-    self.status_bar.label_msg.setText("Test Started        Function: Negative Circuit Continuity        Pins: T01-1 & T01-11        Time Remaining: 1hr 30min")
+
+    # templates for presentation
+    self.status_bar.set_message(False,"n/a","n/a","n/a","n/a")
     self.status_bar.progress_bar.setValue(30)
+    x = np.linspace(0,2*np.pi)
+    y = np.sin(x)
+    self.detailed_plots_page.plot(x,y)

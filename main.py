@@ -6,6 +6,7 @@ from widgets.NavigationPane import NavigationPane
 from widgets.ConfigurationPage import ConfigurationPage
 from widgets.TestResultsPage import TestResultsPage
 from widgets.DetailedPlotsPage import DetailedPlotsPage
+from widgets.HelpAboutPage import HelpAboutPage
 from widgets.StatusBar import StatusBar
 from widgets.setup_gui import setup_gui
 from interfaces.Tester import Tester
@@ -28,8 +29,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # self.tester = Tester(self.test_config,self.test_results_page)
 
     def keyPressEvent(self, event) -> None:
-        if event.key()==QtCore.Qt.Key.Key_Escape:
-            quit()
+        if event.key()==QtCore.Qt.Key.Key_Escape or event.key()==QtCore.Qt.Key.Key_Q: quit()
 
     def setup_config(self, config_filename):
         with open(config_filename,"r") as f:
@@ -38,6 +38,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.configuration_page = ConfigurationPage(self.test_config)
         self.test_results_page = TestResultsPage(self.test_config)
         self.detailed_plots_page = DetailedPlotsPage(self.test_config)
+        self.help_about_page = HelpAboutPage()
         self.status_bar = StatusBar()
         setup_gui(self)
     
