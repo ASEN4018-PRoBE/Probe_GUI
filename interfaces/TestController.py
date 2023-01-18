@@ -1,4 +1,4 @@
-import time, numpy
+import time
 from PyQt6.QtCore import QThread, pyqtSignal, pyqtSlot
 
 import global_vars
@@ -28,17 +28,17 @@ class TestRunnerThread(QThread):
             pin2 = pins["Pin 2"]
 
             time_start = time.time()
-            reading = numpy.array([])
-            t = numpy.array([])
+            reading = []
+            t = []
             units = self.dmm.units_voltage if (test_function in global_vars.voltage_tests) else self.dmm.units_resistance
             while (time.time()-time_start)<=duration:
                 if test_function in global_vars.voltage_tests:
                     if self.mcu.switch(pin1, pin2, None, None):
-                        numpy.append(reading, self.dmm.voltage())
+                        reading.append(self.dmm.voltage())
                 elif test_function in global_vars.resistance_tests: # four wire meas
                     if self.mcu.switch(pin1, pin2, pin1, pin2):
-                        numpy.append(reading, self.dmm.resistance)
-                numpy.append(t, time.time()-time_start)
+                        reading.append(self.dmm.resistance)
+                t.append(time.time()-time_start)
 
             result_dict = {
                 "test_function":test_function,
@@ -54,12 +54,14 @@ class TestRunnerThread(QThread):
                 index_test_function += 1
                 index_pins = 0
                 if index_test_function==len(global_vars.test_functions):
-                    return # complete and stop
+                    break # break and do isolation tests
 
-class Tester:
-    def __init__(self, test_config, test_results_page):
+        # TODO: perform isolaation test for global_vars.isolation_tests
+
+class TestController:
+    def __init__(self, test_config, main_window):
         self.test_config = test_config
-        self.test_results_page = test_results_page
+        self.main_window = main_window
         self.test_storage = Storage(test_config) # to be populated
         self.test_runner = TestRunnerThread(test_config)
         self.test_runner.result.connect(self.proceess_test_runner_result)
@@ -90,7 +92,7 @@ class Tester:
         pin_reading.reading = reading
         pin_reading.pass_fail = self.get_pass_fail(reading,units,pass_criteria)
         self.test_storage.storage[test_function].pin_readings.append()
-        self.test_results_page.element_dict[test_function].append_test_result(pin1,pin2,reading[-1],pin_reading.pass_fail)
+        self.mainwindow.test_results_page.element_dict[test_function].append_test_result(pin1,pin2,reading[-1],pin_reading.pass_fail)
 
     def get_pass_fail(self, reading, reading_units, pass_criteria:str) -> bool:
         low,high,units = pass_criteria.replace("[","").replace("]","").split(" ")
@@ -131,7 +133,7 @@ class PinReading:
         self.pin1 = pin1
         self.pin2 = pin2
         self.units = units
-        self.time = numpy.array([])
-        self.reading = numpy.array([])
+        self.time = []
+        self.reading = []
         self.pass_fail = None
         self.isolation_pass_fail = None

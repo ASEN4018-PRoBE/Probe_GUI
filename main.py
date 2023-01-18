@@ -9,7 +9,7 @@ from widgets.DetailedPlotsPage import DetailedPlotsPage
 from widgets.HelpAboutPage import HelpAboutPage
 from widgets.StatusBar import StatusBar
 from widgets.setup_gui import setup_gui
-from interfaces.Tester import Tester
+from interfaces.TestController import TestController
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -26,7 +26,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.config_filename = "test_template/test_template.json"
         self.setup_config(self.config_filename)
 
-        # self.tester = Tester(self.test_config,self.test_results_page)
+        # self.tester = TestController(self.test_config,self)
 
     def keyPressEvent(self, event) -> None:
         if event.key()==QtCore.Qt.Key.Key_Escape or event.key()==QtCore.Qt.Key.Key_Q: quit()
