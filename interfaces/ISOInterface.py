@@ -7,8 +7,8 @@ class ISOInterface:
         rm = pyvisa.ResourceManager()
         try:
             self.iso = rm.open_resource(iso_name)
+            self.iso.write_termination = "\n"
+            self.iso.read_termination = "\n"
         except:
             global_vars.pop_critical("Connection to Isolation Tester Failed")
-            quit()
-        self.iso.write_termination = "\n"
-        self.iso.read_termination = "\n"
+        

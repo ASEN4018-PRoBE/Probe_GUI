@@ -30,9 +30,9 @@ class StatusBar(QtWidgets.QStatusBar):
             }
         ''')
 
-    def set_message(self, started:bool, test_function, pin1, pin2, time_remain):
-        b = " "*15
-        text_started = "Test Not Started"
+    def set_message(self, started:bool, test_function, pin1, pin2):
+        b = " "*10
+        text_started = "Test Not Running"
         if started: text_started = "Test Running"
-        text = f"{text_started}{b}Function: {test_function}{b}Pins: {pin1} & {pin2}{b}Time Remaining: {time_remain}"
+        text = f"{text_started}{b}Testing: {test_function} @ {pin1} & {pin2}"
         self.label_msg.setText(text)

@@ -30,10 +30,6 @@ class TestResultsPage(QtWidgets.QWidget):
             if key!="Battery Name":
                 self.element_dict[key] = TestResultsElement(key, test_config[key]["Pass Criteria"])
                 vbox_scroll.addWidget(self.element_dict[key])
-                for _ in range(random.randint(2,10)):
-                    r = str(random.randint(10000,99999))
-                    pf = random.randint(0,1)
-                    self.element_dict[key].append_test_result(r,r,r,pf)
 
         hbox_btn = QtWidgets.QHBoxLayout()
         self.btn_export = QtWidgets.QPushButton("Export")
@@ -92,6 +88,7 @@ class TestResultsRow(QtWidgets.QWidget):
         super().__init__()
         hbox = QtWidgets.QHBoxLayout()
         self.setLayout(hbox)
+        self.max_length_measurement = 5
 
         label_pin1 = QtWidgets.QLabel("Pin 1: "+pin1)
         label_pin1.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -99,7 +96,7 @@ class TestResultsRow(QtWidgets.QWidget):
         label_pin2 = QtWidgets.QLabel("Pin 2: "+pin2)
         label_pin2.setAlignment(Qt.AlignmentFlag.AlignCenter)
         label_pin2.setFont(font_regular)
-        label_measurement = QtWidgets.QLabel("Reading: "+measurement)
+        label_measurement = QtWidgets.QLabel(measurement)
         label_measurement.setAlignment(Qt.AlignmentFlag.AlignCenter)
         label_measurement.setFont(font_regular)
         if pass_fail:

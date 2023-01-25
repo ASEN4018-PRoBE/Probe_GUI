@@ -1,5 +1,6 @@
 import time
-from PyQt6.QtCore import QThread, pyqtSignal, pyqtSlot
+from PyQt6 import QtGui
+from PyQt6.QtCore import QThread, pyqtSignal
 
 import global_vars
 from interfaces import DMMInterface, ISOInterface, MCUInterface
@@ -30,14 +31,22 @@ class TestRunnerThread(QThread):
             time_start = time.time()
             reading = []
             t = []
-            units = self.dmm.units_voltage if (test_function in global_vars.voltage_tests) else self.dmm.units_resistance
+            
+            # switch on pins
+            success_switch = False
+            if test_function in global_vars.voltage_tests:
+                units = self.dmm.units_voltage
+                success_switch = self.mcu.switch(pin1, pin2, None, None, duration)
+            elif test_function in global_vars.resistance_tests:
+                units = self.dmm.units_resistance
+                success_switch = self.mcu.switch(pin1, pin2, pin1, pin2, duration)
+            
+            # take measurement from DMM
             while (time.time()-time_start)<=duration:
                 if test_function in global_vars.voltage_tests:
-                    if self.mcu.switch(pin1, pin2, None, None):
-                        reading.append(self.dmm.voltage())
+                    reading.append(self.dmm.voltage())
                 elif test_function in global_vars.resistance_tests: # four wire meas
-                    if self.mcu.switch(pin1, pin2, pin1, pin2):
-                        reading.append(self.dmm.resistance)
+                    reading.append(self.dmm.resistance())
                 t.append(time.time()-time_start)
 
             result_dict = {
@@ -62,15 +71,26 @@ class TestController:
     def __init__(self, test_config, main_window):
         self.test_config = test_config
         self.main_window = main_window
-        self.test_storage = Storage(test_config) # to be populated
+        self.test_storage = Storage(test_config)
         self.test_runner = TestRunnerThread(test_config)
         self.test_runner.result.connect(self.proceess_test_runner_result)
 
     def start(self):
         self.test_runner.start()
+        global index_test_function, index_pins
+        test_function = global_vars.test_functions[index_test_function]
+        pins = self.test_config[test_function]["Pins"][index_pins]
+        pin1 = pins["Pin 1"]
+        pin2 = pins["Pin 2"]
+        self.main_window.status_bar.set_message(True,test_function,pin1,pin2)
+        self.main_window.navigation_pane.btn_start.setIcon(QtGui.QIcon("images/pause.svg"))
+        self.main_window.navigation_pane.btn_start.clicked.connect(self.pause)
     
     def pause(self):
         self.test_runner.terminate()
+        self.main_window.status_bar.set_message(False,"n/a","n/a","n/a")
+        self.main_window.navigation_pane.btn_start.setIcon(QtGui.QIcon("images/play.svg"))
+        self.main_window.navigation_pane.btn_start.clicked.connect(self.start)
 
     def stop(self):
         self.test_runner.terminate()
@@ -78,7 +98,7 @@ class TestController:
         index_test_function = 0
         index_pins = 0
     
-    @pyqtSlot(dict)
+    # @pyqtSlot(dict)
     def proceess_test_runner_result(self, result:dict):
         test_function = result["test_function"]
         pin1 = result["pin1"]
@@ -91,16 +111,24 @@ class TestController:
         pin_reading.time = t
         pin_reading.reading = reading
         pin_reading.pass_fail = self.get_pass_fail(reading,units,pass_criteria)
-        self.test_storage.storage[test_function].pin_readings.append()
-        self.mainwindow.test_results_page.element_dict[test_function].append_test_result(pin1,pin2,reading[-1],pin_reading.pass_fail)
+        self.test_storage.storage[test_function].pin_readings.append(pin_reading)
+        self.main_window.test_results_page.element_dict[test_function].append_test_result(pin1,pin2,"{0:.3f}".format(reading[-1])+" "+units,pin_reading.pass_fail)
+
+        global index_test_function, index_pins
+        test_function = global_vars.test_functions[index_test_function]
+        pins = self.test_config[test_function]["Pins"][index_pins]
+        pin1 = pins["Pin 1"]
+        pin2 = pins["Pin 2"]
+        self.main_window.status_bar.set_message(True,test_function,pin1,pin2)
 
     def get_pass_fail(self, reading, reading_units, pass_criteria:str) -> bool:
         low,high,units = pass_criteria.replace("[","").replace("]","").split(" ")
         low,high = float(low),float(high)
-        if reading_units==units:
-            return low<=reading and reading<=high
-        else:
-            raise NotImplementedError("unit conversion not implemented")
+        value = reading[-1]
+        if reading_units!=units:
+            value *= global_vars.unit_conversion[units[0]]
+        return low<=value and value<=high
+            
 
 class Storage:
     def __init__(self, test_config):

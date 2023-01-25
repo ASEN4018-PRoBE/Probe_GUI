@@ -1,4 +1,4 @@
-import serial
+import time, serial
 import serial.tools.list_ports as stl
 
 import global_vars
@@ -18,9 +18,9 @@ class MCUInterface:
                 break
         if port is None:
             global_vars.pop_critical("Connection to ProBE Box Failed")
-            quit()
-        self.ser.port = port.name
-        self.ser.open()
+        else:
+            self.ser.port = port.name
+            self.ser.open()
 
     def send_command(self, command):
         self.ser.write(bytearray((command+"\n").encode()))
@@ -31,7 +31,11 @@ class MCUInterface:
     # pcb1: v-, pcb2: v+, pcb3: sense-, pcb4: sense+
     # return True if received ack from arduino
     def switch(self, pin_pcb1, pin_pcb2, pin_pcb3, pin_pcb4, duration) -> bool:
+        time.sleep(1)
+        return True
         raise NotImplementedError()
 
     def switch_reset() -> bool: # reset all switches
+        time.sleep(1)
+        return True
         raise NotImplementedError()

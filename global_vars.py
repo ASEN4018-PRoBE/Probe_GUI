@@ -2,6 +2,8 @@ from PyQt6.QtWidgets import QMessageBox
 
 theme = ("light","dark")[0]
 
+unit_conversion = {"m":10**(-3), "k":10**3, "M":10**6, "G":10**9}
+
 arduino_vid = 1234
 arduino_pid = 4321
 dmm_name = "dmm_name"

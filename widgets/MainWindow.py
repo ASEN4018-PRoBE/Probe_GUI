@@ -1,4 +1,4 @@
-import sys, json, qdarktheme
+import json, qdarktheme, numpy
 from PyQt6 import QtWidgets, QtCore
 
 import global_vars
@@ -8,7 +8,6 @@ from widgets.TestResultsPage import TestResultsPage
 from widgets.DetailedPlotsPage import DetailedPlotsPage
 from widgets.HelpAboutPage import HelpAboutPage
 from widgets.StatusBar import StatusBar
-from widgets.setup_gui import setup_gui
 from interfaces.TestController import TestController
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -26,8 +25,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.config_filename = "test_template/test_template.json"
         self.setup_config(self.config_filename)
 
-        # self.tester = TestController(self.test_config,self)
-
     def keyPressEvent(self, event) -> None:
         if event.key()==QtCore.Qt.Key.Key_Escape or event.key()==QtCore.Qt.Key.Key_Q: quit()
 
@@ -40,6 +37,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.detailed_plots_page = DetailedPlotsPage(self.test_config)
         self.help_about_page = HelpAboutPage()
         self.status_bar = StatusBar()
+        self.tester = TestController(self.test_config,self)
         setup_gui(self)
     
     def load_config(self):
@@ -60,3 +58,61 @@ class MainWindow(QtWidgets.QMainWindow):
         save_filename = "test_template/test_template.json"
         with open(save_filename,"w") as f:
             f.write(json.dumps(self.test_config,indent=4))
+
+def setup_gui(self:MainWindow):
+    if self.central_widget.layout():
+        # reparent the current layout of central_widget's layout
+        QtWidgets.QWidget().setLayout(self.central_widget.layout())
+    hbox_main = QtWidgets.QHBoxLayout()
+    self.central_widget.setLayout(hbox_main)
+
+    self.stacked_layout = QtWidgets.QStackedLayout()
+    
+    self.navigation_pane.recolor(0,self.color_base,self.color_light)
+    hbox_main.addWidget(self.navigation_pane)
+    def btn_configuration_clicked(event):
+        self.stacked_layout.setCurrentIndex(0)
+        self.navigation_pane.recolor(0, self.color_base, self.color_light)
+    
+    def btn_test_results_clicked(event):
+        self.stacked_layout.setCurrentIndex(1)
+        self.navigation_pane.recolor(1, self.color_base, self.color_light)
+
+    def btn_detailed_plots_clicked(event):
+        self.stacked_layout.setCurrentIndex(2)
+        self.navigation_pane.recolor(2, self.color_base, self.color_light)
+
+    def btn_help_about_clicked(event):
+        self.stacked_layout.setCurrentIndex(3)
+        self.navigation_pane.recolor(3, self.color_base, self.color_light)
+    self.navigation_pane.btn_configuration.mousePressEvent = btn_configuration_clicked
+    self.navigation_pane.btn_test_results.mousePressEvent = btn_test_results_clicked
+    self.navigation_pane.btn_detailed_plots.mousePressEvent = btn_detailed_plots_clicked
+    self.navigation_pane.btn_help_about.mousePressEvent = btn_help_about_clicked
+    self.navigation_pane.btn_start.clicked.connect(self.tester.start)
+    self.navigation_pane.btn_stop.clicked.connect(self.tester.stop)
+
+    vertical_line = QtWidgets.QFrame()
+    vertical_line.setFrameShape(QtWidgets.QFrame.Shape.VLine)
+    vertical_line.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
+    hbox_main.addWidget(vertical_line)
+    
+    self.configuration_page.btn_load.clicked.connect(self.load_config)
+    self.configuration_page.btn_save_as.clicked.connect(self.save_as_config)
+    self.configuration_page.btn_save.clicked.connect(self.save_config)
+
+    self.stacked_layout.addWidget(self.configuration_page)
+    self.stacked_layout.addWidget(self.test_results_page)
+    self.stacked_layout.addWidget(self.detailed_plots_page)
+    self.stacked_layout.addWidget(self.help_about_page)
+
+    hbox_main.addLayout(self.stacked_layout)
+
+    self.setStatusBar(self.status_bar)
+
+    # templates for presentation
+    self.status_bar.set_message(False,"n/a","n/a","n/a")
+    self.status_bar.progress_bar.setValue(0)
+    x = numpy.linspace(0,2*numpy.pi)
+    y = numpy.sin(x)
+    self.detailed_plots_page.plot(x,y)
