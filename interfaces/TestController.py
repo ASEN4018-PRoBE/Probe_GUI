@@ -16,7 +16,6 @@ class TestRunnerThread(QThread):
         self.test_config = test_config
         self.mcu = MCUInterface.MCUInterface(global_vars.arduino_vid, global_vars.arduino_pid)
         self.dmm = DMMInterface.DMMInterface(global_vars.dmm_name)
-        self.iso = ISOInterface.ISOInterface(global_vars.iso_name)
 
     def run(self):
         global index_test_function, index_pins
@@ -65,7 +64,7 @@ class TestRunnerThread(QThread):
                 if index_test_function==len(global_vars.test_functions):
                     break # break and do isolation tests
 
-        # TODO: perform isolaation test for global_vars.isolation_tests
+        # TODO: isolaation test for global_vars.isolation_tests
 
 class TestController:
     def __init__(self, test_config, main_window):
@@ -77,6 +76,7 @@ class TestController:
 
     def start(self):
         self.test_runner.start()
+        
         global index_test_function, index_pins
         test_function = global_vars.test_functions[index_test_function]
         pins = self.test_config[test_function]["Pins"][index_pins]
