@@ -16,6 +16,8 @@ class DetailedPlotsPage(QtWidgets.QWidget):
         title.setFont(font_title)
         vbox_main.addWidget(title)
 
+        vbox_main.addStretch()
+
         frame = QtWidgets.QFrame()
         frame.setFrameStyle(QtWidgets.QFrame.Shape.StyledPanel|QtWidgets.QFrame.Shadow.Plain)
         frame.setLayout(QtWidgets.QVBoxLayout())
@@ -39,6 +41,8 @@ class DetailedPlotsPage(QtWidgets.QWidget):
         hbox_btn.addStretch(9)
         hbox_btn.addWidget(self.btn_export)
         frame.layout().addLayout(hbox_btn)
+
+        vbox_main.addStretch()
 
     def plot(self, x, y):
         self.canvas.axes.cla()
