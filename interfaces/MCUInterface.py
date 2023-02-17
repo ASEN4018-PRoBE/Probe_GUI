@@ -23,7 +23,7 @@ class MCUInterface:
             self.ser.open()
 
     def send_command(self, command):
-        self.ser.write(bytearray((command+"\n").encode()))
+        self.ser.write((command+"\n").encode())
 
     def read(self):
         return self.ser.read_all().decode("utf-8")
