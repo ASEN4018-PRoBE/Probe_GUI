@@ -3,12 +3,13 @@ from PyQt6 import QtGui
 from PyQt6.QtCore import QThread, pyqtSignal
 
 import global_vars
-from interfaces import DMMInterface, ISOInterface, MCUInterface
+from interfaces import DMMInterface, ISOInterface, MCUInterface, TestStorage
 
 index_test_function = 0
 index_pins = 0
 
-class TestRunnerThread(QThread):
+# class for multi-threading digital multi-meter tests
+class DMMTestRunnerThread(QThread):
     result = pyqtSignal(dict)
 
     def __init__(self, test_config):
@@ -40,11 +41,11 @@ class TestRunnerThread(QThread):
                 units = self.dmm.units_resistance
                 success_switch = self.mcu.switch(pin1, pin2, pin1, pin2, duration)
             
-            # take measurement from DMM
+            # take DMM measurement
             while (time.time()-time_start)<=duration:
                 if test_function in global_vars.voltage_tests:
                     reading.append(self.dmm.voltage())
-                elif test_function in global_vars.resistance_tests: # four wire meas
+                elif test_function in global_vars.resistance_tests: # four wire measurement
                     reading.append(self.dmm.resistance())
                 t.append(time.time()-time_start)
 
@@ -64,15 +65,25 @@ class TestRunnerThread(QThread):
                 if index_test_function==len(global_vars.test_functions):
                     break # break and do isolation tests
 
-        # TODO: isolaation test for global_vars.isolation_tests
+# TODO: isolaation test for global_vars.isolation_tests
+# class for multi-threading isolation test
+class ISOTestRunnerThread(QThread):
+    result = pyqtSignal(dict)
+
+    def __init__(self, test_config):
+        super(QThread, self).__init__()
+        self.test_config = test_config
+        self.mcu = MCUInterface.MCUInterface(global_vars.arduino_vid, global_vars.arduino_pid)
+        self.iso = ISOInterface.ISOInterface(global_vars.iso_name)
 
 class TestController:
     def __init__(self, test_config, main_window):
         self.test_config = test_config
         self.main_window = main_window
-        self.test_storage = Storage(test_config)
-        self.test_runner = TestRunnerThread(test_config)
-        self.test_runner.result.connect(self.proceess_test_runner_result)
+        self.test_storage = TestStorage.Storage(test_config)
+        self.test_runner = DMMTestRunnerThread(test_config)
+        self.test_runner.result.connect(self.proceess_dmm_test_runner_result)
+        self.test_complete = False
 
     def start(self):
         self.test_runner.start()
@@ -98,8 +109,7 @@ class TestController:
         index_test_function = 0
         index_pins = 0
     
-    # @pyqtSlot(dict)
-    def proceess_test_runner_result(self, result:dict):
+    def proceess_dmm_test_runner_result(self, result:dict):
         test_function = result["test_function"]
         pin1 = result["pin1"]
         pin2 = result["pin2"]
@@ -107,12 +117,14 @@ class TestController:
         t = result["t"]
         reading = result["reading"]
         pass_criteria = result["pass_criteria"]
-        pin_reading = PinReading(pin1,pin2,units)
+        pin_reading = TestStorage.PinReading(pin1,pin2,units)
         pin_reading.time = t
         pin_reading.reading = reading
         pin_reading.pass_fail = self.get_pass_fail(reading,units,pass_criteria)
         self.test_storage.storage[test_function].pin_readings.append(pin_reading)
-        self.main_window.test_results_page.element_dict[test_function].append_test_result(pin1,pin2,"{0:.3f}".format(reading[-1])+" "+units,pin_reading.pass_fail)
+        self.main_window.test_results_page.element_dict[test_function].append_test_result(
+            pin1,pin2,"{0:.3f}".format(reading[-1])+" "+units,pin_reading.pass_fail
+        )
 
         global index_test_function, index_pins
         test_function = global_vars.test_functions[index_test_function]
@@ -128,40 +140,3 @@ class TestController:
         if reading_units!=units:
             value *= global_vars.unit_conversion[units[0]]
         return low<=value and value<=high
-            
-
-class Storage:
-    def __init__(self, test_config):
-        self.storage = dict()
-        for test_function in global_vars.test_functions:
-            duration = float(test_config[test_function]["Duration"])
-            pass_criteria = test_config[test_function]["Pass Criteria"]
-            self.storage[test_function] = FunctionStorage(test_function,duration,pass_criteria)
-
-    def get_reading(self, function_name, pin1, pin2):
-        if function_name not in self.storage: return False
-        pin_reading = self.storage[function_name].search_pins(pin1,pin2)
-        return (pin_reading.time, pin_reading.reading)
-
-class FunctionStorage:
-    def __init__(self, function_name:str, duration:float, pass_criteria:str, pin_readings=[]):
-        self.function_name = function_name
-        self.duration = duration
-        self.pass_criteria = pass_criteria # eg: [24.0 33.6] V
-        self.pin_readings = pin_readings # list[PinReading]
-
-    def search_pins(self, pin1, pin2): # returns the PinReading match in self.pin_readings
-        for pin_reading in self.pin_readings:
-            if pin_reading.pin1==pin1 and pin_reading.pin2==pin2:
-                return pin_reading
-        return None
-
-class PinReading:
-    def __init__(self, pin1:str, pin2:str, units:str):
-        self.pin1 = pin1
-        self.pin2 = pin2
-        self.units = units
-        self.time = []
-        self.reading = []
-        self.pass_fail = None
-        self.isolation_pass_fail = None

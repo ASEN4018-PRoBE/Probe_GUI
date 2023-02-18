@@ -1,4 +1,4 @@
-import json, qdarktheme, numpy
+import os, json, qdarktheme, numpy
 from PyQt6 import QtWidgets, QtCore
 
 import global_vars
@@ -37,7 +37,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.detailed_plots_page = DetailedPlotsPage(self.test_config)
         self.help_about_page = HelpAboutPage()
         self.status_bar = StatusBar()
-        self.tester = TestController(self.test_config,self)
+        self.test_controller = TestController(self.test_config,self)
         setup_gui(self)
     
     def load_config(self):
@@ -59,6 +59,19 @@ class MainWindow(QtWidgets.QMainWindow):
         with open(save_filename,"w") as f:
             f.write(json.dumps(self.test_config,indent=4))
 
+    def export_csv(self):
+        if not self.test_controller.test_complete:
+            global_vars.pop_information("Test not complete! Export when all tests are complete.")
+            return
+        save_dir = str(QtWidgets.QFileDialog.getExistingDirectory(self, "Select csv Save Directory"))
+        if save_dir is None: return
+        print(save_dir)
+        dict_csv_str = self.test_controller.test_storage.to_csv()
+        for test_function in global_vars.test_functions:
+            os.mkdir("battery_test_csv_results")
+            with open(save_dir+"/battery_test_csv_results/"+test_function+".csv","w") as f:
+                f.write(dict_csv_str[test_function])
+
 def setup_gui(self:MainWindow):
     if self.central_widget.layout():
         # reparent the current layout of central_widget's layout
@@ -73,15 +86,12 @@ def setup_gui(self:MainWindow):
     def btn_configuration_clicked(event):
         self.stacked_layout.setCurrentIndex(0)
         self.navigation_pane.recolor(0, self.color_base, self.color_light)
-    
     def btn_test_results_clicked(event):
         self.stacked_layout.setCurrentIndex(1)
         self.navigation_pane.recolor(1, self.color_base, self.color_light)
-
     def btn_detailed_plots_clicked(event):
         self.stacked_layout.setCurrentIndex(2)
         self.navigation_pane.recolor(2, self.color_base, self.color_light)
-
     def btn_help_about_clicked(event):
         self.stacked_layout.setCurrentIndex(3)
         self.navigation_pane.recolor(3, self.color_base, self.color_light)
@@ -89,8 +99,8 @@ def setup_gui(self:MainWindow):
     self.navigation_pane.btn_test_results.mousePressEvent = btn_test_results_clicked
     self.navigation_pane.btn_detailed_plots.mousePressEvent = btn_detailed_plots_clicked
     self.navigation_pane.btn_help_about.mousePressEvent = btn_help_about_clicked
-    self.navigation_pane.btn_start.clicked.connect(self.tester.start)
-    self.navigation_pane.btn_stop.clicked.connect(self.tester.stop)
+    self.navigation_pane.btn_start.clicked.connect(self.test_controller.start)
+    self.navigation_pane.btn_stop.clicked.connect(self.test_controller.stop)
 
     vertical_line = QtWidgets.QFrame()
     vertical_line.setFrameShape(QtWidgets.QFrame.Shape.VLine)
@@ -100,6 +110,9 @@ def setup_gui(self:MainWindow):
     self.configuration_page.btn_load.clicked.connect(self.load_config)
     self.configuration_page.btn_save_as.clicked.connect(self.save_as_config)
     self.configuration_page.btn_save.clicked.connect(self.save_config)
+
+    self.test_results_page.btn_export.clicked.connect(self.export_csv)
+    self.detailed_plots_page.btn_export.clicked.connect(self.export_csv)
 
     self.stacked_layout.addWidget(self.configuration_page)
     self.stacked_layout.addWidget(self.test_results_page)

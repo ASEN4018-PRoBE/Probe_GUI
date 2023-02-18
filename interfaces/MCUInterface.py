@@ -17,7 +17,7 @@ class MCUInterface:
                 port = p
                 break
         if port is None:
-            global_vars.pop_critical("Connection to ProBE Box Failed")
+            global_vars.pop_critical("Cannot connect to ProBE Box!")
         else:
             self.ser.port = port.name
             self.ser.open()
