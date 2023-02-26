@@ -60,16 +60,14 @@ class MainWindow(QtWidgets.QMainWindow):
             f.write(json.dumps(self.test_config,indent=4))
 
     def export_csv(self):
-        if not self.test_controller.test_complete:
-            global_vars.pop_information("Test not complete! Export when all tests are complete.")
-            return
         save_dir = str(QtWidgets.QFileDialog.getExistingDirectory(self, "Select csv Save Directory"))
         if save_dir is None: return
-        print(save_dir)
+        save_dir += "/csv_results/"
+        if not os.path.exists(save_dir): 
+            os.mkdir(save_dir)
         dict_csv_str = self.test_controller.test_storage.to_csv()
         for test_function in global_vars.test_functions:
-            os.mkdir("battery_test_csv_results")
-            with open(save_dir+"/battery_test_csv_results/"+test_function+".csv","w") as f:
+            with open(save_dir+test_function+".csv","w") as f:
                 f.write(dict_csv_str[test_function])
 
 def setup_gui(self:MainWindow):

@@ -33,13 +33,12 @@ class DMMTestRunnerThread(QThread):
             t = []
             
             # switch on pins
-            success_switch = False
             if test_function in global_vars.voltage_tests:
                 units = self.dmm.units_voltage
-                success_switch = self.mcu.switch(pin1, pin2, None, None, duration)
+                self.mcu.switch(pin1, pin2, None, None)
             elif test_function in global_vars.resistance_tests:
                 units = self.dmm.units_resistance
-                success_switch = self.mcu.switch(pin1, pin2, pin1, pin2, duration)
+                self.mcu.switch(pin1, pin2, pin1, pin2)
             
             # take DMM measurement
             while (time.time()-time_start)<=duration:
@@ -80,10 +79,9 @@ class TestController:
     def __init__(self, test_config, main_window):
         self.test_config = test_config
         self.main_window = main_window
-        self.test_storage = TestStorage.Storage(test_config)
+        self.test_storage = TestStorage.TestStorage(test_config)
         self.test_runner = DMMTestRunnerThread(test_config)
         self.test_runner.result.connect(self.proceess_dmm_test_runner_result)
-        self.test_complete = False
 
     def start(self):
         self.test_runner.start()
