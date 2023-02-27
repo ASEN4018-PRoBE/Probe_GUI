@@ -15,8 +15,8 @@ class DMMTestRunnerThread(QThread):
     def __init__(self, test_config):
         super(QThread, self).__init__()
         self.test_config = test_config
-        self.mcu = MCUInterface.MCUInterface(global_vars.arduino_vid, global_vars.arduino_pid)
-        self.dmm = DMMInterface.DMMInterface(global_vars.dmm_name)
+        self.mcu = MCUInterface.MCUInterface()
+        self.dmm = DMMInterface.DMMInterface()
 
     def run(self):
         global index_test_function, index_pins

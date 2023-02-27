@@ -1,11 +1,20 @@
 from PyQt6.QtWidgets import QMessageBox
 
+software_test = False # set to True if devices not connected, False to run software test
+
 theme = ("light","dark")[1]
 
 units_voltage = "V"
 units_resistance = "Ohm"
 
 unit_conversion = {"m":10**(-3), "k":10**3, "M":10**6, "G":10**9}
+
+dmm_pid = 9123 # verified
+dmm_vid = 1659 # verified
+mcu_pid = 0000
+mcu_vid = 0000
+iso_pid = 0000
+iso_vid = 0000
 
 arduino_vid = 1234
 arduino_pid = 4321
