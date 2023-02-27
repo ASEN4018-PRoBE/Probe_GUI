@@ -72,8 +72,8 @@ class ISOTestRunnerThread(QThread):
     def __init__(self, test_config):
         super(QThread, self).__init__()
         self.test_config = test_config
-        self.mcu = MCUInterface.MCUInterface(global_vars.arduino_vid, global_vars.arduino_pid)
-        self.iso = ISOInterface.ISOInterface(global_vars.iso_name)
+        self.mcu = MCUInterface.MCUInterface()
+        self.iso = ISOInterface.ISOInterface()
 
 class TestController:
     def __init__(self, test_config, main_window):
