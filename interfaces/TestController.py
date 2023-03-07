@@ -34,10 +34,10 @@ class DMMTestRunnerThread(QThread):
             
             # switch on pins
             if test_function in global_vars.voltage_tests:
-                units = self.dmm.units_voltage
+                units = global_vars.units_voltage_dmm
                 self.mcu.switch(pin1, pin2, None, None)
             elif test_function in global_vars.resistance_tests:
-                units = self.dmm.units_resistance
+                units = global_vars.units_resistance_dmm
                 self.mcu.switch(pin1, pin2, pin1, pin2)
             
             # take DMM measurement
@@ -62,6 +62,7 @@ class DMMTestRunnerThread(QThread):
                 index_test_function += 1
                 index_pins = 0
                 if index_test_function==len(global_vars.test_functions):
+                    self.mcu.disconnect()
                     break # break and do isolation tests
 
 # TODO: isolaation test for global_vars.isolation_tests

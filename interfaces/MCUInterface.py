@@ -6,7 +6,6 @@ import global_vars
 class MCUInterface:
     def __init__(self):
         self.mcu = None
-        port = None
     
     def connect(self):
         port = None
@@ -17,6 +16,9 @@ class MCUInterface:
             self.mcu = serial.Serial(port.name)
         else:
             global_vars.pop_critical("Cannot connect to ProBE Box!")
+    
+    def disconnect(self):
+        if self.mcu is not None: self.mcu.close()
 
     def send_command(self, command):
         self.mcu.write((command+"\n").encode())

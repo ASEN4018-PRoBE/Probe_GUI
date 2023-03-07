@@ -4,22 +4,24 @@ software_test = False # set to True if devices not connected, False to run softw
 
 theme = ("light","dark")[1]
 
-units_voltage = "V"
-units_resistance = "Ohm"
+unit_conversion = {"m":10**(-3), "k":10**3, "K":10**3, "M":10**6, "G":10**9}
 
-unit_conversion = {"m":10**(-3), "k":10**3, "M":10**6, "G":10**9}
-
-dmm_pid = 9123 # verified
-dmm_vid = 1659 # verified
+# MCU setup
 mcu_pid = 0000
 mcu_vid = 0000
+
+# DMM setup
+dmm_pid = 9123 # verified (may be identified by wire, not device)
+dmm_vid = 1659 # verified (may be identified by wire, not device)
+units_voltage_dmm = "V"
+units_resistance_dmm = "Ohm"
+
+# ISO setup
 iso_pid = 0000
 iso_vid = 0000
-
-arduino_vid = 1234
-arduino_pid = 4321
-dmm_name = "dmm_name"
-iso_name = "iso_name"
+iso_test_voltage = "100" # voltage applied across pins when testing
+iso_resistance_range = "20" # [MOhm] must be of 2*10^N
+units_resistance_iso = "MOhm"
 
 test_functions = ["Power Continuity", "Positive Circuit Continuity", "Negative Circuit Continuity", "Inline-Resistor", "Isolation Chasis", "Isolation"]
 
