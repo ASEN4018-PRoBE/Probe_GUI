@@ -64,8 +64,8 @@ class TestResultsElement(QtWidgets.QWidget):
 
         self.test_result_rows = []
     
-    def append_test_result(self, pin1, pin2, measurement, pass_fail):
-        row = TestResultsRow(pin1, pin2, measurement, pass_fail)
+    def append_test_result(self, pin1, pin2, reading, pass_fail):
+        row = TestResultsRow(pin1, pin2, reading, pass_fail)
         l = len(self.test_result_rows)
         self.test_result_rows.append(row)
         if l%2==0:
@@ -78,14 +78,29 @@ class TestResultsElement(QtWidgets.QWidget):
             vertical_line.setFixedHeight(30)
             self.grid.addWidget(vertical_line,l//2,5,1,1)
             self.grid.addWidget(row,l//2,6,1,5)
+        
+    def get_test_result_row_iso(self, pin1, pin2):
+        for row in self.test_result_rows:
+            if row.pin1==pin1 and row.pin2==pin2: return row
+        return None
+
+    def set_test_result_row_iso(self, pin1, pin2, iso_reading, pass_fail):
+        for row in self.test_result_rows:
+            if row.pin1==pin1 and row.pin2==pin2:
+                row.label_iso_reading.setVisible(True)
+                row.label_iso_reading.setText(iso_reading)
+                row.set_pass_fail(pass_fail)
 
 # pin1: pin1 as string in test sequence
 # pin2: pin2 as string in test sequence
-# measurement: measurement result as string from DMM
+# reading: measurement result as string from DMM
+# iso_reading: reading from ISO
 # pass_fail: pass or fail as bool
 class TestResultsRow(QtWidgets.QWidget):
-    def __init__(self, pin1, pin2, measurement, pass_fail:bool):
+    def __init__(self, pin1, pin2, reading, pass_fail:bool):
         super().__init__()
+        self.pin1 = pin1
+        self.pin2 = pin2
         hbox = QtWidgets.QHBoxLayout()
         self.setLayout(hbox)
         self.max_length_measurement = 5
@@ -96,20 +111,30 @@ class TestResultsRow(QtWidgets.QWidget):
         label_pin2 = QtWidgets.QLabel("Pin 2: "+pin2)
         label_pin2.setAlignment(Qt.AlignmentFlag.AlignCenter)
         label_pin2.setFont(font_regular)
-        label_measurement = QtWidgets.QLabel(measurement)
-        label_measurement.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        label_measurement.setFont(font_regular)
+        self.label_reading = QtWidgets.QLabel(reading)
+        self.label_reading.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.label_reading.setFont(font_regular)
+        self.label_iso_reading = QtWidgets.QLabel()
+        self.label_iso_reading.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.label_iso_reading.setFont(font_regular)
+        self.label_iso_reading.setVisible(False)
+        self.label_pass_fail_svg = QtSvgWidgets.QSvgWidget()
+        self.label_pass_fail_svg.setFixedSize(15,15)
+        self.set_pass_fail(pass_fail)
+        hbox.addStretch(1)
+        hbox.addWidget(label_pin1,1)
+        hbox.addStretch(1)
+        hbox.addWidget(label_pin2,1)
+        hbox.addStretch(1)
+        hbox.addWidget(self.label_reading,2)
+        hbox.addStretch(1)
+        hbox.addWidget(self.label_iso_reading,2)
+        hbox.addStretch(1)
+        hbox.addWidget(self.label_pass_fail_svg,1)
+        hbox.addStretch(1)
+    
+    def set_pass_fail(self, pass_fail):
         if pass_fail:
-            label_pass_fail_svg = QtSvgWidgets.QSvgWidget("images/checkmark.square.fill.svg")
+            self.label_pass_fail_svg.load("images/checkmark.square.fill.svg")
         else:
-            label_pass_fail_svg = QtSvgWidgets.QSvgWidget("images/xmark.square.fill.svg")
-        label_pass_fail_svg.setFixedSize(15,15)
-        hbox.addStretch(1)
-        hbox.addWidget(label_pin1,2)
-        hbox.addStretch(1)
-        hbox.addWidget(label_pin2,2)
-        hbox.addStretch(1)
-        hbox.addWidget(label_measurement,2)
-        hbox.addStretch(1)
-        hbox.addWidget(label_pass_fail_svg,2)
-        hbox.addStretch(1)
+            self.label_pass_fail_svg.load("images/xmark.square.fill.svg")

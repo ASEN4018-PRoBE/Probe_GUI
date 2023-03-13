@@ -6,9 +6,9 @@ import global_vars
 class ISOInterface:
     def __init__(self):
         self.iso = None
-        self.delay = 0.3 # [s]
+        self.delay = 0.2 # [s]
 
-    def connect(self):
+    def connect(self, verbal=False) -> bool:
         port = None
         for p in stl.comports():
             if p.pid==global_vars.iso_pid and p.vid==global_vars.iso_vid:
@@ -21,14 +21,16 @@ class ISOInterface:
 
             self.iso.write(f":MOHM:RANGe {global_vars.iso_resistance_range}M\n".encode()) # setup resistance range
             time.sleep(self.delay)
+            return True
 
         else:
-            global_vars.pop_critical("Connection to Isolation Tester Failed! Please try to reconnect.")
+            if verbal: global_vars.pop_critical("Connection to Isolation Tester Failed! Please try to reconnect.")
+            return False
 
     def resistance(self, duration) -> float:
         if not global_vars.software_test:
             if self.iso is None:
-                self.connect()
+                self.connect(True)
 
             self.iso.write(":STARt\n".encode()) # start test
             time.sleep(self.delay)
@@ -41,5 +43,6 @@ class ISOInterface:
             if res=="": return -1.0 # unsuccessful read
             return float(res.replace("\r","").replace("\n",""))
         else:
+            time.sleep(self.delay)
             return random.random()       
         

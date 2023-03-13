@@ -8,20 +8,22 @@ class DMMInterface:
         self.dmm = None
         self.delay = 0.5 # [s]
     
-    def connect(self):
+    def connect(self, verbal=False):
         port = None
         for p in stl.comports():
             if p.pid==global_vars.dmm_pid and p.vid==global_vars.dmm_vid:
                 port = p
         if port is not None:
             self.dmm = serial.Serial(port.name)
+            return True
         else:
-            global_vars.pop_critical("Connection to Digital Multimeter Failed! Please try to reconnect.")
+            if verbal: global_vars.pop_critical("Connection to Digital Multimeter Failed! Please try to reconnect.")
+            return False
 
     def voltage(self) -> float:
         if not global_vars.software_test:
             if self.dmm is None:
-                self.connect()
+                self.connect(True)
             for _ in range(2): # SCPI must be sent twice, no idea why
                 self.dmm.write(":MEASure:VOLTage:DC?\n".encode())
             time.sleep(self.delay) # wait self.delay seconds for measurement to be ready
@@ -29,6 +31,7 @@ class DMMInterface:
             if res=="": return -1.0 # unsuccessful read
             return float(res.split("\n")[-2])
         else:
+            time.sleep(self.delay)
             return random.random()       
 
     def resistance(self) -> float:
@@ -42,4 +45,5 @@ class DMMInterface:
             if res=="": return -1.0
             return float(res.split("\n")[-2])
         else:
+            time.sleep(self.delay)
             return random.random()
