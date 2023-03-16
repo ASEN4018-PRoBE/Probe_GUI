@@ -4,6 +4,13 @@ software_test = True # set to True if devices not connected, False to run softwa
 
 theme = ("light","dark")[1]
 
+pin_map = {
+    "J01-1": 1,
+    "J01-2": 2,
+    "J01-3": 3,
+    "J01-4": 4
+}
+
 unit_conversion = {"m":10**(-3), "k":10**3, "K":10**3, "M":10**6, "G":10**9}
 
 # MCU setup

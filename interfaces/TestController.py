@@ -34,10 +34,10 @@ class DMMTestRunnerThread(QThread):
             # switch on pins
             if test_function in global_vars.voltage_tests:
                 units = global_vars.units_voltage_dmm
-                self.mcu.switch(pin1, pin2, None, None)
+                self.mcu.switch(pin1, pin2, wire_type=2)
             elif test_function in global_vars.resistance_tests:
                 units = global_vars.units_resistance_dmm
-                self.mcu.switch(pin1, pin2, pin1, pin2)
+                self.mcu.switch(pin1, pin2, wire_tyep=4)
             
             # take DMM measurement
             time_start = time.time()
@@ -87,7 +87,7 @@ class ISOTestRunnerThread(QThread):
             pin2 = pins["Pin 2"]
 
             units = global_vars.units_resistance_iso
-            self.mcu.switch(pin1, pin2, None, None)
+            self.mcu.switch(pin1, pin2, wire_tyep=2)
 
             # take ISO measurement
             time_start = time.time()

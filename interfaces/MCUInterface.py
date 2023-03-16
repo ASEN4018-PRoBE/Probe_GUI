@@ -1,4 +1,4 @@
-import time, serial
+import time, serial, json
 import serial.tools.list_ports as stl
 
 import global_vars
@@ -28,9 +28,20 @@ class MCUInterface:
 
     # pcb1: v-, pcb2: v+, pcb3: sense-, pcb4: sense+
     # return True if received ack from arduino
-    def switch(self, pin_pcb1, pin_pcb2, pin_pcb3, pin_pcb4) -> bool:
+    def switch(self, pin1, pin2, wire_type) -> bool:
         if not global_vars.software_test:
             if self.mcu is None: self.connect()
+            command = {
+                "command": "switch",
+                "wire_type": 2,
+                "pin1": global_vars.pin_map[pin1],
+                "pin2": global_vars.pin_map[pin2]
+            }
+            if wire_type==2:
+                self.mcu.write(json.dumps(command))
+            elif wire_type==4:
+                command["wire_type"] = 4
+                self.mcu.write(json.dumps(command))
         else:
             time.sleep(0.5)
         return True
