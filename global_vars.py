@@ -14,8 +14,8 @@ pin_map = {
 unit_conversion = {"m":10**(-3), "k":10**3, "K":10**3, "M":10**6, "G":10**9}
 
 # MCU setup
-mcu_pid = 0000
-mcu_vid = 0000
+mcu_pid = 88
+mcu_vid = 9025
 
 # DMM setup
 dmm_pid = 9123 # verified (may be identified by wire, not device)
