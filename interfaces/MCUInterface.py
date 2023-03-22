@@ -14,6 +14,7 @@ class MCUInterface:
                 port = p
         if port is not None:
             self.mcu = serial.Serial(port.name)
+            time.sleep(1)
         else:
             global_vars.pop_critical("Cannot connect to ProBE Box!")
     
@@ -31,17 +32,10 @@ class MCUInterface:
     def switch(self, pin1, pin2, wire_type) -> bool:
         if not global_vars.software_test:
             if self.mcu is None: self.connect()
-            command = {
-                "command": "switch",
-                "wire_type": 2,
-                "pin1": global_vars.pin_map[pin1],
-                "pin2": global_vars.pin_map[pin2]
-            }
-            if wire_type==2:
-                self.mcu.write(json.dumps(command))
-            elif wire_type==4:
-                command["wire_type"] = 4
-                self.mcu.write(json.dumps(command))
+            command = ["2", pin1, pin2]
+            if wire_type==4:
+                command[0] = "4"
+            self.mcu.write(",".join(command).encode())
         else:
             time.sleep(0.5)
         return True
@@ -49,6 +43,10 @@ class MCUInterface:
     def switch_reset(self) -> bool: # reset all switches
         if not global_vars.software_test:
             if self.mcu is None: self.connect()
+            self.mcu.write("1") # 1 for pins reset
         else:
             time.sleep(0.5)
         return True
+
+    def switch_info(self):
+        print(self.read().split("\n")[-1])

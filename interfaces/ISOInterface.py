@@ -36,7 +36,7 @@ class ISOInterface:
             time.sleep(self.delay)
 
             self.iso.write(":STOP\n".encode()) # stop test
-            time.sleep(self.delay)
+            time.sleep(duration) # sleep for the specified duration
 
             res = self.iso.read_all().decode("utf-8")
             time.sleep(self.delay)

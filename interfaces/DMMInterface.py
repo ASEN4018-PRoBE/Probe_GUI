@@ -39,7 +39,7 @@ class DMMInterface:
             if self.dmm is None:
                 self.connect()
             for _ in range(2):
-                self.dmm.write(":MEASure:RESistance?\n".encode())
+                self.dmm.write(":MEASure:FRESistance?\n".encode())
             time.sleep(self.delay)
             res = self.dmm.read_all().decode("utf-8")
             if res=="": return -1.0

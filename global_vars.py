@@ -24,8 +24,8 @@ units_voltage_dmm = "V"
 units_resistance_dmm = "Ohm"
 
 # ISO setup
-iso_pid = 0000
-iso_vid = 0000
+iso_pid = 9123
+iso_vid = 1659
 iso_test_voltage = "100" # voltage applied across pins when testing
 iso_resistance_range = "20" # [MOhm] must be of 2*10^N
 units_resistance_iso = "MOhm"

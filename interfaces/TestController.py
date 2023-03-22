@@ -1,5 +1,5 @@
 import time
-from PyQt6 import QtGui
+from PyQt6 import QtGui, QtWidgets
 from PyQt6.QtCore import QThread, pyqtSignal
 
 import global_vars
@@ -49,11 +49,11 @@ class DMMTestRunnerThread(QThread):
                 t.append(time.time()-time_start)
 
             result_dict = {
-                "test_function":test_function,
-                "pin1":pin1, "pin2":pin2,
-                "units":units,
-                "t":t, "reading":reading,
-                "pass_criteria":pass_criteria
+                "test_function": test_function,
+                "pin1": pin1, "pin2": pin2,
+                "units": units,
+                "t": t, "reading": reading,
+                "pass_criteria": pass_criteria
             }
             self.result.emit(result_dict)
 
@@ -92,14 +92,14 @@ class ISOTestRunnerThread(QThread):
             # take ISO measurement
             time_start = time.time()
             time.sleep(duration)
-            reading = self.iso.resistance() # take reading only once, different from DMM read
+            reading = self.iso.resistance(duration) # take reading only once, different from DMM read
 
             result_dict = {
-                "test_function":test_function,
-                "pin1":pin1, "pin2":pin2,
-                "units":units,
-                "reading":reading,
-                "pass_criteria":pass_criteria
+                "test_function": test_function,
+                "pin1": pin1, "pin2": pin2,
+                "units": units,
+                "reading": reading,
+                "pass_criteria": pass_criteria
             }
             self.result.emit(result_dict)
 
@@ -128,7 +128,18 @@ class TestController:
         self.main_window.navigation_pane.btn_start.setIcon(QtGui.QIcon("images/pause.svg"))
         self.main_window.navigation_pane.btn_start.clicked.connect(self.pause)
 
+    def show_iso_dialog(self):
+        msgBox = QtWidgets.QMessageBox()
+        msgBox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+        msgBox.setWindowTitle("DMM Test Completed!")
+        msgBox.setText("DMM portion is compleleted, connect ISO before clicking OK button!")
+        msgBox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok | QtWidgets.QMessageBox.Cancel)
+
+        returnValue = msgBox.exec()
+        if returnValue != QtWidgets.QMessageBox.StandardButton.Ok: self.show_ISO_dialog()
+
     def start_iso(self):
+        self.show_iso_dialog()
         self.test_runner = ISOTestRunnerThread(self.test_config)
         self.test_runner.result.connect(self.process_iso_test_runner_result)
     
@@ -180,11 +191,11 @@ class TestController:
         iso_result = "{0:.3f}".format(reading[-1])+" "+units
         if test_result_row is None:
             self.main_window.test_results_page.element_dict[test_function].append_test_result(
-                pin1, pin2, "n/a", pass_fail
+                pin1, pin2, iso_result, pass_fail
             )
         else:
             self.main_window.test_results_page.element_dict[test_function].set_test_result_row_iso(
-                pin1, pin2, reading, pass_fail
+                pin1, pin2, iso_result, pass_fail
             )
         self.update_status_bar()
 
