@@ -28,7 +28,7 @@ class DMMTestRunnerThread(QThread):
             pin1 = pins["Pin 1"]
             pin2 = pins["Pin 2"]
 
-            reading = []
+            readings = []
             t = []
             
             # switch on pins
@@ -43,19 +43,19 @@ class DMMTestRunnerThread(QThread):
             time_start = time.time()
             while (time.time()-time_start)<=duration:
                 if test_function in global_vars.voltage_tests:
-                    reading.append(self.dmm.voltage())
+                    readings.append(self.dmm.voltage())
                 elif test_function in global_vars.resistance_tests: # four wire measurement
                     if test_function in global_vars.continuity_tests:
-                        reading.append(self.dmm.resistance(True))
+                        readings.append(self.dmm.resistance(True))
                     else:
-                        reading.append(self.dmm.resistance())
+                        readings.append(self.dmm.resistance())
                 t.append(time.time()-time_start)
 
             result_dict = {
                 "test_function": test_function,
                 "pin1": pin1, "pin2": pin2,
                 "units": units,
-                "t": t, "reading": reading,
+                "t": t, "readings": readings,
                 "pass_criteria": pass_criteria
             }
             self.result.emit(result_dict)
@@ -147,6 +147,8 @@ class TestController:
         self.show_iso_dialog()
         self.test_runner = ISOTestRunnerThread(self.test_config)
         self.test_runner.result.connect(self.process_iso_test_runner_result)
+        self.test_runner.start()
+        self.update_status_bar()
     
     def pause(self):
         self.test_runner.terminate()
@@ -166,15 +168,15 @@ class TestController:
         pin2 = result["pin2"]
         units = result["units"]
         t = result["t"]
-        reading = result["reading"]
+        readings = result["readings"]
         pass_criteria = result["pass_criteria"]
         pin_reading = TestStorage.PinReading(pin1,pin2,units)
         pin_reading.time = t
-        pin_reading.reading = reading
-        pin_reading.pass_fail = self.get_pass_fail(reading,units,pass_criteria)
+        pin_reading.reading = readings
+        pin_reading.pass_fail = self.get_pass_fail(readings[-1],units,pass_criteria)
         self.test_storage.storage[test_function].pin_readings.append(pin_reading)
         self.main_window.test_results_page.element_dict[test_function].append_test_result(
-            pin1, pin2, "{0:.3f}".format(reading[-1])+" "+units, pin_reading.pass_fail
+            pin1, pin2, "{0:.3f}".format(readings[-1])+" "+units, pin_reading.pass_fail
         )
         self.update_status_bar()
 
@@ -192,8 +194,8 @@ class TestController:
             self.test_storage.storage[test_function].pin_readings.append(pin_reading)
         pin_reading.iso_reading = reading
         pin_reading.pass_fail = pin_reading.pass_fail and pass_fail
-        test_result_row = self.main_window.test_results_page.element_dict[test_function].get_test_result_row(pin1,pin2)
-        iso_result = "{0:.3f}".format(reading[-1])+" "+units
+        test_result_row = self.main_window.test_results_page.element_dict[test_function].get_test_result_row_iso(pin1,pin2)
+        iso_result = "{0:.3f}".format(reading)+" "+units
         if test_result_row is None:
             self.main_window.test_results_page.element_dict[test_function].append_test_result(
                 pin1, pin2, iso_result, pass_fail
@@ -207,9 +209,10 @@ class TestController:
     def get_pass_fail(self, reading, reading_units, pass_criteria:str) -> bool:
         low, high, units = pass_criteria.replace("[","").replace("]","").split(" ")
         low, high = float(low),float(high)
-        value = reading[-1]
+        value = reading
         if reading_units!=units:
-            value *= global_vars.unit_conversion[units[0]]
+            low *= global_vars.unit_conversion[units[0]]
+            high *= global_vars.unit_conversion[units[0]]
         return low<=value and value<=high
     
     def update_status_bar(self):

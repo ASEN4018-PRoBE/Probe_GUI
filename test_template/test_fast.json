@@ -1,7 +1,7 @@
 {
     "Battery Name": "8s16p Battery",
     "Power Continuity": {
-        "Duration": "5",
+        "Duration": "1",
         "Pass Criteria": "[24.0 33.6] V",
         "Pins": [
             {
@@ -11,7 +11,7 @@
         ]
     },
     "Positive Circuit Continuity": {
-        "Duration": "5",
+        "Duration": "1",
         "Pass Criteria": "[0 1] Ohm",
         "Pins": [
             {
@@ -21,7 +21,7 @@
         ]
     },
     "Negative Circuit Continuity": {
-        "Duration": "5",
+        "Duration": "1",
         "Pass Criteria": "[0 1] Ohm",
         "Pins": [
             {
@@ -31,7 +31,7 @@
         ]
     },
     "Inline-Resistor": {
-        "Duration": "5",
+        "Duration": "1",
         "Pass Criteria": "[9990 10010] Ohm",
         "Pins": [
             {
@@ -41,7 +41,7 @@
         ]
     },
     "Isolation Chasis": {
-        "Duration": "5",
+        "Duration": "1",
         "Pass Criteria": "[10 inf] MOhm",
         "Pins": [
             {
@@ -51,7 +51,7 @@
         ]
     },
     "Isolation": {
-        "Duration": "5",
+        "Duration": "1",
         "Pass Criteria": "[10 inf] MOhm",
         "Pins": [
             {
