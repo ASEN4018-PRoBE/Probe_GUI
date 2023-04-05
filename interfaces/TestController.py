@@ -45,7 +45,10 @@ class DMMTestRunnerThread(QThread):
                 if test_function in global_vars.voltage_tests:
                     reading.append(self.dmm.voltage())
                 elif test_function in global_vars.resistance_tests: # four wire measurement
-                    reading.append(self.dmm.resistance())
+                    if test_function in global_vars.continuity_tests:
+                        reading.append(self.dmm.resistance(True))
+                    else:
+                        reading.append(self.dmm.resistance())
                 t.append(time.time()-time_start)
 
             result_dict = {
@@ -94,7 +97,7 @@ class ISOTestRunnerThread(QThread):
 
             # take ISO measurement
             time.sleep(duration)
-            reading = self.iso.resistance(duration) # take reading only once, different from DMM read
+            reading = self.iso.resistance(duration) # take reading only once, different from DMM
 
             result_dict = {
                 "test_function": test_function,

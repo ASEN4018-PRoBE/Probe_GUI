@@ -33,12 +33,12 @@ class DMMInterface:
             time.sleep(self.delay)
             return random.random()       
 
-    def resistance(self, range=None) -> float:
+    def resistance(self, continuity=False) -> float:
         if not global_vars.software_test:
             if self.dmm is None:
                 self.connect()
-            if range is not None:
-                self.dmm.write(":MEASure:FRESistance?\r\n".encode())
+            if continuity:
+                self.dmm.write(":MEASure:FRESistance 0\r\n".encode()) # set 200 Ohm range
                 time.sleep(self.delay)
             self.dmm.write(":MEASure:FRESistance?\r\n".encode())
             time.sleep(self.delay)
