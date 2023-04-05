@@ -24,10 +24,9 @@ class DMMInterface:
         if not global_vars.software_test:
             if self.dmm is None:
                 self.connect(True)
-            for _ in range(2): # SCPI must be sent twice, no idea why
-                self.dmm.write(":MEASure:VOLTage:DC?\n".encode())
+            self.dmm.write(":MEASure:VOLTage:DC?\r\n".encode())
             time.sleep(self.delay) # wait self.delay seconds for measurement to be ready
-            res = self.dmm.read_all().decode("utf-8")
+            res = self.dmm.read_all().decode()
             if res=="": return -1.0 # unsuccessful read
             return float(res.split("\n")[-2])
         else:
@@ -38,10 +37,9 @@ class DMMInterface:
         if not global_vars.software_test:
             if self.dmm is None:
                 self.connect()
-            for _ in range(2):
-                self.dmm.write(":MEASure:FRESistance?\n".encode())
+            self.dmm.write(":MEASure:FRESistance?\r\n".encode())
             time.sleep(self.delay)
-            res = self.dmm.read_all().decode("utf-8")
+            res = self.dmm.read_all().decode()
             if res=="": return -1.0
             return float(res.split("\n")[-2])
         else:
