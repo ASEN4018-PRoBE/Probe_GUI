@@ -69,6 +69,11 @@ class MainWindow(QtWidgets.QMainWindow):
         for test_function in global_vars.test_functions:
             with open(save_dir+test_function+".csv","w") as f:
                 f.write(dict_csv_str[test_function])
+    
+    def start_test(self):
+        self.test_controller.start()
+        self.navigation_pane.recolor(1,self.color_base,self.color_light)
+        self.stacked_layout.setCurrentIndex(1)
 
 def setup_gui(self:MainWindow):
     if self.central_widget.layout():
@@ -97,7 +102,7 @@ def setup_gui(self:MainWindow):
     self.navigation_pane.btn_test_results.mousePressEvent = btn_test_results_clicked
     self.navigation_pane.btn_detailed_plots.mousePressEvent = btn_detailed_plots_clicked
     self.navigation_pane.btn_help_about.mousePressEvent = btn_help_about_clicked
-    self.navigation_pane.btn_start.clicked.connect(self.test_controller.start)
+    self.navigation_pane.btn_start.clicked.connect(self.start_test)
     self.navigation_pane.btn_stop.clicked.connect(self.test_controller.stop)
 
     vertical_line = QtWidgets.QFrame()

@@ -37,7 +37,7 @@ class DMMTestRunnerThread(QThread):
                 self.mcu.switch(pin1, pin2, wire_type=2)
             elif test_function in global_vars.resistance_tests:
                 units = global_vars.units_resistance_dmm
-                self.mcu.switch(pin1, pin2, wire_tyep=4)
+                self.mcu.switch(pin1, pin2, wire_type=4)
             
             # take DMM measurement
             time_start = time.time()
@@ -87,7 +87,7 @@ class ISOTestRunnerThread(QThread):
             pin2 = pins["Pin 2"]
 
             units = global_vars.units_resistance_iso
-            self.mcu.switch(pin1, pin2, wire_tyep=2)
+            self.mcu.switch(pin1, pin2, wire_type=2)
 
             # take ISO measurement
             time_start = time.time()
@@ -133,10 +133,10 @@ class TestController:
         msgBox.setIcon(QtWidgets.QMessageBox.Icon.Information)
         msgBox.setWindowTitle("DMM Test Completed!")
         msgBox.setText("DMM portion is compleleted, connect ISO before clicking OK button!")
-        msgBox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok | QtWidgets.QMessageBox.Cancel)
+        msgBox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok | QtWidgets.QMessageBox.StandardButton.Cancel)
 
         returnValue = msgBox.exec()
-        if returnValue != QtWidgets.QMessageBox.StandardButton.Ok: self.show_ISO_dialog()
+        if returnValue != QtWidgets.QMessageBox.StandardButton.Ok: self.show_iso_dialog()
 
     def start_iso(self):
         self.show_iso_dialog()
