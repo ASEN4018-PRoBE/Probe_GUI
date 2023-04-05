@@ -200,8 +200,8 @@ class TestController:
         self.update_status_bar()
 
     def get_pass_fail(self, reading, reading_units, pass_criteria:str) -> bool:
-        low,high,units = pass_criteria.replace("[","").replace("]","").split(" ")
-        low,high = float(low),float(high)
+        low, high, units = pass_criteria.replace("[","").replace("]","").split(" ")
+        low, high = float(low),float(high)
         value = reading[-1]
         if reading_units!=units:
             value *= global_vars.unit_conversion[units[0]]
