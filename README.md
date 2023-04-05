@@ -13,4 +13,7 @@ git clone --recurse-submodules https://github.com/ASEN4018-PRoBE/Probe_GUI.git
 - **PyQt6:** python GUI framework
 - **PyQtDarkTheme:** better looking window themes
 - **PySerial:** communication with arduino
-- **PyVisa:** communication with devices via SCPI
+
+```sh
+pip3 install matplotlib numpy PyQt6 PyQtDarmTheme PySerial
+```

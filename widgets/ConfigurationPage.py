@@ -58,7 +58,7 @@ class ConfigurationElement(QtWidgets.QWidget):
         hbox_title = QtWidgets.QHBoxLayout()
         label_title = QtWidgets.QLabel(title)
         label_title.setFont(font_subtitle)
-        label_duration = QtWidgets.QLabel("Pin Hold Duration [s]:")
+        label_duration = QtWidgets.QLabel("Duration [s]:")
         label_duration.setFont(font_regular)
         textbox_duration = QtWidgets.QLineEdit(self.function_dict["Duration"])
         textbox_duration.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -75,6 +75,7 @@ class ConfigurationElement(QtWidgets.QWidget):
         # textbox_pass_criteria.setValidator(QRegularExpressionValidator(QRegularExpression("^\[\d+\.?\d* \d+\.?\d*\] [A-Za-z]+$")))
         textbox_pass_criteria.setFont(font_regular)
 
+
         hbox_title.addWidget(label_title)
         hbox_title.addWidget(label_duration)
         hbox_title.addWidget(textbox_duration)
@@ -85,26 +86,39 @@ class ConfigurationElement(QtWidgets.QWidget):
 
         self.configuration_rows = []
 
-        grid = QtWidgets.QGridLayout()
+        self.grid = QtWidgets.QGridLayout()
         frame_grid = QtWidgets.QFrame()
-        frame_grid.setLayout(grid)
+        frame_grid.setLayout(self.grid)
         frame_grid.setFrameStyle(QtWidgets.QFrame.Shape.StyledPanel|QtWidgets.QFrame.Shadow.Plain)
         vbox_main.addWidget(frame_grid)
-        for i in range(11): grid.setColumnStretch(i,1)
+        for i in range(11): self.grid.setColumnStretch(i,1)
 
         for i in range(0,len(pins_list),2):
             self.configuration_rows.append(ConfigurationRow(i+1,pins_list[i]))
-            grid.addWidget(self.configuration_rows[-1],i//2,0,1,5)
+            self.grid.addWidget(self.configuration_rows[-1],i//2,0,1,5)
             vertical_line = QtWidgets.QFrame()
             vertical_line.setFrameShape(QtWidgets.QFrame.Shape.VLine)
             vertical_line.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
             vertical_line.setFixedHeight(30)
-            grid.addWidget(vertical_line,i//2,5,1,1)
+            self.grid.addWidget(vertical_line,i//2,5,1,1)
             if i+1!=len(pins_list):
                 self.configuration_rows.append(ConfigurationRow(i+2,pins_list[i+1]))
-                grid.addWidget(self.configuration_rows[-1],i//2,6,1,5)
+                self.grid.addWidget(self.configuration_rows[-1],i//2,6,1,5)
             else:
-                grid.addWidget(QtWidgets.QWidget(),i//2,6,1,5)
+                self.grid.addWidget(QtWidgets.QWidget(),i//2,6,1,5)
+    
+    def add_row(self, pin1:str, pin2:str):
+        i = len(self.configuration_rows)+1
+        self.configuration_rows.append(ConfigurationRow(i,{"Pin 1":pin1,"Pin 2":pin2}))
+        vertical_line = QtWidgets.QFrame()
+        vertical_line.setFrameShape(QtWidgets.QFrame.Shape.VLine)
+        vertical_line.setFrameShadow(QtWidgets.QFrame.Shadow.Sunken)
+        vertical_line.setFixedHeight(30)
+        if i%2==1:
+            self.grid.addWidget(self.configuration_rows[-1],i//2,0,1,5)
+            self.grid.addWidget(vertical_line,i//2,5,1,1)
+        else:
+            self.grid.addWidget(self.configuration_rows[-1],i//2-1,6,1,5)
 
 
 # A basic row in Configuration Page

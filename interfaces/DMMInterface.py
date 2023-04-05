@@ -33,10 +33,13 @@ class DMMInterface:
             time.sleep(self.delay)
             return random.random()       
 
-    def resistance(self) -> float:
+    def resistance(self, range=None) -> float:
         if not global_vars.software_test:
             if self.dmm is None:
                 self.connect()
+            if range is not None:
+                self.dmm.write(":MEASure:FRESistance?\r\n".encode())
+                time.sleep(self.delay)
             self.dmm.write(":MEASure:FRESistance?\r\n".encode())
             time.sleep(self.delay)
             res = self.dmm.read_all().decode()
