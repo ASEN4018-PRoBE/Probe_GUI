@@ -80,6 +80,9 @@ class ISOTestRunnerThread(QThread):
         global index_test_function, index_pins
         while True:
             test_function = global_vars.isolation_tests[index_test_function]
+            if test_function not in global_vars.isolation_tests:
+                index_test_function += 1
+                continue
             pass_criteria = self.test_config[test_function]["Pass Criteria"]
             duration = float(self.test_config[test_function]["Duration"])
             pins = self.test_config[test_function]["Pins"][index_pins]
@@ -90,7 +93,6 @@ class ISOTestRunnerThread(QThread):
             self.mcu.switch(pin1, pin2, wire_type=2)
 
             # take ISO measurement
-            time_start = time.time()
             time.sleep(duration)
             reading = self.iso.resistance(duration) # take reading only once, different from DMM read
 

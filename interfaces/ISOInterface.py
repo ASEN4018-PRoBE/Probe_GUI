@@ -33,16 +33,16 @@ class ISOInterface:
                 self.connect(True)
 
             self.iso.write(":STARt\n".encode()) # start test
-            time.sleep(self.delay)
 
-            self.iso.write(":STOP\n".encode()) # stop test
             time.sleep(duration) # sleep for the specified duration
 
-            res = self.iso.read_all().decode("utf-8")
+            self.iso.write(":STOP\n".encode()) # stop test
+
+            res = self.iso.read_all().decode()
             time.sleep(self.delay)
             if res=="": return -1.0 # unsuccessful read
-            return float(res.replace("\r","").replace("\n",""))
+            return float(res.replace("\r\n",""))
         else:
-            time.sleep(self.delay)
+            time.sleep(duration)
             return random.random()       
         
