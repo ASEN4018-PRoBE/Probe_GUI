@@ -126,6 +126,11 @@ class TestController:
         self.test_runner.result.connect(self.process_dmm_test_runner_result)
         self.test_runner.finished.connect(self.start_iso)
 
+        self.processed_pin_combs = 0
+        self.total_pin_combs = 0
+        for test_function in global_vars.test_functions+global_vars.isolation_tests:
+            self.total_pin_combs += len(test_config[test_function]["Pins"])
+
     def start(self):
         self.test_runner.start()
         
@@ -147,8 +152,12 @@ class TestController:
         self.show_iso_dialog()
         self.test_runner = ISOTestRunnerThread(self.test_config)
         self.test_runner.result.connect(self.process_iso_test_runner_result)
+        self.test_runner.finished.connect(self.finished_iso)
         self.test_runner.start()
         self.update_status_bar()
+    
+    def finished_iso(self):
+        global_vars.pop_information("All tests completed! Click export to save all data.")
     
     def pause(self):
         self.test_runner.terminate()
@@ -179,6 +188,8 @@ class TestController:
             pin1, pin2, "{0:.3f}".format(readings[-1])+" "+units, pin_reading.pass_fail
         )
         self.update_status_bar()
+        self.processed_pin_combs += 1
+        self.main_window.status_bar.progress_bar.setValue(int(100*self.processed_pin_combs/self.total_pin_combs))
 
     def process_iso_test_runner_result(self, result:dict):
         test_function = result["test_function"]
@@ -205,6 +216,8 @@ class TestController:
                 pin1, pin2, iso_result, pass_fail
             )
         self.update_status_bar()
+        self.processed_pin_combs += 1
+        self.main_window.status_bar.progress_bar.setValue(int(100*self.processed_pin_combs/self.total_pin_combs))
 
     def get_pass_fail(self, reading, reading_units, pass_criteria:str) -> bool:
         low, high, units = pass_criteria.replace("[","").replace("]","").split(" ")
@@ -223,4 +236,4 @@ class TestController:
         pins = self.test_config[test_function]["Pins"][index_pins]
         pin1 = pins["Pin 1"]
         pin2 = pins["Pin 2"]
-        self.main_window.status_bar.set_message(True,test_function,pin1,pin2)
+        self.main_window.status_bar.set_message(True, test_function, pin1, pin2)
