@@ -137,7 +137,7 @@ class TestController:
         msgBox = QtWidgets.QMessageBox()
         msgBox.setIcon(QtWidgets.QMessageBox.Icon.Information)
         msgBox.setWindowTitle("DMM Test Completed!")
-        msgBox.setText("DMM portion is compleleted, connect ISO before clicking OK button!")
+        msgBox.setText("DMM portion is compleleted, connect ISO before clicking OK!")
         msgBox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok | QtWidgets.QMessageBox.StandardButton.Cancel)
 
         returnValue = msgBox.exec()
