@@ -1,10 +1,13 @@
 import matplotlib
 from PyQt6 import QtWidgets
 from .Fonts import font_regular, font_subtitle, font_title
+import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg
 from matplotlib.figure import Figure
 
 import global_vars, widgets.FlowLayout as FlowLayout
+
+plt.style.use('ggplot')
 
 class DetailedPlotsPage(QtWidgets.QWidget):
     def __init__(self, test_config):
@@ -45,7 +48,6 @@ class DetailedPlotsPage(QtWidgets.QWidget):
         vbox_main.addStretch()
 
     def plot(self, x, y):
-        self.canvas.axes.cla()
         self.canvas.axes.grid()
         self.canvas.axes.set_xlabel('time', fontsize=10)
         self.canvas.axes.set_ylabel('reading', fontsize=10)
@@ -53,9 +55,21 @@ class DetailedPlotsPage(QtWidgets.QWidget):
         self.canvas.axes.plot(x,y)
         self.canvas.draw()
 
+    def plot_pin_readings(self, pin_readings):
+        self.canvas.axes.cla()
+        plt.grid()
+        self.canvas.axes.set_xlabel('time', fontsize=10)
+        self.canvas.axes.set_ylabel('reading', fontsize=10)
+        self.canvas.axes.tick_params(axis='both', which='major', labelsize=8)
+        for pin_reading in pin_readings:
+            self.canvas.axes.plot(pin_reading.time, pin_reading.reading)
+        self.canvas.draw()
+
+    def clear(self):
+        self.canvas.axes.cla()
+
 class Canvas(FigureCanvasQTAgg):
     def __init__(self, width=5, height=5, dpi=100):
         fig = Figure(figsize=(width, height), dpi=dpi, tight_layout=True)
         self.axes = fig.add_subplot(1,1,1)
-        self.axes.grid()
         super(Canvas, self).__init__(fig)

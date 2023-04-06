@@ -83,6 +83,14 @@ def setup_gui(self:MainWindow):
     self.central_widget.setLayout(hbox_main)
 
     self.stacked_layout = QtWidgets.QStackedLayout()
+
+    def detailed_plots_page_radio_btn_clicked():
+        for test_function in global_vars.test_functions:
+            if self.detailed_plots_page.radio_btns_dict[test_function].isChecked():
+                self.detailed_plots_page.plot_pin_readings(
+                    self.test_controller.test_storage.storage[test_function].pin_readings
+                )
+                break
     
     self.navigation_pane.recolor(0,self.color_base,self.color_light)
     hbox_main.addWidget(self.navigation_pane)
@@ -93,6 +101,7 @@ def setup_gui(self:MainWindow):
         self.stacked_layout.setCurrentIndex(1)
         self.navigation_pane.recolor(1, self.color_base, self.color_light)
     def btn_detailed_plots_clicked(event):
+        detailed_plots_page_radio_btn_clicked()
         self.stacked_layout.setCurrentIndex(2)
         self.navigation_pane.recolor(2, self.color_base, self.color_light)
     def btn_help_about_clicked(event):
@@ -114,6 +123,9 @@ def setup_gui(self:MainWindow):
     self.configuration_page.btn_save_as.clicked.connect(self.save_as_config)
     self.configuration_page.btn_save.clicked.connect(self.save_config)
 
+    for test_function in global_vars.test_functions:
+        self.detailed_plots_page.radio_btns_dict[test_function].clicked.connect(detailed_plots_page_radio_btn_clicked)
+
     self.test_results_page.btn_export.clicked.connect(self.export_csv)
     self.detailed_plots_page.btn_export.clicked.connect(self.export_csv)
 
@@ -126,9 +138,5 @@ def setup_gui(self:MainWindow):
 
     self.setStatusBar(self.status_bar)
 
-    # templates for presentation
     self.status_bar.set_message(False,"n/a","n/a","n/a")
     self.status_bar.progress_bar.setValue(0)
-    x = numpy.linspace(0,2*numpy.pi)
-    y = numpy.sin(x)
-    self.detailed_plots_page.plot(x,y)
