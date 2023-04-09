@@ -1,4 +1,13 @@
-<h2>ProBE Software Package</h2>
-<center><div><img src="images/logo.ico" width="400"></div></center>
-<p>This software is part of the project for CU Aerospace Department Senior Projects 2022-2023. It is intended to be used with the custom designed ProBE box to provide automated testing for the EnerSys 8S16P battery.
-This software consists of two sub components, a graphical user interface and a data capture backend. </p>
+<h1>ProBE Graphical User Interface</h1>
+
+<center><div><img src="images/logo.ico" width="300"></div></center>
+
+<h2>Introduction</h2>
+<p>This software is part of the project for CU Aerospace Department Senior Projects 2022-2023. It is intended to be used with the custom designed ProBE box to provide automated testing for the EnerSys 8S16P battery. Additional modification will be needed to support other battery types.</p>
+
+<h2>Configuration</h2>
+<p>Test configurations are desired to be modified only within this software. If additional configs are required, please follow the format in <i>./test_template/test_template.json</i> in deatil. <u>Do not modify the ordering of test functions.</u></p>
+
+<h2>Test Run</h2>
+<p>Test is split into two portions: it first runs with a Digital Multimeter (DMM) and the second runs with Isolation Tester (ISO). A dialog will pop up when DMM portion is completed notifying a switch of banana plugs from DMM to ISO.</p>
+<p>View test results and a time history of measurements during or after a test in the "Test Results" page and "Detailed Plots" page.</p>

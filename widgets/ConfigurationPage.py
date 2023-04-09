@@ -2,6 +2,7 @@ from PyQt6 import QtWidgets
 from PyQt6.QtCore import Qt, QRegularExpression
 from PyQt6.QtGui import QRegularExpressionValidator
 
+import global_vars
 from .Fonts import font_title, font_subtitle, font_regular, font_regular_bold
 
 # Configuration Page for display in MainWindow
@@ -26,9 +27,8 @@ class ConfigurationPage(QtWidgets.QWidget):
         widget_scroll.setLayout(vbox_scroll)
         vbox_main.addWidget(scroll)
 
-        for key in test_config:
-            if key!="Battery Name":
-                vbox_scroll.addWidget(ConfigurationElement(key,test_config[key]))
+        for key in global_vars.test_functions:
+            vbox_scroll.addWidget(ConfigurationElement(key,test_config[key]))
 
         hbox_btn = QtWidgets.QHBoxLayout()
         vbox_main.addLayout(hbox_btn)

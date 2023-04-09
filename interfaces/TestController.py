@@ -144,25 +144,45 @@ class TestController:
         self.test_config = test_config
         self.main_window = main_window
         self.test_storage = TestStorage.TestStorage(test_config)
+        self.is_iso_running = False
 
         self.reset_progress_tracker()
 
     def start(self) -> bool:
-        print("start")
-        self.test_runner = DMMTestRunnerThread(self.test_config)
-        self.test_runner.result.connect(self.process_dmm_test_runner_result)
-        self.test_runner.finished.connect(self.start_iso)
+        if not self.is_iso_running:
+            print("start dmm runner thread")
+            self.test_runner = DMMTestRunnerThread(self.test_config)
+            self.test_runner.result.connect(self.process_dmm_test_runner_result)
+            self.test_runner.finished.connect(self.start_iso)
+        else:
+            print("start iso runner thread")
+            self.test_runner = ISOTestRunnerThread(self.test_config)
+            self.test_runner.result.connect(self.process_iso_test_runner_result)
+            self.test_runner.finished.connect(self.finished_iso)
+
         self.test_runner.start()
         self.update_status_bar()
         self.main_window.navigation_pane.btn_start.setIcon(QtGui.QIcon("images/pause.svg"))
         self.main_window.navigation_pane.btn_start.clicked.disconnect()
         self.main_window.navigation_pane.btn_start.clicked.connect(self.pause)
-        
+
         global index_test_function, index_pins
         if index_test_function==0 and index_pins==0:
             return True # return True if it is start of the entire test
         else:
             return False
+
+    def start_iso(self):
+        global index_test_function, index_pins
+        if index_test_function==global_vars.test_functions.index(global_vars.isolation_tests[0]) and index_pins==0:
+            self.show_iso_dialog()
+            self.test_runner = ISOTestRunnerThread(self.test_config)
+            self.test_runner.result.connect(self.process_iso_test_runner_result)
+            self.test_runner.finished.connect(self.finished_iso)
+            self.test_runner.start()
+            self.is_iso_running = True
+            self.update_status_bar()
+        self.update_progress_bar()
 
     def show_iso_dialog(self):
         msgBox = QtWidgets.QMessageBox()
@@ -173,21 +193,12 @@ class TestController:
 
         returnValue = msgBox.exec()
         if returnValue != QtWidgets.QMessageBox.StandardButton.Ok: self.show_iso_dialog()
-
-    def start_iso(self):
-        global index_test_function, index_pins
-        if index_test_function==global_vars.test_functions.index(global_vars.isolation_tests[0]) and index_pins==0:
-            self.show_iso_dialog()
-            self.test_runner = ISOTestRunnerThread(self.test_config)
-            self.test_runner.result.connect(self.process_iso_test_runner_result)
-            self.test_runner.finished.connect(self.finished_iso)
-            self.test_runner.start()
-            self.update_status_bar()
-        self.update_progress_bar()
     
     def finished_iso(self):
-        self.main_window.status_bar.set_message("Test Completed")
-        global_vars.pop_information("All tests completed! Click export to save all data.")
+        global index_test_function, index_pins
+        if index_test_function==0 and index_pins==0:
+            self.main_window.status_bar.set_message("Test Completed")
+            global_vars.pop_information("All tests completed! Click export to save all data.")
     
     def pause(self):
         print("pause")
@@ -207,6 +218,7 @@ class TestController:
         self.reset_progress_tracker()
         self.pause()
         self.test_storage = TestStorage.TestStorage(self.test_config)
+        self.is_iso_running = False
         self.main_window.status_bar.set_message("Test Stopped")
     
     def process_dmm_test_runner_result(self, result:dict):
