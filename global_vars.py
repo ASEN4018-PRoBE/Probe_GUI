@@ -11,6 +11,7 @@ pin_map = {
     "J01-4": 4
 }
 
+unit_standard = ["V", "Ohm"]
 unit_conversion = {"m":10**(-3), "k":10**3, "K":10**3, "M":10**6, "G":10**9}
 
 # MCU setup

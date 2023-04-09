@@ -26,7 +26,8 @@ class TestStorage:
             for pr in self.storage[test_function].pin_readings:
                 str_iso = "n/a"
                 if pr.iso_reading is not None: str_iso = pr.iso_reading
-                str_pass = ["Fail","Pass"][pr.pass_fail]
+                str_pass = "n/a"
+                if pr.pass_fail is not None: str_pass = ["Fail","Pass"][pr.pass_fail]
                 csv_str += "{0},{1},{2:.3f},{3},{4},{5}\n".format(pr.pin1,pr.pin2,pr.reading[-1],str_iso,pc,str_pass)
             dict_csv_str[test_function] = csv_str
         return dict_csv_str

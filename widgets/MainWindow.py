@@ -1,4 +1,4 @@
-import os, json, qdarktheme, numpy
+import os, json, qdarktheme
 from PyQt6 import QtWidgets, QtCore
 
 import global_vars
@@ -71,7 +71,14 @@ class MainWindow(QtWidgets.QMainWindow):
                 f.write(dict_csv_str[test_function])
     
     def start_test(self):
-        self.test_controller.start()
+        fresh_start = self.test_controller.start()
+        if fresh_start:
+            print("performing fresh start")
+            # reset widget in self.stacked_layout
+            self.stacked_layout.removeWidget(self.test_results_page)
+            self.test_results_page = TestResultsPage(self.test_config)
+            self.test_results_page.btn_export.clicked.connect(self.export_csv)
+            self.stacked_layout.insertWidget(1,self.test_results_page)
         self.navigation_pane.recolor(1,self.color_base,self.color_light)
         self.stacked_layout.setCurrentIndex(1)
 
@@ -138,5 +145,5 @@ def setup_gui(self:MainWindow):
 
     self.setStatusBar(self.status_bar)
 
-    self.status_bar.set_message(False,"n/a","n/a","n/a")
+    self.status_bar.set_message("Test Not Running")
     self.status_bar.progress_bar.setValue(0)

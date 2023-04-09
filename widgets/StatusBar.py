@@ -10,7 +10,7 @@ class StatusBar(QtWidgets.QStatusBar):
         space.setFixedWidth(15)
         self.addWidget(space)
 
-        self.label_msg = QtWidgets.QLabel("test not started")
+        self.label_msg = QtWidgets.QLabel("Test Not Started")
         self.label_msg.setFont(font_regular)
         self.label_msg.setFixedHeight(30)
         self.addWidget(self.label_msg)
@@ -30,9 +30,8 @@ class StatusBar(QtWidgets.QStatusBar):
             }
         ''')
 
-    def set_message(self, started:bool, test_function, pin1, pin2):
+    def set_message(self, msg=None, test_function="n/a", pin1="n/a", pin2="n/a"):
         b = " "*10
-        text_started = "Test Not Running"
-        if started: text_started = "Test Running"
+        text_started = msg
         text = f"{text_started}{b}Testing: {test_function} @ {pin1} & {pin2}"
         self.label_msg.setText(text)
