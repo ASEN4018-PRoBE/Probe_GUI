@@ -94,9 +94,9 @@ def setup_gui(self:MainWindow):
     def detailed_plots_page_radio_btn_clicked():
         for test_function in global_vars.test_functions:
             if self.detailed_plots_page.radio_btns_dict[test_function].isChecked():
-                self.detailed_plots_page.plot_pin_readings(
-                    self.test_controller.test_storage.storage[test_function].pin_readings
-                )
+                for pins in self.test_config[test_function]["Pins"]:
+                    self.detailed_plots_page.combo_pin1.addItem(pins["Pin 1"])
+                    self.detailed_plots_page.combo_pin2.addItem(pins["Pin 2"])
                 break
     
     self.navigation_pane.recolor(0,self.color_base,self.color_light)

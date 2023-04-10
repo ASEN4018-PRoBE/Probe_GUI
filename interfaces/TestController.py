@@ -38,16 +38,15 @@ class DMMTestRunnerThread(QThread):
                 units = global_vars.units_voltage_dmm
                 self.mcu.switch(pin1, pin2, wire_type=2)
             elif test_function in global_vars.resistance_tests:
+                if index_pins==0 and index_test_function!=0:
+                    time_start = time.time() # delay when switching to a new test type
+                    while (time.time()-time_start)<=2:
+                        if not self.is_running: return
+                        time.sleep(0.5)
                 units = global_vars.units_resistance_dmm
                 self.mcu.switch(pin1, pin2, wire_type=4)
-            
-            # take DMM measurement
-            if index_pins==0 and index_test_function!=0:
-                time_start = time.time() # delay when switching to a new test type
-                while (time.time()-time_start)<=2:
-                    if not self.is_running: return
-                    time.sleep(0.5)
 
+            # take DMM measurement
             time_start = time.time()
             while (time.time()-time_start)<=duration:
                 if not self.is_running:

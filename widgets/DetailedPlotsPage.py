@@ -34,6 +34,18 @@ class DetailedPlotsPage(QtWidgets.QWidget):
             self.radio_btns_dict[test_function] = radio_btn
         frame.layout().addLayout(flow_radio)
 
+        hbox_combo = QtWidgets.QHBoxLayout()
+        self.combo_pin1 = QtWidgets.QComboBox()
+        self.combo_pin1.setFixedWidth(150)
+        self.combo_pin1.setPlaceholderText("Select Pin 1")
+        self.combo_pin2 = QtWidgets.QComboBox()
+        self.combo_pin2.setFixedWidth(150)
+        self.combo_pin2.setPlaceholderText("Selct Pin 2")
+        hbox_combo.addStretch()
+        hbox_combo.addWidget(self.combo_pin1)
+        hbox_combo.addWidget(self.combo_pin2)
+        frame.layout().addLayout(hbox_combo)
+
         matplotlib.use('Qt5Agg')
         self.canvas = Canvas()
         frame.layout().addWidget(self.canvas)
