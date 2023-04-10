@@ -11,10 +11,10 @@ class ISOInterface:
     def connect(self, verbal=False) -> bool:
         port = None
         for p in stl.comports():
-            if p.pid==global_vars.iso_pid and p.vid==global_vars.iso_vid:
+            if p.seial_number==global_vars.iso_serial_number:
                 port = p
         if port is not None:
-            self.iso = serial.Serial(port.name)
+            self.iso = serial.Serial(global_vars.port_prefix+port.name)
 
             self.iso.write(f":VOLTage {global_vars.iso_test_voltage}\n".encode()) # setup test voltage
             time.sleep(self.delay) # wait self.delay seconds to send next command

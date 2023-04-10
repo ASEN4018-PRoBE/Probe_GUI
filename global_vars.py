@@ -14,19 +14,19 @@ pin_map = {
 unit_standard = ["V", "Ohm"]
 unit_conversion = {"m":10**(-3), "k":10**3, "K":10**3, "M":10**6, "G":10**9}
 
+port_prefix = "/dev/"
+
 # MCU setup
 mcu_pid = 88
 mcu_vid = 9025
 
 # DMM setup
-dmm_pid = 9123 # verified (may be identified by wire, not device)
-dmm_vid = 1659 # verified (may be identified by wire, not device)
+dmm_serial_number = "DRCLb11A920"
 units_voltage_dmm = "V"
 units_resistance_dmm = "Ohm"
 
 # ISO setup
-iso_pid = 9123
-iso_vid = 1659
+iso_serial_number = "BFCVx11A920"
 iso_test_voltage = "100" # voltage applied across pins when testing
 iso_resistance_range = "20" # [MOhm] must be of 2*10^N
 units_resistance_iso = "MOhm"

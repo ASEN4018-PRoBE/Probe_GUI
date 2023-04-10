@@ -11,10 +11,10 @@ class DMMInterface:
     def connect(self, verbal=False):
         port = None
         for p in stl.comports():
-            if p.pid==global_vars.dmm_pid and p.vid==global_vars.dmm_vid:
+            if p.serial_number==global_vars.dmm_serial_number:
                 port = p
         if port is not None:
-            self.dmm = serial.Serial(port.name)
+            self.dmm = serial.Serial(global_vars.port_prefix+port.name)
             return True
         else:
             if verbal: global_vars.pop_critical("Connection to Digital Multimeter Failed! Please try to reconnect.")

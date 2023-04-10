@@ -13,7 +13,7 @@ class MCUInterface:
             if p.pid==global_vars.mcu_pid and p.vid==global_vars.mcu_vid:
                 port = p
         if port is not None:
-            self.mcu = serial.Serial(port.name)
+            self.mcu = serial.Serial(global_vars.port_prefix+port.name)
             time.sleep(1)
         else:
             global_vars.pop_critical("Cannot connect to ProBE Box!")
