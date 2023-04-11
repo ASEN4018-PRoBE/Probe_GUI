@@ -11,7 +11,7 @@ class ISOInterface:
     def connect(self, verbal=False) -> bool:
         port = None
         for p in stl.comports():
-            if p.seial_number==global_vars.iso_serial_number:
+            if p.serial_number==global_vars.iso_serial_number:
                 port = p
         if port is not None:
             self.iso = serial.Serial(global_vars.port_prefix+port.name)

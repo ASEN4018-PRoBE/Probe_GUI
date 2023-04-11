@@ -1,6 +1,7 @@
+from sys import platform
 from PyQt6.QtWidgets import QMessageBox
 
-software_test = True # set to True if devices not connected, False to run software test
+software_test = False # set to True if devices not connected, False to run software test
 
 theme = ("light","dark")[1]
 
@@ -14,22 +15,24 @@ pin_map = {
 unit_standard = ["V", "Ohm"]
 unit_conversion = {"m":10**(-3), "k":10**3, "K":10**3, "M":10**6, "G":10**9}
 
-port_prefix = "/dev/"
+port_prefix = ""
+if platform!="win32" and platform != "darwin":
+    port_prefix = "/dev/"
 
 # MCU setup
 mcu_pid = 88
 mcu_vid = 9025
 
 # DMM setup
-dmm_serial_number = "DRCLb11A920"
+dmm_serial_number = "BFCVx11A920"
 units_voltage_dmm = "V"
 units_resistance_dmm = "Ohm"
 
 # ISO setup
-iso_serial_number = "BFCVx11A920"
+iso_serial_number = "DRCLb11A920"
 iso_test_voltage = "100" # voltage applied across pins when testing
 iso_resistance_range = "20" # [MOhm] must be of 2*10^N
-units_resistance_iso = "MOhm"
+units_resistance_iso = "Ohm"
 
 test_functions = ["Power Continuity", "Positive Circuit Continuity", "Negative Circuit Continuity", "Inline-Resistor", "Isolation Chasis", "Isolation"]
 

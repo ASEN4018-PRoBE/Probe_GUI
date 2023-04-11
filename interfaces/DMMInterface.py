@@ -40,6 +40,9 @@ class DMMInterface:
             if continuity:
                 self.dmm.write(":MEASure:FRESistance 0\r\n".encode()) # set 200 Ohm range
                 time.sleep(self.delay)
+            else:
+                self.dmm.write(":MEASure:FRESistance 6\r\n".encode()) # set 100 MOhm range
+                time.sleep(self.delay)
             self.dmm.write(":MEASure:FRESistance?\r\n".encode())
             time.sleep(self.delay)
             res = self.dmm.read_all().decode()
