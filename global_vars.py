@@ -1,7 +1,7 @@
 from sys import platform
 from PyQt6.QtWidgets import QMessageBox
 
-software_test = False # set to True if devices not connected, False to run software test
+software_test = True # set to True if devices not connected, False to run software test
 
 theme = ("light","dark")[1]
 
@@ -33,6 +33,8 @@ iso_serial_number = "DRCLb11A920"
 iso_test_voltage = "100" # voltage applied across pins when testing
 iso_resistance_range = "20" # [MOhm] must be of 2*10^N
 units_resistance_iso = "Ohm"
+
+precision_format = "{0:.2e}"
 
 test_functions = ["Power Continuity", "Positive Circuit Continuity", "Negative Circuit Continuity", "Inline-Resistor", "Isolation Chasis", "Isolation"]
 

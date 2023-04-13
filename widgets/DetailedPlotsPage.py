@@ -7,7 +7,7 @@ from matplotlib.figure import Figure
 
 import global_vars, widgets.FlowLayout as FlowLayout
 
-plt.style.use('ggplot')
+plt.style.use('widgets/dark.mplstyle')
 
 class DetailedPlotsPage(QtWidgets.QWidget):
     def __init__(self, test_config):
@@ -35,15 +35,11 @@ class DetailedPlotsPage(QtWidgets.QWidget):
         frame.layout().addLayout(flow_radio)
 
         hbox_combo = QtWidgets.QHBoxLayout()
-        self.combo_pin1 = QtWidgets.QComboBox()
-        self.combo_pin1.setFixedWidth(150)
-        self.combo_pin1.setPlaceholderText("Select Pin 1")
-        self.combo_pin2 = QtWidgets.QComboBox()
-        self.combo_pin2.setFixedWidth(150)
-        self.combo_pin2.setPlaceholderText("Selct Pin 2")
+        self.combo_select_pin = QtWidgets.QComboBox()
+        self.combo_select_pin.setFixedWidth(200)
+        self.combo_select_pin.setPlaceholderText("Select Pin 1 & Pin 2")
         hbox_combo.addStretch()
-        hbox_combo.addWidget(self.combo_pin1)
-        hbox_combo.addWidget(self.combo_pin2)
+        hbox_combo.addWidget(self.combo_select_pin)
         frame.layout().addLayout(hbox_combo)
 
         matplotlib.use('Qt5Agg')
@@ -59,26 +55,22 @@ class DetailedPlotsPage(QtWidgets.QWidget):
 
         vbox_main.addStretch()
 
-    def plot(self, x, y):
+    def set_label(self):
+        self.canvas.axes.set_xlabel('time [s]', fontsize=9)
+        self.canvas.axes.set_ylabel('reading', fontsize=9)
+        self.canvas.axes.tick_params(axis='both', which='major', labelsize=8)
         self.canvas.axes.grid()
-        self.canvas.axes.set_xlabel('time', fontsize=10)
-        self.canvas.axes.set_ylabel('reading', fontsize=10)
-        self.canvas.axes.tick_params(axis='both', which='major', labelsize=8)
-        self.canvas.axes.plot(x,y)
-        self.canvas.draw()
 
-    def plot_pin_readings(self, pin_readings):
+    def plot(self, x, y):
         self.canvas.axes.cla()
-        plt.grid()
-        self.canvas.axes.set_xlabel('time', fontsize=10)
-        self.canvas.axes.set_ylabel('reading', fontsize=10)
-        self.canvas.axes.tick_params(axis='both', which='major', labelsize=8)
-        for pin_reading in pin_readings:
-            self.canvas.axes.plot(pin_reading.time, pin_reading.reading)
+        self.canvas.axes.plot(x,y)
+        self.set_label()
         self.canvas.draw()
 
     def clear(self):
         self.canvas.axes.cla()
+        self.set_label()
+        self.canvas.draw()
 
 class Canvas(FigureCanvasQTAgg):
     def __init__(self, width=5, height=5, dpi=100):

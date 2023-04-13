@@ -234,7 +234,7 @@ class TestController:
         pin_reading.pass_fail = self.get_pass_fail(readings[-1],units,pass_criteria)
         self.test_storage.storage[test_function].pin_readings.append(pin_reading)
         self.main_window.test_results_page.element_dict[test_function].append_test_result(
-            pin1, pin2, "{0:.3f}".format(readings[-1])+" "+units, pin_reading.pass_fail
+            pin1, pin2, global_vars.precision_format.format(readings[-1])+" "+units, pin_reading.pass_fail
         )
         self.update_status_bar()
         self.processed_pin_combs += 1
@@ -252,10 +252,10 @@ class TestController:
         if pin_reading is None:
             pin_reading = TestStorage.PinReading(pin1,pin2,units)
             self.test_storage.storage[test_function].pin_readings.append(pin_reading)
-        pin_reading.iso_reading = "{0:.3f}".format(reading)
+        pin_reading.iso_reading = global_vars.precision_format.format(reading)
         pin_reading.pass_fail = pin_reading.pass_fail and pass_fail
         test_result_row = self.main_window.test_results_page.element_dict[test_function].get_test_result_row_iso(pin1,pin2)
-        iso_result = "{0:.3f}".format(reading)+" "+units
+        iso_result = global_vars.precision_format.format(reading)+" "+units
         if test_result_row is None:
             self.main_window.test_results_page.element_dict[test_function].append_test_result(
                 pin1, pin2, iso_result, pass_fail

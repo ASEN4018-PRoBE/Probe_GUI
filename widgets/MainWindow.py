@@ -28,6 +28,21 @@ class MainWindow(QtWidgets.QMainWindow):
     def keyPressEvent(self, event) -> None:
         if event.key()==QtCore.Qt.Key.Key_Escape or event.key()==QtCore.Qt.Key.Key_Q: quit()
 
+    def detailed_plots_page_combo_clicked(self):
+        test_function = None
+        for tf in global_vars.test_functions:
+            if self.detailed_plots_page.radio_btns_dict[tf].isChecked():
+                test_function = tf
+        if test_function is None: return
+        combo_text = self.detailed_plots_page.combo_select_pin.currentText()
+        if combo_text=="": return
+        pin1, _, pin2 = combo_text.split(" ")
+        pin_reading = self.test_controller.test_storage.get_reading(test_function,pin1,pin2)
+        if pin_reading is None:
+            self.detailed_plots_page.clear()
+        else:
+            self.detailed_plots_page.plot(pin_reading.time,pin_reading.reading)
+
     def setup_config(self, config_filename):
         with open(config_filename,"r") as f:
             self.test_config = json.loads(f.read())
@@ -35,6 +50,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.configuration_page = ConfigurationPage(self.test_config)
         self.test_results_page = TestResultsPage(self.test_config)
         self.detailed_plots_page = DetailedPlotsPage(self.test_config)
+        self.detailed_plots_page.combo_select_pin.currentIndexChanged.connect(self.detailed_plots_page_combo_clicked)
         self.help_about_page = HelpAboutPage()
         self.status_bar = StatusBar()
         self.test_controller = TestController(self.test_config,self)
@@ -92,11 +108,12 @@ def setup_gui(self:MainWindow):
     self.stacked_layout = QtWidgets.QStackedLayout()
 
     def detailed_plots_page_radio_btn_clicked():
+        self.detailed_plots_page.combo_select_pin.clear()
+        self.detailed_plots_page.clear()
         for test_function in global_vars.test_functions:
             if self.detailed_plots_page.radio_btns_dict[test_function].isChecked():
                 for pins in self.test_config[test_function]["Pins"]:
-                    self.detailed_plots_page.combo_pin1.addItem(pins["Pin 1"])
-                    self.detailed_plots_page.combo_pin2.addItem(pins["Pin 2"])
+                    self.detailed_plots_page.combo_select_pin.addItem(pins["Pin 1"]+" & "+pins["Pin 2"])
                 break
     
     self.navigation_pane.recolor(0,self.color_base,self.color_light)
