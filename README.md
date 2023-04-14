@@ -14,5 +14,5 @@ git clone --recurse-submodules https://github.com/ASEN4018-PRoBE/Probe_GUI.git
 - **PySerial:** communication with arduino
 
 ```sh
-pip install matplotlib PyQt6 PyQtDarmTheme PySerial
+pip install matplotlib PyQt6 PyQtDarkTheme PySerial
 ```
