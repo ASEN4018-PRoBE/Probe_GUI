@@ -1,16 +1,17 @@
 from sys import platform
 from PyQt6.QtWidgets import QMessageBox
 
-software_test = True # set to True if devices not connected, False to run software test
+software_test = False # set to True if devices not connected, False to run software test
+use_battery_pins = True # set to true if naming pins through J0X-XX
 
 theme = ("light","dark")[1]
 
-pin_map = {
-    "J01-1": 1,
-    "J01-2": 2,
-    "J01-3": 3,
-    "J01-4": 4
-}
+def pin_battery_to_pcb(pin_battery:str) -> str:
+    p1, p2 = pin_battery.split("-")
+    if p1=="J01": 
+        return p2
+    else:
+        return str(int(p2)+37)
 
 unit_standard = ["V", "Ohm"]
 unit_conversion = {"m":10**(-3), "k":10**3, "K":10**3, "M":10**6, "G":10**9}

@@ -31,6 +31,9 @@ class MCUInterface:
     # return True if received ack from arduino
     def switch(self, pin1, pin2, wire_type) -> bool:
         if not global_vars.software_test:
+            if global_vars.use_battery_pins:
+                pin1 = global_vars.pin_battery_to_pcb(pin1)
+                pin2 = global_vars.pin_battery_to_pcb(pin2)
             if self.mcu is None: self.connect()
             command = ["2", pin1, pin2]
             if wire_type==4:
