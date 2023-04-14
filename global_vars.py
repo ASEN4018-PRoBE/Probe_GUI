@@ -7,6 +7,7 @@ use_battery_pins = True # set to true if naming pins through J0X-XX
 theme = ("light","dark")[1]
 
 def pin_battery_to_pcb(pin_battery:str) -> str:
+    if pin_battery=="TP1": return "63"
     p1, p2 = pin_battery.split("-")
     if p1=="J01": 
         return p2
@@ -25,12 +26,12 @@ mcu_pid = 88
 mcu_vid = 9025
 
 # DMM setup
-dmm_serial_number = "BFCVx11A920"
+dmm_serial_number = "BFCVX11A920"
 units_voltage_dmm = "V"
 units_resistance_dmm = "Ohm"
 
 # ISO setup
-iso_serial_number = "DRCLb11A920"
+iso_serial_number = "DRCLB11A920"
 iso_test_voltage = "100" # voltage applied across pins when testing
 iso_resistance_range = "20" # [MOhm] must be of 2*10^N
 units_resistance_iso = "Ohm"

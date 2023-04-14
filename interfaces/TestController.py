@@ -279,9 +279,8 @@ class TestController:
     
     def update_status_bar(self):
         global index_test_function, index_pins
+        if index_test_function>=len(global_vars.test_functions): return
         test_function = global_vars.test_functions[index_test_function]
-        if isinstance(self.test_runner,ISOTestRunnerThread):
-            test_function = global_vars.test_functions[index_test_function]
         if index_pins>=len(self.test_config[test_function]["Pins"]): return
         pins = self.test_config[test_function]["Pins"][index_pins]
         pin1 = pins["Pin 1"]
