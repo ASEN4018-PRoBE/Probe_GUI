@@ -57,7 +57,7 @@ class DMMTestRunnerThread(QThread):
                 elif test_function in global_vars.resistance_tests:
                     if test_function in global_vars.continuity_tests:
                         readings.append(self.dmm.resistance(range="0")) # 200 Ohm range
-                    elif test_function in global_vars.resistance_tests:
+                    elif test_function in global_vars.inline_resistance_tests:
                         readings.append(self.dmm.resistance(range="1")) # 2 kOhm range
                     else:
                         readings.append(self.dmm.resistance(range="6")) # 100 MOhm range
