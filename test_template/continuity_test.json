@@ -1,0 +1,127 @@
+{
+    "Battery Name": "8s16p Battery",
+    "Power Continuity": {
+        "Duration": "1",
+        "Pass Criteria": "[24.0 33.6] V",
+        "Pins": [
+            {
+                "Pin 1": "J01-1",
+                "Pin 2": "J01-11"
+            }
+        ]
+    },
+    "Positive Circuit Continuity": {
+        "Duration": "5",
+        "Pass Criteria": "[0 1] Ohm",
+        "Pins": [
+            {
+                "Pin 1": "J01-1",
+                "Pin 2": "J01-2"
+            },
+            {
+                "Pin 1": "J01-1",
+                "Pin 2": "J01-3"
+            },
+            {
+                "Pin 1": "J01-1",
+                "Pin 2": "J01-4"
+            },
+            {
+                "Pin 1": "J01-1",
+                "Pin 2": "J01-5"
+            },
+            {
+                "Pin 1": "J01-1",
+                "Pin 2": "J01-6"
+            },
+            {
+                "Pin 1": "J01-1",
+                "Pin 2": "J01-7"
+            },
+            {
+                "Pin 1": "J01-1",
+                "Pin 2": "J01-8"
+            },
+            {
+                "Pin 1": "J01-1",
+                "Pin 2": "J01-9"
+            },
+            {
+                "Pin 1": "J01-1",
+                "Pin 2": "J01-10"
+            },
+            {
+                "Pin 1": "J01-1",
+                "Pin 2": "J01-11"
+            },
+            {
+                "Pin 1": "J01-11",
+                "Pin 2": "J01-33"
+            },
+            {
+                "Pin 1": "J01-11",
+                "Pin 2": "J02-1"
+            },
+            {
+                "Pin 1": "J01-11",
+                "Pin 2": "J02-2"
+            },
+            {
+                "Pin 1": "J01-11",
+                "Pin 2": "J02-3"
+            },
+            {
+                "Pin 1": "J01-11",
+                "Pin 2": "J02-4"
+            },
+            {
+                "Pin 1": "J01-11",
+                "Pin 2": "J02-5"
+            },
+            {
+                "Pin 1": "J01-11",
+                "Pin 2": "J02-6"
+            }
+        ]
+    },
+    "Negative Circuit Continuity": {
+        "Duration": "1",
+        "Pass Criteria": "[0 1] Ohm",
+        "Pins": [
+            {
+                "Pin 1": "J01-11",
+                "Pin 2": "J01-12"
+            }
+        ]
+    },
+    "Inline-Resistor": {
+        "Duration": "1",
+        "Pass Criteria": "[9990 10010] Ohm",
+        "Pins": [
+            {
+                "Pin 1": "J01-1",
+                "Pin 2": "J02-2"
+            }
+        ]
+    },
+    "Isolation Chasis": {
+        "Duration": "1",
+        "Pass Criteria": "[10 inf] MOhm",
+        "Pins": [
+            {
+                "Pin 1": "TP1",
+                "Pin 2": "J01-1"
+            }
+        ]
+    },
+    "Isolation": {
+        "Duration": "1",
+        "Pass Criteria": "[10 inf] MOhm",
+        "Pins": [
+            {
+                "Pin 1": "J01-1",
+                "Pin 2": "J01-10"
+            }
+        ]
+    }
+}
