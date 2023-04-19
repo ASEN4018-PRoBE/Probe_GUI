@@ -38,13 +38,13 @@ class DMMTestRunnerThread(QThread):
                 units = global_vars.units_voltage_dmm
                 self.mcu.switch(pin1, pin2, wire_type=2)
             elif test_function in global_vars.resistance_tests:
-                if index_pins==0 and index_test_function!=0:
+                if index_pins==0:
                     time_start = time.time() # delay when switching to a new test type
                     while (time.time()-time_start)<=2:
                         if not self.is_running: return
                         time.sleep(0.5)
                 units = global_vars.units_resistance_dmm
-                self.mcu.switch(pin1, pin2, wire_type=4)
+                self.mcu.switch(pin1, pin2, wire_type=4) # 4-wire switch
 
             # take DMM measurement
             time_start = time.time()
@@ -54,11 +54,13 @@ class DMMTestRunnerThread(QThread):
                     return
                 if test_function in global_vars.voltage_tests:
                     readings.append(self.dmm.voltage())
-                elif test_function in global_vars.resistance_tests: # four wire measurement
+                elif test_function in global_vars.resistance_tests:
                     if test_function in global_vars.continuity_tests:
-                        readings.append(self.dmm.resistance(True))
+                        readings.append(self.dmm.resistance(range="0")) # 200 Ohm range
+                    elif test_function in global_vars.resistance_tests:
+                        readings.append(self.dmm.resistance(range="1")) # 2 kOhm range
                     else:
-                        readings.append(self.dmm.resistance())
+                        readings.append(self.dmm.resistance(range="6")) # 100 MOhm range
                 t.append(time.time()-time_start)
 
             result_dict = {
