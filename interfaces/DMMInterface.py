@@ -6,7 +6,7 @@ import global_vars
 class DMMInterface:
     def __init__(self):
         self.dmm = None
-        self.delay = 0.5 # [s]
+        self.delay = 1 # [s]
     
     def connect(self, verbal=False):
         port = None

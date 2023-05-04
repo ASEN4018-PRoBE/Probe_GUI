@@ -30,8 +30,8 @@ class DMMTestRunnerThread(QThread):
             pin1 = pins["Pin 1"]
             pin2 = pins["Pin 2"]
 
-            readings = []
-            t = []
+            readings = [-1]
+            t = [-1]
             
             # switch on pins
             if test_function in global_vars.voltage_tests:
@@ -231,8 +231,8 @@ class TestController:
         readings = result["readings"]
         pass_criteria = result["pass_criteria"]
         pin_reading = TestStorage.PinReading(pin1,pin2,units)
-        pin_reading.time = t
-        pin_reading.reading = readings
+        pin_reading.time = t[1:]
+        pin_reading.reading = readings[1:]
         pin_reading.pass_fail = self.get_pass_fail(readings[-1],units,pass_criteria)
         self.test_storage.storage[test_function].pin_readings.append(pin_reading)
         self.main_window.test_results_page.element_dict[test_function].append_test_result(
